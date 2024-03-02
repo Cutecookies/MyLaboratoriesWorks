@@ -1,33 +1,27 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <assert.h>
+# include <assert.h>
 #include "libs/data_structures/vector/vector.h"
 
 // Вектор пустой
 void test_pushBack_emptyVector() {
-    size_t vector_capacity = 6;
-    vector v = createVector(vector_capacity);
-    int x = 5;
-    pushBack(&v, x);
+    vector v = createVector(6);
+    pushBack(&v, 5);
 
-    assert(v.size = 1);
-    assert(v.data[0] = x);
-    assert(vector_capacity == v.capacity);
+    assert(v.size == 1);
+    assert(v.data[0] == 5);
+    assert(v.capacity == 6);
 }
 
 // Вектор заполнен
 void test_pushBack_fullVector() {
-    size_t vector_capacity = 4;
     int vector_data[] = {1, 2, 3, 4};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(4);
     v.data = vector_data;
-    v.size = vector_capacity;
+    v.size = 4;
 
-    int x = 5;
-    pushBack(&v, x);
-    assert(v.size = vector_capacity + 1);
-    assert(v.data[vector_capacity] = x);
-    assert(vector_capacity * 2 == v.capacity);
+    pushBack(&v, 5);
+    assert(v.size == 4 + 1);
+    assert(v.data[4] == 5);
+    assert(v.capacity == 8);
 }
 
 // Вектор не пустой
@@ -43,11 +37,10 @@ void test_popBack_notEmptyVector() {
 
 // Вектор не пустой
 void test_atVector_notEmptyVector() {
-    size_t vector_capacity = 4;
     int vector_data[] = {1, 2, 3, 4};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(4);
     v.data = vector_data;
-    v.size = vector_capacity;
+    v.size = 4;
 
     int* a = atVector(&v, 2);
     assert(a[0] == 3);
@@ -55,11 +48,10 @@ void test_atVector_notEmptyVector() {
 
 // Запрос на последний элемент
 void test_atVector_requestToLastElement() {
-    size_t vector_capacity = 4;
     int vector_data[] = {1, 2, 3, 4};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(4);
     v.data = vector_data;
-    v.size = vector_capacity;
+    v.size = 4;
 
     int* a = atVector(&v, 3);
     assert(a[0] == 4);
@@ -67,9 +59,8 @@ void test_atVector_requestToLastElement() {
 
 // Один элемент в векторе
 void test_back_oneElementInVector() {
-    size_t vector_capacity = 3;
     int vector_data[] = {21};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(3);
     v.data = vector_data;
     v.size = 1;
 
@@ -79,9 +70,8 @@ void test_back_oneElementInVector() {
 
 // Несколько элементов в векторе
 void test_back_manyElementsInVector() {
-    size_t vector_capacity = 5;
     int vector_data[] = {2, 7, 1};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(5);
     v.data = vector_data;
     v.size = 3;
 
@@ -91,9 +81,8 @@ void test_back_manyElementsInVector() {
 
 // Один элемент в векторе
 void test_front_oneElementInVector() {
-    size_t vector_capacity = 3;
     int vector_data[] = {35};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(3);
     v.data = vector_data;
     v.size = 1;
 
@@ -103,9 +92,8 @@ void test_front_oneElementInVector() {
 
 // Несколько элементов в векторе
 void test_front_manyElementsInVector() {
-    size_t vector_capacity = 5;
     int vector_data[] = {3, 4, 5};
-    vector v = createVector(vector_capacity);
+    vector v = createVector(5);
     v.data = vector_data;
     v.size = 3;
 
@@ -114,6 +102,9 @@ void test_front_manyElementsInVector() {
 }
 
 void test() {
+    test_pushBack_emptyVector();
+    test_pushBack_fullVector();
+    test_popBack_notEmptyVector();
     test_atVector_notEmptyVector();
     test_atVector_requestToLastElement();
     test_back_oneElementInVector();

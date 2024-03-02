@@ -18,9 +18,8 @@ vector createVector(size_t n) {
 
 void reserve(vector *v, size_t newCapacity) {
     if (newCapacity){
-        if (v->data == NULL){
+        if (v->data == NULL)
             v->data = malloc(newCapacity * sizeof(int));
-        }
         else {
             int *new_data = malloc(newCapacity * sizeof(int));
 
@@ -40,11 +39,8 @@ void reserve(vector *v, size_t newCapacity) {
 
         v->capacity = newCapacity;
     }
-    else{
-        v->size = 0;
-        v->capacity = 0;
-        v->data = NULL;
-    }
+    else
+        deleteVector(v);
 }
 
 void clear(vector *v) {
@@ -98,7 +94,7 @@ int* atVector(vector *v, size_t index) {
 }
 
 int* back(vector *v) {
-    return v->data + (v->size - 1);
+    return v->data + v->size - 1;
 }
 
 int* front(vector *v) {
