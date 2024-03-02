@@ -1,3 +1,12 @@
 # ninja log v5
 0	78	7310985892426527	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
 79	203	7310985893625969	LaboratoriesWorks.exe	95fcfbb130c7be0e
+1	112	7310997636970028	build.ninja	1920430793627b09
+14	89	7310997638047060	libs/algorithms/CMakeFiles/algorithms.dir/algorithm.c.obj	3df48c8b92805148
+10	94	7310997638087071	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	fae66464ac6b6e78
+5	97	7310997638137075	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+2	98	7310997638137075	libs/data_structures/CMakeFiles/data_structures.dir/bitset/bitset.c.obj	6b9188b1dd373d04
+25	111	7310997638227076	libs/algorithms/CMakeFiles/algorithms.dir/array/array.c.obj	52a4784d5c3ab40f
+98	229	7310997639485515	libs/data_structures/libdata_structures.a	719d05211e810ce9
+111	251	7310997639704610	libs/algorithms/libalgorithms.a	56274bb85b86e754
+251	361	7310997640758784	LaboratoriesWorks.exe	98d6db3b6d898955
