@@ -103,11 +103,72 @@ void test_front_manyElementsInVector() {
     assert(a[0] == 3);
 }
 
-void test() {
+// пустой вектор.
+void test_isEmptyV_EmptyVector() {
+    int vector_data[] = {};
+    vectorVoid v = createVectorV(5, sizeof(int));
+    v.data = vector_data;
+    v.size = 0;
 
+    int a = isEmptyV(&v);
+    assert(a == 1);
+}
+
+// не пустой вектор.
+void test_isEmptyV_NotEmptyVector() {
+    int vector_data[] = {1};
+    vectorVoid v = createVectorV(5, sizeof(int));
+    v.data = vector_data;
+    v.size = 1;
+
+    int a = isEmptyV(&v);
+    assert(a == 0);
+}
+
+// полный вектор.
+void test_isFullV_FullVector() {
+    int vector_data[] = {1, 2};
+    vectorVoid v = createVectorV(2, sizeof(int));
+    v.data = vector_data;
+    v.size = 2;
+
+    int a = isFullV(&v);
+    assert(a == 1);
+}
+
+// не полный вектор.
+void test_isFullV_NotFullVector() {
+    int vector_data[] = {1, 2};
+    vectorVoid v = createVectorV(5, sizeof(int));
+    v.data = vector_data;
+    v.size = 2;
+
+    int a = isFullV(&v);
+    assert(a == 0);
+}
+
+// capacity > size
+void test_shrinkToFitV_CapacityMoreThanSize() {
+    int vector_data[] = {1, 2};
+    vectorVoid v = createVectorV(5, sizeof(int));
+    v.data = vector_data;
+    v.size = 2;
+
+    shrinkToFitV(&v);
+    assert(v.capacity == v.size);
+}
+
+void test() {
+    test_isEmptyV_EmptyVector();
+    test_isEmptyV_NotEmptyVector();
+    test_isFullV_FullVector();
+    test_isFullV_NotFullVector();
+    test_shrinkToFitV_CapacityMoreThanSize();
 }
 
 int main() {
+    test();
+
     size_t n;
     scanf("%zd", &n);
     vectorVoid v = createVectorV(0, sizeof(float));
