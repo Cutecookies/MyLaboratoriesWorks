@@ -1,6 +1,9 @@
 # include "vectorVoid.h"
 # include <stdio.h>
 # include "stdlib.h"
+# include <assert.h>
+
+# include "string.h"
 
 vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
     if (n == 0) {
@@ -55,4 +58,49 @@ void deleteVectorV(vectorVoid *v) {
     v->data = NULL;
     v->size = 0;
     v->capacity = 0;
+}
+
+bool isEmptyV(vectorVoid *v) {
+    return v->size == 0;
+}
+
+bool isFullV(vectorVoid *v) {
+    return v->size == v->capacity;
+}
+
+void getVectorValueV(vectorVoid *v,
+                     size_t index, void *destination) {
+    assert(index < v->size);
+    void *source = (void *) v->data + index * v->baseTypeSize;
+    memcpy(destination, source, v->baseTypeSize);
+}
+
+void setVectorValueV(vectorVoid *v, size_t index, void *source) {
+    memcpy(v->data + index * v->baseTypeSize,
+           source, v->baseTypeSize);
+}
+
+void popBackV(vectorVoid *v) {
+    if (isEmptyV(v)) {
+        fprintf(stderr, "empty array");
+        exit(1);
+    }
+
+    v->size--;
+}
+
+void pushBackV(vectorVoid *v, void *source) {
+    if (isFullV(v)) {
+        size_t newCapacity;
+        if(v->capacity == 0)
+            newCapacity = 1;
+        else
+            newCapacity = v->capacity * 2;
+
+        reserveV(v, newCapacity);
+    }
+    memcpy(v->data + v->size * v->baseTypeSize,
+           source, v->baseTypeSize);
+
+    (v->size)++;
 }
