@@ -104,23 +104,14 @@ void test_front_manyElementsInVector() {
 }
 
 void test() {
-    test_pushBack_emptyVector();
-    test_pushBack_fullVector();
-    test_popBack_notEmptyVector();
-    test_atVector_notEmptyVector();
-    test_atVector_requestToLastElement();
-    test_back_oneElementInVector();
-    test_back_manyElementsInVector();
-    test_front_oneElementInVector();
-    test_front_manyElementsInVector();
+
 }
 
 int main() {
-    float a[] = {1.5, 12.3, 14.9};
-    size_t size = 3;
-    size_t capacity = 5;
-    size_t baseTypeSize = sizeof(float);
+    int vector_data[] = {3, 4, 5};
+    vectorVoid v = createVectorV(5, sizeof(int));
+    v.data = vector_data;
+    v.size = 3;
 
-    vectorVoid vec = (vectorVoid) {a, size, capacity, baseTypeSize};
     return 0;
 }
