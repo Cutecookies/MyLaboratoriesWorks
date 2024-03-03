@@ -1,5 +1,7 @@
 # include <assert.h>
-#include "libs/data_structures/vector/vector.h"
+# include "libs/data_structures/vector/vector.h"
+# include "libs/data_structures/vector/vectorVoid.h"
+# include "stdio.h"
 
 // Вектор пустой
 void test_pushBack_emptyVector() {
@@ -114,7 +116,11 @@ void test() {
 }
 
 int main() {
-    test();
+    float a[] = {1.5, 12.3, 14.9};
+    size_t size = 3;
+    size_t capacity = 5;
+    size_t baseTypeSize = sizeof(float);
 
+    vectorVoid vec = (vectorVoid) {a, size, capacity, baseTypeSize};
     return 0;
 }
