@@ -15,9 +15,39 @@ void test_inputMatrices_notEmptyMatrix() {
     outputMatrices(mtx, 2);
 }
 
+void test_swapRows() {
+    matrix mtx = getMemMatrix(2, 2);
+    mtx.values[0][0] = 1;
+    mtx.values[0][1] = 2;
+    mtx.values[1][0] = 3;
+    mtx.values[1][1] = 4;
+
+    swapRows(mtx, 1, 2);
+
+    assert(mtx.values[0][0] == 3);
+    assert(mtx.values[0][1] == 4);
+    assert(mtx.values[1][0] == 1);
+    assert(mtx.values[1][1] == 2);
+}
+
+void test_swapColumns() {
+    matrix mtx = getMemMatrix(2, 2);
+    mtx.values[0][0] = 1;
+    mtx.values[0][1] = 2;
+    mtx.values[1][0] = 3;
+    mtx.values[1][1] = 4;
+
+    swapColumns(mtx, 1, 2);
+
+    assert(mtx.values[0][0] == 2);
+    assert(mtx.values[0][1] == 1);
+    assert(mtx.values[1][0] == 4);
+    assert(mtx.values[1][1] == 3);
+}
+
 void test() {
-    test_inputMatrix_notEmptyMatrix();
-    test_inputMatrices_notEmptyMatrix();
+    test_swapRows();
+    test_swapColumns();
 }
 
 int main() {
