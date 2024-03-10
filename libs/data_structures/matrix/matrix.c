@@ -2,18 +2,20 @@
 # include "malloc.h"
 # include <stdio.h>
 # include "assert.h"
+# include "stdbool.h"
+#include <string.h>
 
 
 matrix getMemMatrix(int nRows, int nCols) {
-    int **values = (int **) malloc(sizeof(int*) * nRows);
+    int **values = (int **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
         values[i] = (int *) malloc(sizeof(int) * nCols);
-    return (matrix){values, nRows, nCols};
+    return (matrix) {values, nRows, nCols};
 }
 
 matrix *getMemArrayOfMatrices(int nMatrices,
                               int nRows, int nCols) {
-    matrix *ms = (matrix*) malloc(sizeof(matrix) * nMatrices);
+    matrix *ms = (matrix *) malloc(sizeof(matrix) * nMatrices);
     for (int i = 0; i < nMatrices; i++)
         ms[i] = getMemMatrix(nRows, nCols);
     return ms;
@@ -77,7 +79,7 @@ void swapColumns(matrix m, int j1, int j2) {
 }
 
 void insertionSortRowsMatrixByRowCriteria(matrix m,
-                                          int (*criteria)(int*, int)) {
+                                          int (*criteria)(int *, int)) {
     int criteria_res[m.nRows] = {};
     for (int i = 0; i < m.nRows; i++) {
         int temp = criteria(m.values[i], m.nCols);
@@ -99,7 +101,7 @@ void insertionSortRowsMatrixByRowCriteria(matrix m,
 }
 
 void selectionSortColsMatrixByColCriteria(matrix m,
-                                          int (*criteria)(int*, int)) {
+                                          int (*criteria)(int *, int)) {
     int criteria_res[m.nCols] = {};
     for (int i = 0; i < m.nCols; i++) {
         int column[m.nRows] = {};
@@ -114,7 +116,7 @@ void selectionSortColsMatrixByColCriteria(matrix m,
 
     for (int i = 0; i < m.nCols - 1; i++) {
         int min_pos = i;
-        for (int j = i + 1; j < m.nCols; j++){
+        for (int j = i + 1; j < m.nCols; j++) {
             if (criteria_res[j] < criteria_res[min_pos])
                 min_pos = j;
         }
@@ -124,4 +126,46 @@ void selectionSortColsMatrixByColCriteria(matrix m,
 
         swapColumns(m, i + 1, min_pos + 1);
     }
+}
+
+bool isSquareMatrix(matrix *m) {
+    return m->nRows == m->nCols;
+}
+
+bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
+    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
+        return 0;
+    for (int i = 0; i < m1->nRows; i++)
+        if (memcmp(m1->values[i], m2->values[i], sizeof(int *) * m1->nCols) != 0)
+            return 0;
+
+    return 1;
+}
+
+bool isEMatrix(matrix *m) {
+    if (isSquareMatrix(m)){
+        for (int i = 0; i < m->nRows; i++) {
+            for (int j = 0; j < m->nCols; j++) {
+                if (i == j && m->values[i][j] != 1)
+                    return 0;
+                if (i != j && m->values[i][j] != 0)
+                    return 0;
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+
+bool isSymmetricMatrix(matrix *m) {
+    if (isSquareMatrix(m)){
+        for (int i = 0; i < m->nRows; i++) {
+            for (int j = 0; j < m->nCols; j++) {
+                if (i != j && m->values[i][j] != m->values[j][i])
+                    return 0;
+            }
+        }
+        return 1;
+    }
+    return 0;
 }
