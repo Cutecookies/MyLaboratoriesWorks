@@ -55,3 +55,17 @@
 2	141	7317861532639932	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	5e2833f435c3c0ca
 141	592	7317861537082239	libs/data_structures/libdata_structures.a	7ea43335cfc408c0
 592	988	7317861540958590	LaboratoriesWorks.exe	98d6db3b6d898955
+1	284	7317867321936541	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+118	295	7317867322116605	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	5e2833f435c3c0ca
+295	787	7317867326959761	libs/data_structures/libdata_structures.a	7ea43335cfc408c0
+787	1144	7317867330534505	LaboratoriesWorks.exe	98d6db3b6d898955
+2	240	7317867530121625	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+240	616	7317867533658947	LaboratoriesWorks.exe	98d6db3b6d898955
+2	245	7317869308082438	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+112	248	7317869308122443	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	5e2833f435c3c0ca
+248	699	7317869312569207	libs/data_structures/libdata_structures.a	7ea43335cfc408c0
+699	1056	7317869316118663	LaboratoriesWorks.exe	98d6db3b6d898955
+3	249	7317869450458059	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+249	633	7317869454065313	LaboratoriesWorks.exe	98d6db3b6d898955
+2	246	7317877677004932	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+247	624	7317877680683548	LaboratoriesWorks.exe	98d6db3b6d898955

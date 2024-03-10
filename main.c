@@ -253,6 +253,36 @@ void test_transposeMatrix() {
     assert(mtx.nCols == 3);
 }
 
+void test_getMinValuePos() {
+    matrix mtx = getMemMatrix(2, 3);
+    mtx.values[0][0] = 20;
+    mtx.values[0][1] = 23;
+    mtx.values[0][2] = 17;
+    mtx.values[1][0] = 22;
+    mtx.values[1][1] = 13;
+    mtx.values[1][2] = 12;
+
+    position pos = getMinValuePos(mtx);
+
+    assert(pos.rowIndex == 1);
+    assert(pos.colIndex == 2);
+}
+
+void test_getMaxValuePos() {
+    matrix mtx = getMemMatrix(2, 3);
+    mtx.values[0][0] = 20;
+    mtx.values[0][1] = 23;
+    mtx.values[0][2] = 17;
+    mtx.values[1][0] = 22;
+    mtx.values[1][1] = 13;
+    mtx.values[1][2] = 12;
+
+    position pos = getMaxValuePos(mtx);
+
+    assert(pos.rowIndex == 0);
+    assert(pos.colIndex == 1);
+}
+
 void test() {
     test_swapRows();
     test_swapColumns();
@@ -269,6 +299,8 @@ void test() {
     test_isSymmetricMatrix_notSymmetricMatrix();
     test_transposeSquareMatrix();
     test_transposeMatrix();
+    test_getMinValuePos();
+    test_getMaxValuePos();
 }
 
 int main() {
