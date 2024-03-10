@@ -210,6 +210,49 @@ void test_isSymmetricMatrix_notSymmetricMatrix() {
     assert(!isSymmetricMatrix(&mtx));
 }
 
+void test_transposeSquareMatrix() {
+    matrix mtx = getMemMatrix(3, 3);
+    mtx.values[0][0] = 1;
+    mtx.values[0][1] = 2;
+    mtx.values[0][2] = 3;
+    mtx.values[1][0] = 4;
+    mtx.values[1][1] = 5;
+    mtx.values[1][2] = 6;
+    mtx.values[2][0] = 7;
+    mtx.values[2][1] = 8;
+    mtx.values[2][2] = 9;
+
+    transposeSquareMatrix(&mtx);
+
+    assert(mtx.values[0][1] == 4);
+    assert(mtx.values[0][2] == 7);
+    assert(mtx.values[1][0] == 2);
+    assert(mtx.values[1][2] == 8);
+    assert(mtx.values[2][0] == 3);
+    assert(mtx.values[2][1] == 6);
+}
+
+void test_transposeMatrix() {
+    matrix mtx = getMemMatrix(3, 2);
+    mtx.values[0][0] = 1;
+    mtx.values[0][1] = 2;
+    mtx.values[1][0] = 3;
+    mtx.values[1][1] = 4;
+    mtx.values[2][0] = 5;
+    mtx.values[2][1] = 6;
+
+    transposeMatrix(&mtx);
+
+    assert(mtx.values[0][0] == 1);
+    assert(mtx.values[0][1] == 3);
+    assert(mtx.values[0][2] == 5);
+    assert(mtx.values[1][0] == 2);
+    assert(mtx.values[1][1] == 4);
+    assert(mtx.values[1][2] == 6);
+    assert(mtx.nRows == 2);
+    assert(mtx.nCols == 3);
+}
+
 void test() {
     test_swapRows();
     test_swapColumns();
@@ -224,6 +267,8 @@ void test() {
     test_isEMatrix_notEMatrix();
     test_isSymmetricMatrix_symmetricMatrix();
     test_isSymmetricMatrix_notSymmetricMatrix();
+    test_transposeSquareMatrix();
+    test_transposeMatrix();
 }
 
 int main() {
