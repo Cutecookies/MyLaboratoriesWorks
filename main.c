@@ -126,12 +126,77 @@ void test_sortRowsByMaxElement_someSameMaxElements() {
     assert(m.values[2][2] == 12);
 }
 
+// возвращает минимальный элемент массива
+int getMin(int *a, int n) {
+    int min_el = a[0];
+    for (int i = 0; i < n; i++)
+        if (a[i] < min_el)
+            min_el = a[i];
+    return min_el;
+}
+
+// Упорядочивает столбцы матрицы по
+// неубыванию наименьших элементов столбцов.
+void sortColsByMinElement(matrix m) {
+    selectionSortColsMatrixByColCriteria(m, getMin);
+}
+
+// все минимальные элементы разные
+void test_sortColsByMinElement_differentMinElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 8, 12, 2, 4,
+                    8, 16, 5, 17, 32,
+                    1, 9, 3, 12, 7,
+            },
+            3, 5
+    );
+    sortColsByMinElement(m);
+    assert(m.values[0][0] == 3);
+    assert(m.values[0][1] == 2);
+    assert(m.values[0][2] == 12);
+    assert(m.values[0][3] == 4);
+    assert(m.values[0][4] == 8);
+    assert(m.values[1][0] == 8);
+    assert(m.values[1][1] == 17);
+    assert(m.values[1][2] == 5);
+    assert(m.values[1][3] == 32);
+    assert(m.values[1][4] == 16);
+    assert(m.values[2][0] == 1);
+    assert(m.values[2][1] == 12);
+    assert(m.values[2][2] == 3);
+    assert(m.values[2][3] == 7);
+    assert(m.values[2][4] == 9);
+}
+
+// некоторые минимальные элементы одинаковые
+void test_sortColsByMinElement_someSameMinElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    7, 8, 1, 2,
+                    14, 4, 5, 9,
+            },
+            2, 4
+    );
+    sortColsByMinElement(m);
+    assert(m.values[0][0] == 1);
+    assert(m.values[0][1] == 2);
+    assert(m.values[0][2] == 8);
+    assert(m.values[0][3] == 7);
+    assert(m.values[1][0] == 5);
+    assert(m.values[1][1] == 9);
+    assert(m.values[1][2] == 4);
+    assert(m.values[1][3] == 14);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
     test_sortRowsByMaxElement_differentMaxElements();
     test_sortRowsByMaxElement_allSameMaxElements();
     test_sortRowsByMaxElement_someSameMaxElements();
+    test_sortColsByMinElement_differentMinElements();
+    test_sortColsByMinElement_someSameMinElements();
 }
 
 int main() {
