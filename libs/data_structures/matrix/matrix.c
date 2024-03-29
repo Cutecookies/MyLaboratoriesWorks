@@ -80,7 +80,7 @@ void swapColumns(matrix m, int j1, int j2) {
 
 void insertionSortRowsMatrixByRowCriteria(matrix m,
                                           int (*criteria)(int *, int)) {
-    int criteria_res[m.nRows] = {};
+    int criteria_res[m.nRows];
     for (int i = 0; i < m.nRows; i++) {
         int temp = criteria(m.values[i], m.nCols);
         criteria_res[i] = temp;
