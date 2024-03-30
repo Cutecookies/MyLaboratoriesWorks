@@ -29,6 +29,7 @@ void test_swapRowsMinMaxElement_differentRows() {
     assert(m.values[2][1] == 2);
     assert(m.values[2][2] == 3);
     assert(m.values[2][3] == 4);
+    freeMemMatrix(&m);
 }
 
 // максимальный и минимальный элементы
@@ -49,6 +50,7 @@ void test_swapRowsMinMaxElement_sameRow() {
     assert(m.values[1][1] == 5);
     assert(m.values[2][0] == 8);
     assert(m.values[2][1] == 4);
+    freeMemMatrix(&m);
 }
 
 // возвращает самый большой элемент массива
@@ -83,6 +85,7 @@ void test_sortRowsByMaxElement_differentMaxElements() {
     assert(m.values[1][1] == 4);
     assert(m.values[2][0] == 1);
     assert(m.values[2][1] == 9);
+    freeMemMatrix(&m);
 }
 
 // все максимальные элементы одинаковые
@@ -102,6 +105,7 @@ void test_sortRowsByMaxElement_allSameMaxElements() {
     assert(m.values[1][1] == 8);
     assert(m.values[2][0] == 8);
     assert(m.values[2][1] == 4);
+    freeMemMatrix(&m);
 }
 
 // некоторые максимальные элементы одинаковые
@@ -124,6 +128,7 @@ void test_sortRowsByMaxElement_someSameMaxElements() {
     assert(m.values[2][0] == 1);
     assert(m.values[2][1] == 8);
     assert(m.values[2][2] == 12);
+    freeMemMatrix(&m);
 }
 
 // возвращает минимальный элемент массива
@@ -167,6 +172,7 @@ void test_sortColsByMinElement_differentMinElements() {
     assert(m.values[2][2] == 3);
     assert(m.values[2][3] == 7);
     assert(m.values[2][4] == 9);
+    freeMemMatrix(&m);
 }
 
 // некоторые минимальные элементы одинаковые
@@ -187,6 +193,79 @@ void test_sortColsByMinElement_someSameMinElements() {
     assert(m.values[1][1] == 9);
     assert(m.values[1][2] == 4);
     assert(m.values[1][3] == 14);
+    freeMemMatrix(&m);
+}
+
+// возвращает результат умножения двух квадратных матриц
+matrix mulSquareMatrices(matrix m1, matrix m2) {
+    matrix m = getMemMatrix(m1.nRows, m2.nCols);
+    for (int i = 0; i < m2.nRows; i++)
+        for (int j = 0; j < m2.nCols; j++) {
+            int element = 0;
+            for (int k = 0; k < m1.nCols; k++) {
+                element += m1.values[i][k] * m2.values[k][j];
+            }
+            m.values[i][j] = element;
+        }
+    return m;
+}
+
+// заменяет матрицу A квадратом, если матрица А симмметрична
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (isSymmetricMatrix(m)) {
+        matrix m2 = mulSquareMatrices(*m, *m);
+        for (int i = 0; i < m2.nRows; i++)
+            for (int j = 0; j < m2.nCols; j++)
+                m->values[i][j] = m2.values[i][j];
+    }
+}
+
+// матрица симметрична
+void test_getSquareOfMatrixIfSymmetric_symmetricMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    2, 0, 5,
+                    3, 5, 1,
+            },
+            3, 3
+    );
+
+    getSquareOfMatrixIfSymmetric(&m);
+    assert(m.values[0][0] == 14);
+    assert(m.values[0][1] == 17);
+    assert(m.values[0][2] == 16);
+    assert(m.values[1][0] == 17);
+    assert(m.values[1][1] == 29);
+    assert(m.values[1][2] == 11);
+    assert(m.values[2][0] == 16);
+    assert(m.values[2][1] == 11);
+    assert(m.values[2][2] == 35);
+    freeMemMatrix(&m);
+}
+
+// матрица не симметрична
+void test_getSquareOfMatrixIfSymmetric_notSymmetricMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    8, 2, 5,
+                    4, 7, 1,
+            },
+            3, 3
+    );
+
+    getSquareOfMatrixIfSymmetric(&m);
+    assert(m.values[0][0] == 1);
+    assert(m.values[0][1] == 2);
+    assert(m.values[0][2] == 3);
+    assert(m.values[1][0] == 8);
+    assert(m.values[1][1] == 2);
+    assert(m.values[1][2] == 5);
+    assert(m.values[2][0] == 4);
+    assert(m.values[2][1] == 7);
+    assert(m.values[2][2] == 1);
+    freeMemMatrix(&m);
 }
 
 void test() {
@@ -197,6 +276,8 @@ void test() {
     test_sortRowsByMaxElement_someSameMaxElements();
     test_sortColsByMinElement_differentMinElements();
     test_sortColsByMinElement_someSameMinElements();
+    test_getSquareOfMatrixIfSymmetric_symmetricMatrix();
+    test_getSquareOfMatrixIfSymmetric_notSymmetricMatrix();
 }
 
 int main() {

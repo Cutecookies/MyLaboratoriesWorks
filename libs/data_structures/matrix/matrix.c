@@ -136,8 +136,9 @@ bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
     if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
         return 0;
     for (int i = 0; i < m1->nRows; i++)
-        if (memcmp(m1->values[i], m2->values[i], sizeof(int *) * m1->nCols) != 0)
-            return 0;
+        if (memcmp(m1->values[i], m2->values[i], sizeof(int *) * m1->nCols) != 0) {
+            printf("jk");
+            return 0;}
 
     return 1;
 }
