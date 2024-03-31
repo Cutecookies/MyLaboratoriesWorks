@@ -442,7 +442,7 @@ int getMinInArea(matrix m) {
     int col = max_el.colIndex - 1;
     int length = 3;
     int min_el = m.values[max_el.rowIndex][max_el.colIndex];
-    while(row >= 0) {
+    while (row >= 0) {
         int min = getMin(m.values[row] + col, length);
         row -= 1;
         col -= 1;
@@ -499,7 +499,7 @@ float getDistance(int *a, int n) {
 
 // сортирует строки матрицы по неубыванию по значению критерия float
 void insertionSortRowsMatrixByRowCriteriaF(matrix m,
-                                           float (*criteria)(int *, int)){
+                                           float (*criteria)(int *, int)) {
     float criteria_res[m.nRows];
     for (int i = 0; i < m.nRows; i++) {
         float temp = criteria(m.values[i], m.nCols);
@@ -598,10 +598,10 @@ void test_countEqClassesByRowsSum() {
 int getNSpecialElement(matrix m) {
     transposeMatrix(&m);
     int amt_special = 0;
-    for(int i = 0; i < m.nRows; i++) {
+    for (int i = 0; i < m.nRows; i++) {
         long long sum = getSum(m.values[i], m.nCols);
         for (int j = 0; j < m.nCols; j++)
-            if(m.values[i][j] > sum - m.values[i][j])
+            if (m.values[i][j] > sum - m.values[i][j])
                 amt_special++;
     }
     return amt_special;
@@ -651,7 +651,7 @@ void swapPenultimateRow(matrix m, int n) {
     int col_ind = getLeftMin(m).colIndex;
     transposeSquareMatrix(&m);
     int col[m.nRows];
-    for(int i = 0; i < m.nRows; i++)
+    for (int i = 0; i < m.nRows; i++)
         col[i] = m.values[col_ind][i];
     transposeSquareMatrix(&m);
     for (int i = 0; i < m.nCols; i++)
@@ -680,6 +680,47 @@ void test_swapPenultimateRow() {
     freeMemMatrix(&m);
 }
 
+// возвращает 1, если массив отсортирован по неубыванию.
+bool isNonDescendingSorted(int *a, int n) {
+    for (int i = 0; i < n - 1; i++)
+        if (a[i] > a[i + 1])
+            return 0;
+    return 1;
+}
+
+// возвращает 1, если все строки матрицы отсортированы.
+bool hasAllNonDescendingRows(matrix m) {
+    for (int i = 0; i < m.nRows; i++)
+        if (!(isNonDescendingSorted(m.values[i], m.nCols)))
+            return 0;
+    return 1;
+}
+
+// возвращает число матриц, строки которых
+// упорядочены по неубыванию элементов.
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
+    int amt_matrices = 0;
+    for (int i = 0; i < nMatrix; i++)
+        if (hasAllNonDescendingRows(ms[i]))
+            amt_matrices += 1;
+    return amt_matrices;
+}
+
+void test_countNonDescendingRowsMatrices() {
+    matrix m = *createArrayOfMatrixFromArray(
+            (int[]) {
+                    7, 1, 1, 1,
+                    1, 6, 2, 2,
+                    5, 4, 2, 3,
+                    1, 3, 7, 9,
+            },
+            4, 2, 2
+    );
+    int a = countNonDescendingRowsMatrices(&m, 4);
+    assert(a == 2);
+    freeMemMatrices(&m, 4);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -702,6 +743,7 @@ void test() {
     test_getNSpecialElement_squareMatrix();
     test_getNSpecialElement_rectangleMatrix();
     test_swapPenultimateRow();
+    test_countNonDescendingRowsMatrices();
 }
 
 int main() {
