@@ -636,6 +636,50 @@ void test_getNSpecialElement_rectangleMatrix() {
     freeMemMatrix(&m);
 }
 
+// возвращает координаты самого левого минимального числа.
+position getLeftMin(matrix m) {
+    transposeSquareMatrix(&m);
+    position pos = getMinValuePos(m);
+    transposeSquareMatrix(&m);
+    return pos;
+}
+
+// Заменяет n строку матрицы
+// первым из столбцов, в котором находится
+// минимальный элемент матрицы.
+void swapPenultimateRow(matrix m, int n) {
+    int col_ind = getLeftMin(m).colIndex;
+    transposeSquareMatrix(&m);
+    int col[m.nRows];
+    for(int i = 0; i < m.nRows; i++)
+        col[i] = m.values[col_ind][i];
+    transposeSquareMatrix(&m);
+    for (int i = 0; i < m.nCols; i++)
+        m.values[n - 1][i] = col[i];
+}
+
+void test_swapPenultimateRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    2, 23, 6,
+                    12, 2, 1,
+            },
+            3, 3
+    );
+    swapPenultimateRow(m, 2);
+    assert(m.values[0][0] == 1);
+    assert(m.values[0][1] == 2);
+    assert(m.values[0][2] == 3);
+    assert(m.values[1][0] == 1);
+    assert(m.values[1][1] == 2);
+    assert(m.values[1][2] == 12);
+    assert(m.values[2][0] == 12);
+    assert(m.values[2][1] == 2);
+    assert(m.values[2][2] == 1);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -657,6 +701,7 @@ void test() {
     test_countEqClassesByRowsSum();
     test_getNSpecialElement_squareMatrix();
     test_getNSpecialElement_rectangleMatrix();
+    test_swapPenultimateRow();
 }
 
 int main() {
