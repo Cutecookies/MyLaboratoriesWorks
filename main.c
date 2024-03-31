@@ -432,6 +432,60 @@ void test_findSumOfMaxesOfPseudoDiagonal() {
     assert(s == 24);
 }
 
+// возвращает минимальный элемент
+// матрицы в выделенной области.
+int getMinInArea(matrix m) {
+    position max_el = getMaxValuePos(m);
+    int row = max_el.rowIndex - 1;
+    int col = max_el.colIndex - 1;
+    int length = 3;
+    int min_el = m.values[max_el.rowIndex][max_el.colIndex];
+    while(row >= 0) {
+        int min = getMin(m.values[row] + col, length);
+        row -= 1;
+        col -= 1;
+        length += 2;
+        if (length > m.nCols)
+            length = m.nCols;
+        if (min < min_el)
+            min_el = min;
+    }
+
+    return min_el;
+}
+
+// в выделенной области несколько элементов.
+void test_getMinInArea_someElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10, 7, 5, 6,
+                    3, 11, 8, 9,
+                    4, 1, 12, 2,
+            },
+            3, 4
+    );
+
+    int min = getMinInArea(m);
+    assert(min == 5);
+    freeMemMatrix(&m);
+}
+
+// в выделенной области один элемент.
+void test_getMinInArea_oneElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10, 7, 22, 6,
+                    3, 11, 8, 9,
+                    4, 1, 12, 2,
+            },
+            3, 4
+    );
+
+    int min = getMinInArea(m);
+    assert(min == 22);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -447,6 +501,8 @@ void test() {
     test_isMutuallyInverseMatrices_true();
     test_isMutuallyInverseMatrices_false();
     test_findSumOfMaxesOfPseudoDiagonal();
+    test_getMinInArea_someElements();
+    test_getMinInArea_oneElement();
 }
 
 int main() {

@@ -209,7 +209,7 @@ position getMinValuePos(matrix m) {
     position pos = (position) {0, 0};
     int min_value = m.values[0][0];
     for (int i = 0; i < m.nRows; i++)
-        for (int j = i + 1; j < m.nCols; j++)
+        for (int j = 0; j < m.nCols; j++)
             if (m.values[i][j] < min_value) {
                 min_value = m.values[i][j];
                 pos.colIndex = j;
@@ -222,7 +222,7 @@ position getMaxValuePos(matrix m) {
     position pos = (position) {0, 0};
     int max_value = m.values[0][0];
     for (int i = 0; i < m.nRows; i++)
-        for (int j = i + 1; j < m.nCols; j++)
+        for (int j = 0; j < m.nCols; j++)
             if (m.values[i][j] > max_value) {
                 max_value = m.values[i][j];
                 pos.colIndex = j;
