@@ -828,6 +828,53 @@ void test_getNormOfMatrix() {
     freeMemMatrix(&m);
 }
 
+// возвращает минимальный из двух элементов.
+int min2(int a, int b) {
+    return a < b? a: b;
+}
+
+// возвращает 1, если эдемент "особый".
+bool isSpecial(int *a, int n, int special_ind) {
+    for (int i = 0; i < special_ind; i++) {
+        if (min2(a[i], a[special_ind]) != a[i])
+            return 0;
+    }
+    for (int i = special_ind + 1; i < n; i++) {
+        if (min2(a[i], a[special_ind]) == a[i])
+            return 0;
+    }
+    return 1;
+}
+
+// возвращает количество "особых" элементов данной матрицы.
+int getNSpecialElement2(matrix m) {
+    int k = 0;
+    for (int row = 0; row < m.nRows; row++)
+        for (int col = 0; col < m.nCols; col++)
+            if (isSpecial(m.values[row], m.nCols, col))
+                k += 1;
+    return k;
+}
+
+void test_getNSpecialElement2() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    2, 3, 5, 5, 4,
+                    6, 2, 3, 8, 12,
+                    12, 12, 2, 1, 1,
+            },
+            3, 5
+    );
+    assert(getNSpecialElement2(m) == 4);
+    freeMemMatrix(&m);
+}
+
+void test_isSpecial() {
+    int array[] = {1, 3, 3, 4, 2, 5};
+    assert(isSpecial(array, 6, 0));
+    assert(!isSpecial(array, 6, 3));
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -858,6 +905,8 @@ void test_1() {
     test_printMatrixWithMaxZeroRows();
     test_printMatrixWithMinNorm();
     test_getNormOfMatrix();
+    test_getNSpecialElement2();
+    test_isSpecial();
 }
 
 int main() {
