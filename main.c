@@ -2,6 +2,7 @@
 # include "libs/data_structures/matrix/matrix.h"
 # include "stdio.h"
 #include "math.h"
+# include "stdlib.h"
 
 // меняет местами строки, в которых находятся
 // максимальный и минимальный элементы.
@@ -544,6 +545,55 @@ void test_sortByDistances() {
     freeMemMatrix(&m);
 }
 
+// возвращает -1, если pa < pb,
+// 0, если pa == pb,
+// и 1 в противном случае.
+int cmp_long_long(const void *pa, const void *pb) {
+    if (pa < pb)
+        return -1;
+    if (pa == pb)
+        return 0;
+    return 1;
+}
+
+// возвращает количество уникальных элементов массива.
+int countNUnique(long long *a, int n) {
+    int amt_unique = 0;
+    for (int i = 0; i < n; i++) {
+        if (i == n - 1)
+            amt_unique += 1;
+        else if (a[i] != a[i + 1])
+            amt_unique += 1;
+    }
+    return amt_unique;
+}
+
+// возвращает количество классов эквивалентных
+// строк данной прямоугольной матрицы.
+int countEqClassesByRowsSum(matrix m) {
+    long long a[m.nRows];
+    for (int i = 0; i < m.nRows; i++) {
+        a[i] = getSum(m.values[i], m.nCols);
+    }
+    qsort(a, m.nRows, sizeof(long long), cmp_long_long);
+    return countNUnique(a, m.nRows);
+}
+
+void test_countEqClassesByRowsSum() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 9,
+                    7, 3,
+                    2, 4,
+                    7, 1,
+                    1, 2,
+            },
+            5, 2
+    );
+    assert(countEqClassesByRowsSum(m) == 4);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -562,6 +612,7 @@ void test() {
     test_getMinInArea_someElements();
     test_getMinInArea_oneElement();
     test_sortByDistances();
+    test_countEqClassesByRowsSum();
 }
 
 int main() {
