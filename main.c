@@ -594,6 +594,48 @@ void test_countEqClassesByRowsSum() {
     freeMemMatrix(&m);
 }
 
+// возвращает количество "особых" элементов матрицы.
+int getNSpecialElement(matrix m) {
+    transposeMatrix(&m);
+    int amt_special = 0;
+    for(int i = 0; i < m.nRows; i++) {
+        long long sum = getSum(m.values[i], m.nCols);
+        for (int j = 0; j < m.nCols; j++)
+            if(m.values[i][j] > sum - m.values[i][j])
+                amt_special++;
+    }
+    return amt_special;
+}
+
+// матрица квадратная.
+void test_getNSpecialElement_squareMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    2, 23, 6,
+                    12, 2, 1,
+            },
+            3, 3
+    );
+    assert(getNSpecialElement(m) == 3);
+    freeMemMatrix(&m);
+
+}
+
+// матрица не квадратная.
+void test_getNSpecialElement_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 2,
+            },
+            3, 4
+    );
+    assert(getNSpecialElement(m) == 2);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -613,6 +655,8 @@ void test() {
     test_getMinInArea_oneElement();
     test_sortByDistances();
     test_countEqClassesByRowsSum();
+    test_getNSpecialElement_squareMatrix();
+    test_getNSpecialElement_rectangleMatrix();
 }
 
 int main() {

@@ -199,10 +199,6 @@ void transposeMatrix(matrix *m) {
     int temp = m->nRows;
     m->nRows = m->nCols;
     m->nCols = temp;
-
-    for (int i = 0; i < m->nRows; i++)
-        free(values[i]);
-    free(values);
 }
 
 position getMinValuePos(matrix m) {
