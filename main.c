@@ -745,7 +745,7 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
         amt_zero_rows[i] = countZeroRows(ms[i]);
     int max = getMax(amt_zero_rows, nMatrix);
     for (int i = 0; i < nMatrix; i++)
-        if (amt_zero_rows[i] == max){
+        if (amt_zero_rows[i] == max) {
             outputMatrix(ms[i]);
             printf("\n");
         }
@@ -763,6 +763,69 @@ void test_printMatrixWithMaxZeroRows() {
             5, 3, 2
     );
     printMatrixWithMaxZeroRows(m, 5);
+    freeMemMatrices(m, 5);
+}
+
+void test_countZeroRows() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    1, 23, 6,
+                    0, 0, 0,
+            },
+            3, 3
+    );
+    assert(countZeroRows(m) == 2);
+    freeMemMatrix(&m);
+}
+
+// возвращает норму матрицы.
+int getNormOfMatrix(matrix m) {
+    int norm = 0;
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
+            if (abs(m.values[i][j]) > norm)
+                norm = abs(m.values[i][j]);
+    return norm;
+}
+
+// Выводит матрицы с наименьшей нормой.
+void printMatrixWithMinNorm(matrix *ms, int nMatrix) {
+    int norms[nMatrix];
+    for (int i = 0; i < nMatrix; i++)
+        norms[i] = getNormOfMatrix(ms[i]);
+    int min = getMin(norms, nMatrix);
+    for (int i = 0; i < nMatrix; i++)
+        if (norms[i] == min) {
+            outputMatrix(ms[i]);
+            printf("\n");
+        }
+}
+
+void test_printMatrixWithMinNorm() {
+    matrix *m = createArrayOfMatrixFromArray(
+            (int[]) {
+                    1, -3, 5, 4,
+                    7, 3, 15, 9,
+                    2, -5, 3, 1,
+            },
+            3, 2, 2
+    );
+    printMatrixWithMinNorm(m, 3);
+    freeMemMatrices(m, 3);
+}
+
+void test_getNormOfMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, -3, 4,
+                    7, 3, 6,
+                    5, -8, -1,
+            },
+            3, 3
+    );
+    assert(getNormOfMatrix(m) == 8);
+    freeMemMatrix(&m);
 }
 
 void test() {
@@ -791,7 +854,10 @@ void test() {
 
 void test_1() {
     test_countNonDescendingRowsMatrices();
+    test_countZeroRows();
     test_printMatrixWithMaxZeroRows();
+    test_printMatrixWithMinNorm();
+    test_getNormOfMatrix();
 }
 
 int main() {
