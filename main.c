@@ -1,5 +1,6 @@
 # include <assert.h>
 # include "libs/data_structures/matrix/matrix.h"
+# include "stdio.h"
 
 // меняет местами строки, в которых находятся
 // максимальный и минимальный элементы.
@@ -383,6 +384,54 @@ void test_isMutuallyInverseMatrices_false() {
     freeMemMatrix(&m2);
 }
 
+// возвращает максимальное из двух чисел.
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+// возвращает сумму максимальных элементов всех
+// псевдодиагоналей данной матрицы.
+long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
+    long long s = 0;
+    for (int j = 1; j < m.nCols; j++) {
+        int row = 0;
+        int col = j;
+        int max_num = m.values[row][j];
+        while (row < m.nRows && col < m.nCols) {
+            max_num = max(max_num, m.values[row][col]);
+            row += 1;
+            col += 1;
+        }
+        s += max_num;
+    }
+    for (int i = 1; i < m.nRows; i++) {
+        int row = i;
+        int col = 0;
+        int max_num = m.values[i][col];
+        while (row < m.nRows && col < m.nCols) {
+            max_num = max(max_num, m.values[row][col]);
+            row += 1;
+            col += 1;
+        }
+        s += max_num;
+    }
+
+    return s;
+}
+
+void test_findSumOfMaxesOfPseudoDiagonal() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 7, 3,
+                    3, 4, 5, 8,
+                    2, 6, 9, 1,
+            },
+            3, 4
+    );
+    long long s = findSumOfMaxesOfPseudoDiagonal(m);
+    assert(s == 24);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -397,6 +446,7 @@ void test() {
     test_transposeIfMatrixHasNotEqualSumOfRows_notEqualSumOfRows();
     test_isMutuallyInverseMatrices_true();
     test_isMutuallyInverseMatrices_false();
+    test_findSumOfMaxesOfPseudoDiagonal();
 }
 
 int main() {
