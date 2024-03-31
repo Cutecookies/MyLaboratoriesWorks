@@ -1,6 +1,7 @@
 # include <assert.h>
 # include "libs/data_structures/matrix/matrix.h"
 # include "stdio.h"
+#include "math.h"
 
 // меняет местами строки, в которых находятся
 // максимальный и минимальный элементы.
@@ -486,6 +487,63 @@ void test_getMinInArea_oneElement() {
     freeMemMatrix(&m);
 }
 
+// возвращает дистанцию.
+float getDistance(int *a, int n) {
+    float dist = 0;
+    for (int i = 0; i < n; i++) {
+        dist += pow(a[i], 2);
+    }
+    return pow(dist, 0.5);
+}
+
+// сортирует строки матрицы по неубыванию по значению критерия float
+void insertionSortRowsMatrixByRowCriteriaF(matrix m,
+                                           float (*criteria)(int *, int)){
+    float criteria_res[m.nRows];
+    for (int i = 0; i < m.nRows; i++) {
+        float temp = criteria(m.values[i], m.nCols);
+        criteria_res[i] = temp;
+    }
+
+    for (int i = 1; i < m.nRows; i++) {
+        float temp = criteria_res[i];
+        int *t = m.values[i];
+        int j = i;
+        while (j > 0 && criteria_res[j - 1] > temp) {
+            criteria_res[j] = criteria_res[j - 1];
+            swapRows(m, j + 1, j);
+            j--;
+        }
+        criteria_res[j] = temp;
+        m.values[j] = t;
+    }
+}
+
+// Упорядочивает точки по неубыванию их
+// расстояний до начала координат.
+void sortByDistances(matrix m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void test_sortByDistances() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    12, 5, //13
+                    3, 4,  //5
+                    9, 12, //15
+            },
+            3, 2
+    );
+    sortByDistances(m);
+    assert(m.values[0][0] == 3);
+    assert(m.values[0][1] == 4);
+    assert(m.values[1][0] == 12);
+    assert(m.values[1][1] == 5);
+    assert(m.values[2][0] == 9);
+    assert(m.values[2][1] == 12);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -503,6 +561,7 @@ void test() {
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea_someElements();
     test_getMinInArea_oneElement();
+    test_sortByDistances();
 }
 
 int main() {
