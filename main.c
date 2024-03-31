@@ -707,7 +707,7 @@ int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
 }
 
 void test_countNonDescendingRowsMatrices() {
-    matrix m = *createArrayOfMatrixFromArray(
+    matrix *m = createArrayOfMatrixFromArray(
             (int[]) {
                     7, 1, 1, 1,
                     1, 6, 2, 2,
@@ -716,9 +716,53 @@ void test_countNonDescendingRowsMatrices() {
             },
             4, 2, 2
     );
-    int a = countNonDescendingRowsMatrices(&m, 4);
-    assert(a == 2);
-    freeMemMatrices(&m, 4);
+    assert(countNonDescendingRowsMatrices(m, 4) == 2);
+    freeMemMatrices(m, 4);
+}
+
+// возвращает количество value в массиве.
+int countValues(const int *a, int n, int value) {
+    int amt = 0;
+    for (int i = 0; i < n; i++)
+        if (a[i] == value)
+            amt += 1;
+    return amt;
+}
+
+// возвращает количество нулевых строк.
+int countZeroRows(matrix m) {
+    int amt = 0;
+    for (int i = 0; i < m.nRows; i++)
+        if (countValues(m.values[i], m.nCols, 0) == m.nCols)
+            amt += 1;
+    return amt;
+}
+
+// Выводит матрицы, имеющие наибольшее число нулевых строк.
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int amt_zero_rows[nMatrix];
+    for (int i = 0; i < nMatrix; i++)
+        amt_zero_rows[i] = countZeroRows(ms[i]);
+    int max = getMax(amt_zero_rows, nMatrix);
+    for (int i = 0; i < nMatrix; i++)
+        if (amt_zero_rows[i] == max){
+            outputMatrix(ms[i]);
+            printf("\n");
+        }
+}
+
+void test_printMatrixWithMaxZeroRows() {
+    matrix *m = createArrayOfMatrixFromArray(
+            (int[]) {
+                    0, 1, 1, 0, 0, 0,
+                    1, 1, 2, 1, 1, 1,
+                    0, 0, 0, 0, 4, 7,
+                    0, 0, 0, 1, 0, 0,
+                    0, 1, 0, 2, 0, 3,
+            },
+            5, 3, 2
+    );
+    printMatrixWithMaxZeroRows(m, 5);
 }
 
 void test() {
@@ -743,11 +787,15 @@ void test() {
     test_getNSpecialElement_squareMatrix();
     test_getNSpecialElement_rectangleMatrix();
     test_swapPenultimateRow();
+}
+
+void test_1() {
     test_countNonDescendingRowsMatrices();
+    test_printMatrixWithMaxZeroRows();
 }
 
 int main() {
-    test();
+    test_1();
 
     return 0;
 }
