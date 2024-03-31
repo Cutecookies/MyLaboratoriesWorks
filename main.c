@@ -681,7 +681,7 @@ void test_swapPenultimateRow() {
 }
 
 // возвращает 1, если массив отсортирован по неубыванию.
-bool isNonDescendingSorted(int *a, int n) {
+bool isNonDescendingSorted(const int *a, int n) {
     for (int i = 0; i < n - 1; i++)
         if (a[i] > a[i + 1])
             return 0;
