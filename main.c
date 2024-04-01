@@ -931,6 +931,41 @@ void test_getVectorIndexWithMaxAngle() {
     freeMemMatrix(&m);
 }
 
+// возращает скалярное произведение строки,
+// в которой находится наибольший элемент матрицы,
+// на столбец с наименьшим элементом.
+long long getScalarProductRowAndCol(matrix m, int i, int j) {
+    long long vec1 = m.values[i][0];
+    for (int k = 1; k < m.nRows; k++) {
+        vec1 *= m.values[i][k];
+    }
+    transposeSquareMatrix(&m);
+    long long vec2 = m.values[j][0];
+    for (int k = 1; k < m.nRows; k++) {
+        vec2 *= m.values[j][k];
+    }
+    return vec1 + vec2;
+}
+
+// возращает скалярное произведение.
+long long getSpecialScalarProduct(matrix m) {
+    int max_row = getMaxValuePos(m).rowIndex;
+    int min_col = getMinValuePos(m).colIndex;
+    return getScalarProductRowAndCol(m, max_row, min_col);
+}
+
+void test_getSpecialScalarProduct() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 3,
+                    5, 4,
+            },
+            2, 2
+    );
+    assert(getSpecialScalarProduct(m) == 25);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -964,6 +999,7 @@ void test_1() {
     test_getNSpecialElement2();
     test_isSpecial();
     test_getVectorIndexWithMaxAngle();
+    test_getSpecialScalarProduct();
 }
 
 int main() {
