@@ -830,7 +830,7 @@ void test_getNormOfMatrix() {
 
 // возвращает минимальный из двух элементов.
 int min2(int a, int b) {
-    return a < b? a: b;
+    return a < b ? a : b;
 }
 
 // возвращает 1, если эдемент "особый".
@@ -875,6 +875,62 @@ void test_isSpecial() {
     assert(!isSpecial(array, 6, 3));
 }
 
+// возвращает скалярное произведение 2 векторов
+double getScalarProduct(int *a, int *b, int n) {
+    double vec1 = a[0];
+    for (int i = 1; i < n; i++) {
+        vec1 *= a[i];
+    }
+    double vec2 = b[0];
+    for (int i = 1; i < n; i++) {
+        vec2 *= b[i];
+    }
+    return vec1 + vec2;
+}
+
+// возвращает длину вектора
+double getVectorLength(int *a, int n) {
+    double length = 0;
+    for (int i = 0; i < n; i++) {
+        length += pow(a[i], 2);
+    }
+    return pow(length, 0.5);
+}
+
+// возвращает косинус угла между векторами.
+double getCosine(int *a, int *b, int n) {
+    double cosine = getScalarProduct(a, b, n) / getVectorLength(a, n)
+                    / getVectorLength(b, n);
+    return cosine;
+}
+
+// возвращает индекс вектора, который образует максимальный
+// угол с данным вектором v.
+int getVectorIndexWithMaxAngle(matrix m, int *b) {
+    double min_cosine = getCosine(m.values[0], b, m.nCols);
+    int max_angle_ind = 0;
+    for (int i = 1; i < m.nRows; i++) {
+        if (getCosine(m.values[i], b, m.nCols) < min_cosine) {
+            min_cosine = getCosine(m.values[i], b, m.nCols);
+            max_angle_ind = i;
+        }
+    }
+    return max_angle_ind;
+}
+
+void test_getVectorIndexWithMaxAngle() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 4,
+                    12, 5,
+            },
+            2, 2
+    );
+    int vec_u[] = {9, 12};
+    assert(getVectorIndexWithMaxAngle(m, vec_u) == 1);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_swapRowsMinMaxElement_differentRows();
     test_swapRowsMinMaxElement_sameRow();
@@ -907,6 +963,7 @@ void test_1() {
     test_getNormOfMatrix();
     test_getNSpecialElement2();
     test_isSpecial();
+    test_getVectorIndexWithMaxAngle();
 }
 
 int main() {
