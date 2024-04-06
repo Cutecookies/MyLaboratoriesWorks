@@ -967,43 +967,11 @@ void test_getSpecialScalarProduct() {
 }
 
 void test() {
-    test_swapRowsMinMaxElement_differentRows();
-    test_swapRowsMinMaxElement_sameRow();
-    test_sortRowsByMaxElement_differentMaxElements();
-    test_sortRowsByMaxElement_allSameMaxElements();
-    test_sortRowsByMaxElement_someSameMaxElements();
-    test_sortColsByMinElement_differentMinElements();
-    test_sortColsByMinElement_someSameMinElements();
-    test_getSquareOfMatrixIfSymmetric_symmetricMatrix();
-    test_getSquareOfMatrixIfSymmetric_notSymmetricMatrix();
-    test_transposeIfMatrixHasNotEqualSumOfRows_equalSumOfRows();
-    test_transposeIfMatrixHasNotEqualSumOfRows_notEqualSumOfRows();
-    test_isMutuallyInverseMatrices_true();
-    test_isMutuallyInverseMatrices_false();
-    test_findSumOfMaxesOfPseudoDiagonal();
-    test_getMinInArea_someElements();
-    test_getMinInArea_oneElement();
-    test_sortByDistances();
-    test_countEqClassesByRowsSum();
-    test_getNSpecialElement_squareMatrix();
-    test_getNSpecialElement_rectangleMatrix();
-    test_swapPenultimateRow();
-}
 
-void test_1() {
-    test_countNonDescendingRowsMatrices();
-    test_countZeroRows();
-    test_printMatrixWithMaxZeroRows();
-    test_printMatrixWithMinNorm();
-    test_getNormOfMatrix();
-    test_getNSpecialElement2();
-    test_isSpecial();
-    test_getVectorIndexWithMaxAngle();
-    test_getSpecialScalarProduct();
 }
 
 int main() {
-    test_1();
+    test();
 
     return 0;
 }

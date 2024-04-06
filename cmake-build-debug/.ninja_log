@@ -1,24 +1,12 @@
 # ninja log v5
 2	98	7310997638137075	libs/data_structures/CMakeFiles/data_structures.dir/bitset/bitset.c.obj	6b9188b1dd373d04
 14	89	7310997638047060	libs/algorithms/CMakeFiles/algorithms.dir/algorithm.c.obj	3df48c8b92805148
-1	113	7336344664034903	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-114	170	7336344664583073	LaboratoriesWorks.exe	98d6db3b6d898955
+1	114	7336357553751996	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+114	177	7336357554369934	LaboratoriesWorks.exe	98d6db3b6d898955
 72	110	7336215806258427	libs/data_structures/libdata_structures.a	7ea43335cfc408c0
-1	138	7317701609217980	build.ninja	1920430793627b09
+1	138	7341157305966327	build.ninja	1920430793627b09
 111	210	7311844669462003	libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj	264b6634515cdb2a
 16	107	7311248900502564	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	fae66464ac6b6e78
 25	111	7310997638227076	libs/algorithms/CMakeFiles/algorithms.dir/array/array.c.obj	52a4784d5c3ab40f
 111	251	7310997639704610	libs/algorithms/libalgorithms.a	56274bb85b86e754
 2	72	7336215805879700	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	5e2833f435c3c0ca
-1	113	7336345072869912	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-113	172	7336345073423511	LaboratoriesWorks.exe	98d6db3b6d898955
-1	111	7336345629742743	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-112	170	7336345630300876	LaboratoriesWorks.exe	98d6db3b6d898955
-2	112	7336345779130324	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-112	169	7336345779673536	LaboratoriesWorks.exe	98d6db3b6d898955
-1	118	7336357425890712	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-118	181	7336357426498678	LaboratoriesWorks.exe	98d6db3b6d898955
-1	115	7336357494610609	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-115	176	7336357495173871	LaboratoriesWorks.exe	98d6db3b6d898955
-1	114	7336357553751996	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
-114	177	7336357554369934	LaboratoriesWorks.exe	98d6db3b6d898955
