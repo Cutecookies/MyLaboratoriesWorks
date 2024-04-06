@@ -1,12 +1,24 @@
 # ninja log v5
 2	98	7310997638137075	libs/data_structures/CMakeFiles/data_structures.dir/bitset/bitset.c.obj	6b9188b1dd373d04
 14	89	7310997638047060	libs/algorithms/CMakeFiles/algorithms.dir/algorithm.c.obj	3df48c8b92805148
-1	114	7336357553751996	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+1	46	7341179792567482	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
 114	177	7336357554369934	LaboratoriesWorks.exe	98d6db3b6d898955
-72	110	7336215806258427	libs/data_structures/libdata_structures.a	7ea43335cfc408c0
-1	138	7341157305966327	build.ninja	1920430793627b09
+4	79	7341179544451237	libs/data_structures/libdata_structures.a	185189e8c52091c1
+0	105	7341179964620979	build.ninja	1920430793627b09
 111	210	7311844669462003	libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj	264b6634515cdb2a
 16	107	7311248900502564	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	fae66464ac6b6e78
 25	111	7310997638227076	libs/algorithms/CMakeFiles/algorithms.dir/array/array.c.obj	52a4784d5c3ab40f
 111	251	7310997639704610	libs/algorithms/libalgorithms.a	56274bb85b86e754
 2	72	7336215805879700	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	5e2833f435c3c0ca
+4	104	7341179420853147	libs/data_structures/CMakeFiles/data_structures.dir/string_/string_.c.obj	2279318844cb84e8
+0	77	7341179964620979	build.ninja	1920430793627b09
+1	45	7341179965410972	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+45	95	7341179965890972	LaboratoriesWorks.exe	98d6db3b6d898955
+2	55	7341180065117956	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+55	104	7341180065587960	LaboratoriesWorks.exe	98d6db3b6d898955
+2	46	7341180125660725	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+47	96	7341180126140726	LaboratoriesWorks.exe	98d6db3b6d898955
+2	47	7341184549106932	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+47	95	7341184549576934	LaboratoriesWorks.exe	98d6db3b6d898955
+2	44	7341184638402757	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+44	89	7341184638832758	LaboratoriesWorks.exe	98d6db3b6d898955

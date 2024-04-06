@@ -156,11 +156,11 @@ build libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj: C
   OBJECT_DIR = libs\data_structures\CMakeFiles\data_structures.dir
   OBJECT_FILE_DIR = libs\data_structures\CMakeFiles\data_structures.dir\matrix
 
-build libs/data_structures/CMakeFiles/data_structures.dir/matrix/tasks/all_tasks.c.obj: C_COMPILER__data_structures_unscanned_Debug D$:/Study/OP/LaboratoriesWorks/libs/data_structures/matrix/tasks/all_tasks.c || cmake_object_order_depends_target_data_structures
-  DEP_FILE = libs\data_structures\CMakeFiles\data_structures.dir\matrix\tasks\all_tasks.c.obj.d
+build libs/data_structures/CMakeFiles/data_structures.dir/string_/string_.c.obj: C_COMPILER__data_structures_unscanned_Debug D$:/Study/OP/LaboratoriesWorks/libs/data_structures/string_/string_.c || cmake_object_order_depends_target_data_structures
+  DEP_FILE = libs\data_structures\CMakeFiles\data_structures.dir\string_\string_.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = libs\data_structures\CMakeFiles\data_structures.dir
-  OBJECT_FILE_DIR = libs\data_structures\CMakeFiles\data_structures.dir\matrix\tasks
+  OBJECT_FILE_DIR = libs\data_structures\CMakeFiles\data_structures.dir\string_
 
 
 # =============================================================================
@@ -170,7 +170,7 @@ build libs/data_structures/CMakeFiles/data_structures.dir/matrix/tasks/all_tasks
 #############################################
 # Link the static library libs\data_structures\libdata_structures.a
 
-build libs/data_structures/libdata_structures.a: C_STATIC_LIBRARY_LINKER__data_structures_Debug libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj libs/data_structures/CMakeFiles/data_structures.dir/matrix/tasks/all_tasks.c.obj || libs/algorithms/libalgorithms.a
+build libs/data_structures/libdata_structures.a: C_STATIC_LIBRARY_LINKER__data_structures_Debug libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj libs/data_structures/CMakeFiles/data_structures.dir/string_/string_.c.obj || libs/algorithms/libalgorithms.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = libs\data_structures\CMakeFiles\data_structures.dir
   POST_BUILD = cd .
