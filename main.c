@@ -95,6 +95,36 @@ void test_strcmp_more() {
     assert(strcmp(lhs, rhs) > 0);
 }
 
+void test_copy() {
+    char lhs[4] = {'A', 'B', 'D', '\0'};
+    char rhs[4] = {'a', 'b', 'c', '\0'};
+    assert(copy(lhs, lhs + 2, rhs) == rhs + 2);
+    assert(*rhs == 'A');
+    assert(*rhs + 1 == 'B');
+}
+
+int isOdd(int a) {
+    return a % 2 != 0? 1: 0;
+}
+
+void test_copyIf() {
+    char lhs[8] = {'1', '2', '3', '4', '5', '6', '\0'};
+    char rhs[6] = {' ', ' ', ' ', ' ', ' ', '\0'};
+    assert(copyIf(lhs, lhs + 3, rhs, isOdd) == rhs + 2);
+    assert(rhs[0] == '1');
+    assert(rhs[1] == '3');
+    assert(rhs[2] == ' ');
+}
+
+void test_copyIfReverse() {
+    char lhs[8] = {'1', '2', '3', '4', '5', '6', '\0'};
+    char rhs[6] = {' ', ' ', ' ', ' ', ' ', '\0'};
+    assert(copyIfReverse(lhs + 4, lhs, rhs, isOdd) == rhs + 2);
+    assert(rhs[0] == '5');
+    assert(rhs[1] == '3');
+    assert(rhs[2] == ' ');
+}
+
 void test() {
     test_strlen_oneZeroElement();
     test_strlen_manyZeroElements();
@@ -111,6 +141,9 @@ void test() {
     test_strcmp_equal();
     test_strcmp_less();
     test_strcmp_more();
+    test_copy();
+    test_copyIf();
+    test_copyIfReverse();
 }
 
 int main() {
