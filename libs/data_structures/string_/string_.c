@@ -100,3 +100,9 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource,
     }
     return beginDestination;
 }
+
+char* getEndOfString(char *s) {
+    while (*s != '\0')
+        s += 1;
+    return s;
+}
