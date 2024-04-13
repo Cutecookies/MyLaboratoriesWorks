@@ -18,6 +18,8 @@ void assertString(const char *expected, char *got,
         fprintf(stderr, "%s - OK\n", funcName);
 }
 
+// Task 1
+
 // нет пробелов
 void test_removeNonLetters_onlyLetters(){
     char s[] = "hello\0";
@@ -42,10 +44,66 @@ void test_removeNonLetters_manySpaces(){
     ASSERT_STRING(exp, s);
 }
 
+// Task 2
+
+// пустая строка
+void test_removeAdjacentEqualLetters_emptyString() {
+    char s[] = "\0";
+    char exp[] = "\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
+// один символ
+void test_removeAdjacentEqualLetters_oneSymbol() {
+    char s[] = "a\0";
+    char exp[] = "a\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
+// 2 одинаковых символа
+void test_removeAdjacentEqualLetters_2SameSymbols() {
+    char s[] = "aa\0";
+    char exp[] = "a\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
+// 3 одинаковых символа
+void test_removeAdjacentEqualLetters_3SameSymbols() {
+    char s[] = "aaa\0";
+    char exp[] = "a\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
+// 2 пары одинаковых символов
+void test_removeAdjacentEqualLetters_2PairsSameSymbols() {
+    char s[] = "aabb\0";
+    char exp[] = "ab\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
+// разые символы и пробелы
+void test_removeAdjacentEqualLetters_differentSymbolsAndSpaces() {
+    char s[] = "aaa bb c\0";
+    char exp[] = "a b c\0";
+    removeAdjacentEqualLetters(s);
+    ASSERT_STRING(exp, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
     test_removeNonLetters_manySpaces();
+    test_removeAdjacentEqualLetters_emptyString();
+    test_removeAdjacentEqualLetters_oneSymbol();
+    test_removeAdjacentEqualLetters_2SameSymbols();
+    test_removeAdjacentEqualLetters_3SameSymbols();
+    test_removeAdjacentEqualLetters_2PairsSameSymbols();
+    test_removeAdjacentEqualLetters_differentSymbolsAndSpaces();
 }
 
 int main() {
