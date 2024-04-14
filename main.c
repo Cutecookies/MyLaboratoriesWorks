@@ -170,6 +170,40 @@ void test_everyNumberBecomeSpaces_noNumbers() {
     ASSERT_STRING(res, s);
 }
 
+// Task 5
+
+// пустая строка
+void test_replace_emptyString() {
+    char s[20] = "";
+    char exp[] = "";
+    replace(s, "bc", "bbc");
+    ASSERT_STRING(exp, s);
+}
+
+// w1 < w2
+void test_replace_w1Lessw2() {
+    char s[20] = "ab bc cc";
+    char exp[] = "ab bbc cc";
+    replace(s, "bc", "bbc");
+    ASSERT_STRING(exp, s);
+}
+
+// w1 > w2
+void test_replace_w1Morew2() {
+    char s[20] = "ab bc cc";
+    char exp[] = "ab c cc";
+    replace(s, "bc", "c");
+    ASSERT_STRING(exp, s);
+}
+
+// w1 = w2
+void test_replace_w1Equalw2() {
+    char s[20] = "ab bc cc";
+    char exp[] = "ab cd cc";
+    replace(s, "bc", "cd");
+    ASSERT_STRING(exp, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -189,6 +223,10 @@ void test() {
     test_everyNumberBecomeSpaces_2Numbers();
     test_everyNumberBecomeSpaces_numbersAndSpaces();
     test_everyNumberBecomeSpaces_noNumbers();
+    test_replace_emptyString();
+    test_replace_w1Lessw2();
+    test_replace_w1Morew2();
+    test_replace_w1Equalw2();
 }
 
 int main() {
