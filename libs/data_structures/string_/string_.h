@@ -1,10 +1,10 @@
 #ifndef LABORATORIESWORKS_STRING__H
 #define LABORATORIESWORKS_STRING__H
 
-# include <stdlib.h>
+# include "string.h"
 
 // возвращает количество символов в строке
-size_t strlen_(const char *begin);
+size_t strlen_(char *begin);
 
 // возвращает указатель на первый элемент с кодом ch, расположенным
 // на ленте памяти между адресами begin и end не включая end.
@@ -32,7 +32,7 @@ char *findSpaceReverse(char *rbegin, const char *rend);
 // возвращает отрицательное значение, если lhs располагается до rhs
 // в лексикографическом порядке, значение 0, если lhs и rhs
 // равны, иначе – положительное значение.
-int strcmp(const char *lhs, const char *rhs);
+int strcmp_(const char *lhs, const char *rhs);
 
 // записывает по адресу beginDestination фрагмент памяти,
 // начиная с адреса beginSource до endSource

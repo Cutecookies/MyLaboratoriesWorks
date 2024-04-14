@@ -94,6 +94,40 @@ void test_removeAdjacentEqualLetters_differentSymbolsAndSpaces() {
     ASSERT_STRING(exp, s);
 }
 
+// task 3
+
+// пустая строка
+void test_transformWord_emptyString() {
+    char s[] = "\0";
+    char res[] = "\0";
+    transformWord(s);
+    ASSERT_STRING(res, s);
+}
+
+// 2 символа
+void test_transformWord_2Symbols() {
+    char s[] = "a1\0";
+    char res[] = "1a\0";
+    transformWord(s);
+    ASSERT_STRING(res, s);
+}
+
+// 1 слово
+void test_transformWord_1Word() {
+    char s[] = "a1b2c3\0";
+    char res[] = "123abc\0";
+    transformWord(s);
+    ASSERT_STRING(res, s);
+}
+
+// 2 слова
+void test_transformWord_2Words() {
+    char s[] = "a1b2c3 d5hj78 \0";
+    char res[] = "123abc 578dhj \0";
+    transformWord(s);
+    ASSERT_STRING(res, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -104,6 +138,10 @@ void test() {
     test_removeAdjacentEqualLetters_3SameSymbols();
     test_removeAdjacentEqualLetters_2PairsSameSymbols();
     test_removeAdjacentEqualLetters_differentSymbolsAndSpaces();
+    test_transformWord_emptyString();
+    test_transformWord_2Symbols();
+    test_transformWord_1Word();
+    test_transformWord_2Words();
 }
 
 int main() {
