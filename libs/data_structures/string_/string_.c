@@ -103,3 +103,12 @@ char* getEndOfString(char *s) {
         s += 1;
     return s;
 }
+
+void strcpy_(char *dst, const char *src) {
+    while (*src) {
+        *dst = *src;
+        dst++;
+        src++;
+    }
+    *dst = '\0';
+}

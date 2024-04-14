@@ -59,4 +59,7 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource,
 // возвращает указатель на конец строки
 char* getEndOfString(char *s);
 
+// копирует строку src в drc
+void strcpy_(char *dst, const char *src);
+
 #endif //LABORATORIESWORKS_STRING__H

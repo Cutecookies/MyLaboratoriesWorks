@@ -128,6 +128,48 @@ void test_transformWord_2Words() {
     ASSERT_STRING(res, s);
 }
 
+// Task 4
+
+// пустая строка
+void test_everyNumberBecomeSpaces_emptyString() {
+    char s[5] = "";
+    char res[] = "";
+    everyNumberBecomeSpaces(s);
+    ASSERT_STRING(res, s);
+}
+
+// 1 цифра
+void test_everyNumberBecomeSpaces_oneNumber() {
+    char s[5] = "3a";
+    char res[] = "   a";
+    everyNumberBecomeSpaces(s);
+    ASSERT_STRING(res, s);
+}
+
+// 2 цифры
+void test_everyNumberBecomeSpaces_2Numbers() {
+    char s[6] = "3a2";
+    char res[] = "   a  ";
+    everyNumberBecomeSpaces(s);
+    ASSERT_STRING(res, s);
+}
+
+// цифры и пробелы
+void test_everyNumberBecomeSpaces_numbersAndSpaces() {
+    char s[10] = "3a 2";
+    char res[] = "   a   ";
+    everyNumberBecomeSpaces(s);
+    ASSERT_STRING(res, s);
+}
+
+// без цифр
+void test_everyNumberBecomeSpaces_noNumbers() {
+    char s[6] = "a b c";
+    char res[] = "a b c";
+    everyNumberBecomeSpaces(s);
+    ASSERT_STRING(res, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -142,6 +184,11 @@ void test() {
     test_transformWord_2Symbols();
     test_transformWord_1Word();
     test_transformWord_2Words();
+    test_everyNumberBecomeSpaces_emptyString();
+    test_everyNumberBecomeSpaces_oneNumber();
+    test_everyNumberBecomeSpaces_2Numbers();
+    test_everyNumberBecomeSpaces_numbersAndSpaces();
+    test_everyNumberBecomeSpaces_noNumbers();
 }
 
 int main() {

@@ -2,7 +2,9 @@
 # include <ctype.h>
 # include "stdio.h"
 
-# define MAX_STRING_SIZE 100
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
 
 char stringBuffer[MAX_STRING_SIZE + 1];
 
@@ -74,4 +76,28 @@ void transformWord(char *beginString) {
         digitToStartWithoutChange(word);
         beginSearch = word.end;
     }
+}
+
+// task 4
+void everyNumberBecomeSpaces(char *s) {
+    char *copy_s = stringBuffer;
+    strcpy_(copy_s, s);
+    char *end_s = getEndOfString(copy_s);
+
+    while (copy_s != end_s) {
+        char symbol = *copy_s;
+        if (isdigit(symbol)) {
+            int num = symbol - '0';
+            while (num > 0) {
+                *s = ' ';
+                s++;
+                num -= 1;
+            }
+        } else {
+            *s = symbol;
+            s++;
+        }
+        copy_s++;
+    }
+    *s = '\0';
 }
