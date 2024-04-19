@@ -331,6 +331,32 @@ void test_uniteStrings_notEqualStrings() {
     ASSERT_STRING(exp, s3);
 }
 
+// Task 10
+
+// пустая строка
+void test_makeStringWordReverse_emptyString() {
+    char s[] = "";
+    char exp[] = "";
+    makeStringWordReverse(s);
+    ASSERT_STRING(exp, s);
+}
+
+// 1 слово
+void test_makeStringWordReverse_1Word() {
+    char s[] = "ab";
+    char exp[] = "ab";
+    makeStringWordReverse(s);
+    ASSERT_STRING(exp, s);
+}
+
+// 3 слова
+void test_makeStringWordReverse_3Words() {
+    char s[] = "ab b a";
+    char exp[] = "a b ab";
+    makeStringWordReverse(s);
+    ASSERT_STRING(exp, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -371,6 +397,9 @@ void test() {
     test_uniteStrings_1String();
     test_uniteStrings_equalStrings();
     test_uniteStrings_notEqualStrings();
+    test_makeStringWordReverse_emptyString();
+    test_makeStringWordReverse_1Word();
+    test_makeStringWordReverse_3Words();
 }
 
 int main() {

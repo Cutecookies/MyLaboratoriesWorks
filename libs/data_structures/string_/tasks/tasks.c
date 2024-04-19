@@ -63,9 +63,10 @@ int getWord(char *beginSearch, WordDescriptor *word) {
 // ищет слово с конца
 int getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
     word->end = findNonSpaceReverse(rbegin, rend);
-    if (*word->end == *rend)
+    if (word->end == rend)
         return 0;
-    word->begin = findSpaceReverse(word->end, rend);
+    word->begin = findSpaceReverse(word->end, rend) + 1;
+    word->end++;
     return 1;
 }
 
@@ -233,13 +234,14 @@ int countWordsPalindromes(char *s) {
     return amount_palindromes;
 }
 
-// записывает в 3 строку слова первой и второй строки, которые чередуюся.
+// task 9
+
+// записывает в 3 строку слова первой и второй строки, которые чередуются.
 void uniteStrings(char *s1, char *s2, char *out) {
     if (*s1 == '\0' && *s2 == '\0') {
         *out = '\0';
         return;
     }
-    char *s3 = out;
     WordDescriptor word1, word2;
     bool isW1Found, isW2Found;
     char *beginSearch1 = s1, *beginSearch2 = s2;
@@ -260,8 +262,25 @@ void uniteStrings(char *s1, char *s2, char *out) {
     *(out - 1) = '\0';
 }
 
+// task 10
 
+// Преобразовывает строку, изменив порядок следования слов в строке на обратный.
+void makeStringWordReverse(char *s) {
+    if (*s == '\0')
+        return;
+    char *copy_s = stringBuffer;
+    strcpy_(copy_s, s);
+    char *end_s = getEndOfString(copy_s) - 1;
 
+    WordDescriptor word;
+    while (getWordReverse(end_s, copy_s - 1, &word)) {
+        s = copyWord(s, word);
+        *s = ' ';
+        s++;
+        end_s = word.begin - 1;
+    }
+    *(s - 1) = '\0';
+}
 
 
 
