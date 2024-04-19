@@ -289,6 +289,48 @@ void test_countWordsPalindromes_somePalindromes() {
     assert(countWordsPalindromes(s) == 2);
 }
 
+// Task 9
+
+// пустые строки
+void test_uniteStrings_emptyStrings() {
+    char s1[] = "";
+    char s2[] = "";
+    char s3[2] = "";
+    char exp[] = "";
+    uniteStrings(s1, s2, s3);
+    ASSERT_STRING(exp, s3);
+}
+
+// одна строка
+void test_uniteStrings_1String() {
+    char s1[] = "ab";
+    char s2[] = "";
+    char s3[10] = "";
+    char exp[] = "ab";
+    uniteStrings(s1, s2, s3);
+    ASSERT_STRING(exp, s3);
+}
+
+// равные строки
+void test_uniteStrings_equalStrings() {
+    char s1[] = "ab";
+    char s2[] = "bc";
+    char s3[10] = "";
+    char exp[] = "ab bc";
+    uniteStrings(s1, s2, s3);
+    ASSERT_STRING(exp, s3);
+}
+
+// не равные строки
+void test_uniteStrings_notEqualStrings() {
+    char s1[] = "ab dc";
+    char s2[] = "bc h j y";
+    char s3[40] = "";
+    char exp[] = "ab bc dc h j y";
+    uniteStrings(s1, s2, s3);
+    ASSERT_STRING(exp, s3);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -325,6 +367,10 @@ void test() {
     test_countWordsPalindromes_oddPalindrome();
     test_countWordsPalindromes_evenPalindrome();
     test_countWordsPalindromes_somePalindromes();
+    test_uniteStrings_emptyStrings();
+    test_uniteStrings_1String();
+    test_uniteStrings_equalStrings();
+    test_uniteStrings_notEqualStrings();
 }
 
 int main() {

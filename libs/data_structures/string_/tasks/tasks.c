@@ -1,6 +1,7 @@
 # include "../string_.h"
 # include <ctype.h>
 # include "stdio.h"
+# include "stdbool.h"
 
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
@@ -231,3 +232,44 @@ int countWordsPalindromes(char *s) {
     }
     return amount_palindromes;
 }
+
+// записывает в 3 строку слова первой и второй строки, которые чередуюся.
+void uniteStrings(char *s1, char *s2, char *out) {
+    if (*s1 == '\0' && *s2 == '\0') {
+        *out = '\0';
+        return;
+    }
+    char *s3 = out;
+    WordDescriptor word1, word2;
+    bool isW1Found, isW2Found;
+    char *beginSearch1 = s1, *beginSearch2 = s2;
+    while ((isW1Found = getWord(beginSearch1, &word1)),
+            (isW2Found = getWord(beginSearch2, &word2)),
+            isW1Found || isW2Found) {
+        if (isW1Found) {
+            out = copyWord(out, word1);
+            beginSearch1 = word1.end;
+            *(out++) = ' ';
+        }
+        if (isW2Found) {
+            out = copyWord(out, word2);
+            beginSearch2 = word2.end;
+            *(out++) = ' ';
+        }
+    }
+    *(out - 1) = '\0';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
