@@ -249,6 +249,8 @@ void test_isWordsOrdered_wordsFalseAndEqualWords() {
     assert(!isWordsOrdered(s));
 }
 
+// Task 7
+
 // пустая строка
 void test_printWordsFromEnd_emptyString() {
     char s[] = "ab cd";
@@ -259,6 +261,32 @@ void test_printWordsFromEnd_emptyString() {
 void test_printWordsFromEnd_2Words() {
     char s[] = "ab cd";
     printWordsFromEnd(s);
+}
+
+// Task 8
+
+// пустая строка
+void test_countWordsPalindromes_emptyString() {
+    char s[] = "";
+    assert(countWordsPalindromes(s) == 0);
+}
+
+// нечетный палиндром
+void test_countWordsPalindromes_oddPalindrome() {
+    char s[] = "ab cd abcba";
+    assert(countWordsPalindromes(s) == 1);
+}
+
+// четный палиндром
+void test_countWordsPalindromes_evenPalindrome() {
+    char s[] = "ab cd abba";
+    assert(countWordsPalindromes(s) == 1);
+}
+
+// несколько палиндромов
+void test_countWordsPalindromes_somePalindromes() {
+    char s[] = "ab cd abba cd aba";
+    assert(countWordsPalindromes(s) == 2);
 }
 
 void test() {
@@ -293,6 +321,10 @@ void test() {
     test_isWordsOrdered_wordsFalseAndEqualWords();
     test_printWordsFromEnd_emptyString();
     test_printWordsFromEnd_2Words();
+    test_countWordsPalindromes_emptyString();
+    test_countWordsPalindromes_oddPalindrome();
+    test_countWordsPalindromes_evenPalindrome();
+    test_countWordsPalindromes_somePalindromes();
 }
 
 int main() {

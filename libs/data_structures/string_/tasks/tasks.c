@@ -193,7 +193,7 @@ void getBagOfWords(BagOfWords *bag, char *s) {
 
 // выводит слово
 void printWord(WordDescriptor w) {
-    while(w.begin != w.end) {
+    while (w.begin != w.end) {
         putchar(*w.begin);
         w.begin++;
     }
@@ -206,4 +206,28 @@ void printWordsFromEnd(char *s) {
         printWord(_bag.words[i]);
         putchar(' ');
     }
+}
+
+// task 8
+// слово - палиндром?
+int isWordPalindrome(WordDescriptor w) {
+    w.end--;
+    while (w.begin < w.end) {
+        if (*w.begin != *w.end)
+            return 0;
+        w.begin++;
+        w.end--;
+    }
+    return 1;
+}
+
+// возвращает количество слов-палиндромов в строке
+int countWordsPalindromes(char *s) {
+    WordDescriptor word;
+    int amount_palindromes = 0;
+    while (getWord(s, &word)) {
+        amount_palindromes += isWordPalindrome(word);
+        s = word.end;
+    }
+    return amount_palindromes;
 }
