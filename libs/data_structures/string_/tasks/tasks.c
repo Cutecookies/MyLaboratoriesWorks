@@ -282,6 +282,36 @@ void makeStringWordReverse(char *s) {
     *(s - 1) = '\0';
 }
 
+// task 11
+
+typedef enum WordBeforeFirstWordWithAReturnCode {
+    FIRST_WORD_WITH_A,
+    NOT_FOUND_A_WORD_WITH_A,
+    WORD_FOUND,
+    EMPTY_STRING
+} WordBeforeFirstWordWithAReturnCode;
+
+// есть ли символ в слове
+int isChInWord(WordDescriptor w, char a) {
+    return find(w.begin, w.end, a) != w.end;
+}
+
+// заголовок функции
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
+        char *s, WordDescriptor *w) {
+    if (!getWord(s, w))
+        return EMPTY_STRING;
+    if (isChInWord(*w, 'a') || isChInWord(*w, 'A'))
+        return FIRST_WORD_WITH_A;
+    WordDescriptor word;
+    while (getWord(w->end, &word)){
+        if(isChInWord(word, 'a') || isChInWord(word, 'A'))
+            return WORD_FOUND;
+        *w = word;
+    }
+    return NOT_FOUND_A_WORD_WITH_A;
+}
+
 
 
 

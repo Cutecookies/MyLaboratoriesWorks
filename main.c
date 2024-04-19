@@ -3,6 +3,7 @@
 # include "stdio.h"
 # include "stdlib.h"
 # include "assert.h"
+
 # define ASSERT_STRING(expected, got) assertString(expected, got, \
 __FILE__, __FUNCTION__, __LINE__)
 
@@ -22,7 +23,7 @@ void assertString(const char *expected, char *got,
 // Task 1
 
 // нет пробелов
-void test_removeNonLetters_onlyLetters(){
+void test_removeNonLetters_onlyLetters() {
     char s[] = "hello\0";
     char exp[] = "hello\0";
     removeNonLetters(s);
@@ -30,7 +31,7 @@ void test_removeNonLetters_onlyLetters(){
 }
 
 // один пробел
-void test_removeNonLetters_oneSpace(){
+void test_removeNonLetters_oneSpace() {
     char s[] = "ab 1\0";
     char exp[] = "ab1\0";
     removeNonLetters(s);
@@ -38,7 +39,7 @@ void test_removeNonLetters_oneSpace(){
 }
 
 // много пробелов
-void test_removeNonLetters_manySpaces(){
+void test_removeNonLetters_manySpaces() {
     char s[] = "ab 1c2 3 fe f 4h6 j\0";
     char exp[] = "ab1c23fef4h6j\0";
     removeNonLetters(s);
@@ -357,6 +358,29 @@ void test_makeStringWordReverse_3Words() {
     ASSERT_STRING(exp, s);
 }
 
+// Task 11
+
+void testAll_getWordBeforeFirstWordWithA() {
+    WordDescriptor word;
+    char s1[] = "";
+    assert(getWordBeforeFirstWordWithA(s1, &word)
+           == EMPTY_STRING);
+    char s2[] = "ABC";
+
+    assert(getWordBeforeFirstWordWithA(s2, &word)
+           == FIRST_WORD_WITH_A);
+    char s3[] = "BC A";
+    assert(getWordBeforeFirstWordWithA(s3, &word)
+           == WORD_FOUND);
+    char got[MAX_WORD_SIZE];
+    copy(word.begin, word.end, got);
+    got[word.end - word.begin] = '\0';
+    ASSERT_STRING("BC", got);
+    char s4[] = "B Q WE YR OW IUWR";
+    assert(getWordBeforeFirstWordWithA(s4, &word)
+           == NOT_FOUND_A_WORD_WITH_A);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -400,6 +424,7 @@ void test() {
     test_makeStringWordReverse_emptyString();
     test_makeStringWordReverse_1Word();
     test_makeStringWordReverse_3Words();
+    testAll_getWordBeforeFirstWordWithA();
 }
 
 int main() {
