@@ -171,3 +171,39 @@ int isWordsOrdered(char *s) {
         }
     return 1;
 }
+
+// task 7
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
+BagOfWords _bag;
+BagOfWords _bag2;
+
+// получает позиции начала и конца каждого слова строки
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word;
+    bag->size = 0;
+    while (getWord(s, &word)) {
+        s = word.end;
+        bag->words[bag->size++] = word;
+    }
+}
+
+// выводит слово
+void printWord(WordDescriptor w) {
+    while(w.begin != w.end) {
+        putchar(*w.begin);
+        w.begin++;
+    }
+}
+
+// вывод слов в обратном порядке
+void printWordsFromEnd(char *s) {
+    getBagOfWords(&_bag, s);
+    for (int i = _bag.size - 1; i >= 0; i--) {
+        printWord(_bag.words[i]);
+        putchar(' ');
+    }
+}

@@ -249,6 +249,18 @@ void test_isWordsOrdered_wordsFalseAndEqualWords() {
     assert(!isWordsOrdered(s));
 }
 
+// пустая строка
+void test_printWordsFromEnd_emptyString() {
+    char s[] = "ab cd";
+    printWordsFromEnd(s);
+}
+
+// 2 слова
+void test_printWordsFromEnd_2Words() {
+    char s[] = "ab cd";
+    printWordsFromEnd(s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -279,6 +291,8 @@ void test() {
     test_isWordsOrdered_2WordsEqual();
     test_isWordsOrdered_wordsTrueAndEqualWords();
     test_isWordsOrdered_wordsFalseAndEqualWords();
+    test_printWordsFromEnd_emptyString();
+    test_printWordsFromEnd_2Words();
 }
 
 int main() {
