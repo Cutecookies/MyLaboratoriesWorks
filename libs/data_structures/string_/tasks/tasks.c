@@ -121,7 +121,7 @@ int compareWords(WordDescriptor lhs, WordDescriptor rhs) {
 }
 
 // возвращает указатель на конец скопированного слова
-char* copyWord(char *s, WordDescriptor w) {
+char *copyWord(char *s, WordDescriptor w) {
     return copy(w.begin, w.end, s);
 }
 
@@ -156,4 +156,18 @@ void replace(char *source, char *w1, char *w2) {
     }
 
     *(recPtr - 1) = '\0';
+}
+
+// task 6
+int isWordsOrdered(char *s) {
+    WordDescriptor w1;
+    if (getWord(s, &w1))
+        while (*w1.end != '\0') {
+            WordDescriptor w2;
+            getWord(w1.end, &w2);
+            if (compareWords(w1, w2) > 0)
+                return 0;
+            w1 = w2;
+        }
+    return 1;
 }

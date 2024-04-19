@@ -2,6 +2,7 @@
 # include "libs/data_structures/string_/string_.h"
 # include "stdio.h"
 # include "stdlib.h"
+# include "assert.h"
 # define ASSERT_STRING(expected, got) assertString(expected, got, \
 __FILE__, __FUNCTION__, __LINE__)
 
@@ -204,6 +205,50 @@ void test_replace_w1Equalw2() {
     ASSERT_STRING(exp, s);
 }
 
+// Task 6
+
+// пустая строка
+void test_isWordsOrdered_emptyString() {
+    char s[] = "";
+    assert(isWordsOrdered(s));
+}
+
+// 1 слово
+void test_isWordsOrdered_1Word() {
+    char s[] = "a";
+    assert(isWordsOrdered(s));
+}
+
+// 2 слова по порядку
+void test_isWordsOrdered_2WordsTrue() {
+    char s[] = "a b";
+    assert(isWordsOrdered(s));
+}
+
+// 2 слова не по порядку
+void test_isWordsOrdered_2WordsFalse() {
+    char s[] = "b a";
+    assert(!isWordsOrdered(s));
+}
+
+// 2 слова равны
+void test_isWordsOrdered_2WordsEqual() {
+    char s[] = "a a";
+    assert(isWordsOrdered(s));
+}
+
+// слова по порядку и равные слова
+void test_isWordsOrdered_wordsTrueAndEqualWords() {
+    char s[] = "a b c c d";
+    assert(isWordsOrdered(s));
+}
+
+// слова не по порядку и равные слова
+void test_isWordsOrdered_wordsFalseAndEqualWords() {
+    char s[] = "a b d c d";
+    assert(!isWordsOrdered(s));
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -227,6 +272,13 @@ void test() {
     test_replace_w1Lessw2();
     test_replace_w1Morew2();
     test_replace_w1Equalw2();
+    test_isWordsOrdered_emptyString();
+    test_isWordsOrdered_1Word();
+    test_isWordsOrdered_2WordsTrue();
+    test_isWordsOrdered_2WordsFalse();
+    test_isWordsOrdered_2WordsEqual();
+    test_isWordsOrdered_wordsTrueAndEqualWords();
+    test_isWordsOrdered_wordsFalseAndEqualWords();
 }
 
 int main() {
