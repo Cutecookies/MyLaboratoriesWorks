@@ -391,3 +391,31 @@ int areWordsWithSameLetters(char *s) {
     }
     return areThereSameWords(copy_s);
 }
+
+// task 15
+
+// создает Получить строку из слов данной строки,
+// которые отличны от последнего слова.
+void getStringFromWordsNotEqualTOLast(char *s){
+    if (*s == '\0')
+        return;
+    WordDescriptor last_word;
+    char *s_end = getEndOfString(s) - 1;
+    getWordReverse(s_end, s - 1, &last_word);
+    char *wr = s;
+    char *r = s;
+
+    WordDescriptor word;
+    while (getWord(r, &word)) {
+        if (compareWords(word, last_word) != 0) {
+            wr = copy(word.begin, word.end, wr);
+            *wr = ' ';
+            wr++;
+        }
+        r = word.end;
+    }
+    if (wr != s) {
+        wr--;
+    }
+    *wr = '\0';
+}

@@ -451,6 +451,32 @@ void test_areWordsWithSameLetters_noSameElements() {
     assert(!areWordsWithSameLetters(s));
 }
 
+// Task 15
+
+// пустая строка
+void test_getStringFromWordsNotEqualTOLast_emptyString() {
+    char s[] = "";
+    char exp[] = "";
+    getStringFromWordsNotEqualTOLast(s);
+    ASSERT_STRING(exp, s);
+}
+
+// есть слова != последнему
+void test_getStringFromWordsNotEqualTOLast_areWordsNotEqualToLast() {
+    char s[] = "a b a";
+    char exp[] = "b";
+    getStringFromWordsNotEqualTOLast(s);
+    ASSERT_STRING(exp, s);
+}
+
+// нет слов != последнему
+void test_getStringFromWordsNotEqualTOLast_noWordsNotEqualToLast() {
+    char s[] = "ab ab ab";
+    char exp[] = "";
+    getStringFromWordsNotEqualTOLast(s);
+    ASSERT_STRING(exp, s);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -504,6 +530,9 @@ void test() {
     test_areWordsWithSameLetters_emptyString();
     test_areWordsWithSameLetters_areSameElements();
     test_areWordsWithSameLetters_noSameElements();
+    test_getStringFromWordsNotEqualTOLast_emptyString();
+    test_getStringFromWordsNotEqualTOLast_areWordsNotEqualToLast();
+    test_getStringFromWordsNotEqualTOLast_noWordsNotEqualToLast();
 }
 
 int main() {
