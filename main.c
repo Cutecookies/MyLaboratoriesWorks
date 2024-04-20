@@ -405,6 +405,32 @@ void test_lastWordInFirstStringInSecondString_2Words() {
     ASSERT_STRING(exp, string);
 }
 
+// Task 13
+
+// пустая строка
+void test_areThereSameWords_emptyString() {
+    char s[] = "";
+    assert(!areThereSameWords(s));
+}
+
+// нет одинаковых слов
+void test_areThereSameWords_noSameWords() {
+    char s[] = "a b c";
+    assert(!areThereSameWords(s));
+}
+
+// есть одинаковые слова
+void test_areThereSameWords_areSameWords() {
+    char s[] = "a b c a";
+    assert(areThereSameWords(s));
+}
+
+// есть несколько одинаковых слов
+void test_areThereSameWords_areSomeSameWords() {
+    char s[] = "a b c d c b";
+    assert(areThereSameWords(s));
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -451,6 +477,10 @@ void test() {
     testAll_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString_1Word();
     test_lastWordInFirstStringInSecondString_2Words();
+    test_areThereSameWords_emptyString();
+    test_areThereSameWords_noSameWords();
+    test_areThereSameWords_areSameWords();
+    test_areThereSameWords_areSomeSameWords();
 }
 
 int main() {

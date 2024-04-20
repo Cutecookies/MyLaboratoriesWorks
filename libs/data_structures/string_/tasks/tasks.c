@@ -344,3 +344,22 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
     word.end = s1 + 1;
     return word;
 }
+
+// task 13
+int areThereSameWords(char *s) {
+    char *copy_s = stringBuffer;
+    strcpy_(copy_s, s);
+
+    WordDescriptor w1;
+    WordDescriptor w2;
+    while(getWord(s, &w1)) {
+        copy_s = w1.end + 1;
+        while(getWord(copy_s, &w2)) {
+            if (compareWords(w1, w2) == 0)
+                return 1;
+            copy_s = w2.end;
+        }
+        s = w1.end;
+    }
+    return 0;
+}
