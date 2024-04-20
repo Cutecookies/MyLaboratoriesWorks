@@ -212,6 +212,17 @@ void printWordsFromEnd(char *s) {
 }
 
 // task 8
+// ищет слово
+int getWordFromComma(char *beginSearch, WordDescriptor *word) {
+    word->begin = beginSearch;
+    if (*word->begin == '\0')
+        return 0;
+    word->end = word->begin;
+    while (*word->end != ',' && *word->end != '\0')
+        word->end++;
+    return 1;
+}
+
 // слово - палиндром?
 int isWordPalindrome(WordDescriptor w) {
     w.end--;
@@ -228,9 +239,11 @@ int isWordPalindrome(WordDescriptor w) {
 int countWordsPalindromes(char *s) {
     WordDescriptor word;
     int amount_palindromes = 0;
-    while (getWord(s, &word)) {
+    while (getWordFromComma(s, &word)) {
         amount_palindromes += isWordPalindrome(word);
         s = word.end;
+        if (*word.end == ',')
+            s++;
     }
     return amount_palindromes;
 }
@@ -432,3 +445,30 @@ WordDescriptor getWordBeforeW(char *s1, char *s2) {
             }
     return (WordDescriptor){NULL, NULL};
 }
+
+// task 17
+// Удаляет из данной строки слова-палиндромы.
+void deleteWordPalindromes(char *s) {
+    char *r = s;
+    char *wr = s;
+    WordDescriptor word;
+    while (getWord(r, &word)) {
+        if (!isWordPalindrome(word)) {
+            wr = copyWord(wr, word);
+            *wr = ' ';
+            wr++;
+        }
+        r = word.end;
+    }
+    if (s != wr)
+        wr--;
+    *wr = '\0';
+}
+
+
+
+
+
+
+
+

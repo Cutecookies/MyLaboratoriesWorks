@@ -274,19 +274,19 @@ void test_countWordsPalindromes_emptyString() {
 
 // нечетный палиндром
 void test_countWordsPalindromes_oddPalindrome() {
-    char s[] = "ab cd abcba";
+    char s[] = "ab,cd,abcba";
     assert(countWordsPalindromes(s) == 1);
 }
 
 // четный палиндром
 void test_countWordsPalindromes_evenPalindrome() {
-    char s[] = "ab cd abba";
+    char s[] = "ab,cd,abba";
     assert(countWordsPalindromes(s) == 1);
 }
 
 // несколько палиндромов
 void test_countWordsPalindromes_somePalindromes() {
-    char s[] = "ab cd abba cd aba";
+    char s[] = "ab,cd,abba,cd,aba";
     assert(countWordsPalindromes(s) == 2);
 }
 
@@ -530,6 +530,41 @@ void test_getWordBeforeW_noFitWord() {
     assert(get.begin == get.end && get.begin == NULL);
 }
 
+// Task 17
+
+// пустая строка
+void test_deleteWordPalindromes_emptyString() {
+    char s[] = "";
+    char exp[] = "";
+    deleteWordPalindromes(s);
+    ASSERT_STRING(exp, s);
+}
+
+// нет палиндромов
+void test_deleteWordPalindromes_noPalindromes() {
+    char s[] = "ad bd ch";
+    char exp[] = "ad bd ch";
+    deleteWordPalindromes(s);
+    ASSERT_STRING(exp, s);
+}
+
+// есть палиндромы
+void test_deleteWordPalindromes_arePalindromes() {
+    char s[] = "ag b cd";
+    char exp[] = "ag cd";
+    deleteWordPalindromes(s);
+    ASSERT_STRING(exp, s);
+}
+
+// все палиндромы
+void test_deleteWordPalindromes_allPalindromes() {
+    char s[] = "a b c";
+    char exp[] = "";
+    deleteWordPalindromes(s);
+    ASSERT_STRING(exp, s);
+}
+
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -592,6 +627,10 @@ void test() {
     test_getWordBeforeW_1WordFit();
     test_getWordBeforeW_isFitWord();
     test_getWordBeforeW_noFitWord();
+    test_deleteWordPalindromes_emptyString();
+    test_deleteWordPalindromes_noPalindromes();
+    test_deleteWordPalindromes_arePalindromes();
+    test_deleteWordPalindromes_allPalindromes();
 }
 
 int main() {
