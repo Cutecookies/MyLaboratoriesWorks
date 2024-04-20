@@ -564,6 +564,43 @@ void test_deleteWordPalindromes_allPalindromes() {
     ASSERT_STRING(exp, s);
 }
 
+// Task 18
+
+// n1 > n2
+void test_fillString_n1MoreN2() {
+    char s1[MAX_STRING_SIZE] = "apple cat elephant";
+    char s2[MAX_STRING_SIZE] = "cat dog";
+    char exp[MAX_STRING_SIZE] = "cat dog elephant";
+    fillString(s1, s2);
+    ASSERT_STRING(exp, s2);
+}
+
+// n2 > n1
+void test_fillString_n2MoreN1() {
+    char s1[MAX_STRING_SIZE] = "apple tomato";
+    char s2[MAX_STRING_SIZE] = "cat eyes potato";
+    char exp[MAX_STRING_SIZE] = "apple tomato potato";
+    fillString(s1, s2);
+    ASSERT_STRING(exp, s1);
+}
+
+// 1 строка - пустая
+void test_fillString_1StringIsEmpty() {
+    char s1[MAX_STRING_SIZE] = "";
+    char s2[MAX_STRING_SIZE] = "rabbit bird";
+    char exp[MAX_STRING_SIZE] = "rabbit bird";
+    fillString(s1, s2);
+    ASSERT_STRING(exp, s1);
+}
+
+// 2 строка - пустая
+void test_fillString_2StringIsEmpty() {
+    char s1[MAX_STRING_SIZE] = "carrot sun";
+    char s2[MAX_STRING_SIZE] = "";
+    char exp[MAX_STRING_SIZE] = "carrot sun";
+    fillString(s1, s2);
+    ASSERT_STRING(exp, s2);
+}
 
 void test() {
     test_removeNonLetters_onlyLetters();
@@ -631,6 +668,10 @@ void test() {
     test_deleteWordPalindromes_noPalindromes();
     test_deleteWordPalindromes_arePalindromes();
     test_deleteWordPalindromes_allPalindromes();
+    test_fillString_n1MoreN2();
+    test_fillString_n2MoreN1();
+    test_fillString_1StringIsEmpty();
+    test_fillString_2StringIsEmpty();
 }
 
 int main() {

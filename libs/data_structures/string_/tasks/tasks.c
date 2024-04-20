@@ -465,6 +465,32 @@ void deleteWordPalindromes(char *s) {
     *wr = '\0';
 }
 
+//task 18
+// заполнение строки словами из сумки
+void fillStrWords(char* s, BagOfWords bag, size_t start_copy_index) {
+    char *wr = getEndOfString(s);
+    if (*s != '\0') {
+        *wr = ' ';
+        wr++;
+    }
+    for (size_t i = start_copy_index; i < bag.size; i++) {
+        wr = copyWord(wr, bag.words[i]);
+        *wr = ' ';
+        wr++;
+    }
+    *(wr - 1) = '\0';
+}
+
+// дополняет строку, содержащую меньшее количество слов, последними
+// словами строки, в которой содержится большее количество слов.
+void fillString(char *s1, char *s2) {
+    getBagOfWords(&_bag, s1);
+    getBagOfWords(&_bag2, s2);
+    if (_bag.size < _bag2.size)
+        fillStrWords(s1, _bag2, _bag.size);
+    else if (_bag.size > _bag2.size)
+        fillStrWords(s2, _bag, _bag2.size);
+}
 
 
 
