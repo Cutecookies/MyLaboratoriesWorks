@@ -431,6 +431,26 @@ void test_areThereSameWords_areSomeSameWords() {
     assert(areThereSameWords(s));
 }
 
+// Task 14
+
+// пустая строка
+void test_areWordsWithSameLetters_emptyString() {
+    char s[] = "";
+    assert(!areWordsWithSameLetters(s));
+}
+
+// есть слова с одинаковыми элементами
+void test_areWordsWithSameLetters_areSameElements() {
+    char s[] = "ab ba c";
+    assert(areWordsWithSameLetters(s));
+}
+
+// нет слов с одинаковыми элементами
+void test_areWordsWithSameLetters_noSameElements() {
+    char s[] = "ab baс c";
+    assert(!areWordsWithSameLetters(s));
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -481,6 +501,9 @@ void test() {
     test_areThereSameWords_noSameWords();
     test_areThereSameWords_areSameWords();
     test_areThereSameWords_areSomeSameWords();
+    test_areWordsWithSameLetters_emptyString();
+    test_areWordsWithSameLetters_areSameElements();
+    test_areWordsWithSameLetters_noSameElements();
 }
 
 int main() {

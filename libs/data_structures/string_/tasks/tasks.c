@@ -2,6 +2,7 @@
 # include <ctype.h>
 # include "stdio.h"
 # include "stdbool.h"
+# include "stdlib.h"
 
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
@@ -304,8 +305,8 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
     if (isChInWord(*w, 'a') || isChInWord(*w, 'A'))
         return FIRST_WORD_WITH_A;
     WordDescriptor word;
-    while (getWord(w->end, &word)){
-        if(isChInWord(word, 'a') || isChInWord(word, 'A'))
+    while (getWord(w->end, &word)) {
+        if (isChInWord(word, 'a') || isChInWord(word, 'A'))
             return WORD_FOUND;
         *w = word;
     }
@@ -327,14 +328,14 @@ void wordDescriptorToString(WordDescriptor word, char *destination) {
 // в противном случае возвращает слово размером 0
 WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
     WordDescriptor word;
-    if(*s1 == '\0' || *s2 == '\0'){
+    if (*s1 == '\0' || *s2 == '\0') {
         word.begin = s1;
         word.end = s1 + 1;
         return word;
     }
     getBagOfWords(&_bag2, s2);
     char *end_s1 = getEndOfString(s1) - 1;
-    while(getWordReverse(end_s1, s1 - 1, &word)) {
+    while (getWordReverse(end_s1, s1 - 1, &word)) {
         for (int i = 0; i < _bag2.size; i++)
             if (compareWords(_bag2.words[i], word) == 0)
                 return word;
@@ -352,9 +353,9 @@ int areThereSameWords(char *s) {
 
     WordDescriptor w1;
     WordDescriptor w2;
-    while(getWord(s, &w1)) {
+    while (getWord(s, &w1)) {
         copy_s = w1.end + 1;
-        while(getWord(copy_s, &w2)) {
+        while (getWord(copy_s, &w2)) {
             if (compareWords(w1, w2) == 0)
                 return 1;
             copy_s = w2.end;
@@ -362,4 +363,31 @@ int areThereSameWords(char *s) {
         s = w1.end;
     }
     return 0;
+}
+
+// task 14
+
+// функция сравнения
+int compareChar(const void *c1, const void *c2) {
+    return *((char*) c1) - *((char*) c2);
+}
+
+// сортирует буквы в слове
+void sortLettersInWord(WordDescriptor *w1) {
+    qsort(w1->begin, w1->end - w1->begin, sizeof(char), compareChar);
+}
+
+// возвращает 1, если в данной строке есть пара слов,
+// составленных из одинакового набора букв, в другом случае 0
+int areWordsWithSameLetters(char *s) {
+    char *copy_s = stringBuffer;
+    strcpy_(copy_s, s);
+
+    WordDescriptor word;
+    while (getWord(s, &word)) {
+        sortLettersInWord(&word);
+        copy(word.begin, word.begin, s);
+        s = word.end;
+    }
+    return areThereSameWords(copy_s);
 }

@@ -60,3 +60,13 @@
 2	93	7353271366654843	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
 64	99	7353271366724844	libs/data_structures/libdata_structures.a	f63fd48ccbed726e
 100	148	7353271367184842	LaboratoriesWorks.exe	98d6db3b6d898955
+5	84	7353329012534112	libs/data_structures/CMakeFiles/data_structures.dir/string_/tasks/tasks.c.obj	36cbd601721ecbc7
+2	127	7353329012984120	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+84	157	7353329013294113	libs/data_structures/libdata_structures.a	f63fd48ccbed726e
+157	278	7353329014454156	LaboratoriesWorks.exe	98d6db3b6d898955
+4	68	7353332321892503	libs/data_structures/CMakeFiles/data_structures.dir/string_/tasks/tasks.c.obj	36cbd601721ecbc7
+2	94	7353332322152509	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+68	106	7353332322272505	libs/data_structures/libdata_structures.a	f63fd48ccbed726e
+106	159	7353332322782501	LaboratoriesWorks.exe	98d6db3b6d898955
+2	97	7353333432727955	CMakeFiles/LaboratoriesWorks.dir/main.c.obj	e40b99c9369b5d84
+97	147	7353333433207954	LaboratoriesWorks.exe	98d6db3b6d898955
