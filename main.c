@@ -381,6 +381,30 @@ void testAll_getWordBeforeFirstWordWithA() {
            == NOT_FOUND_A_WORD_WITH_A);
 }
 
+// Task 12
+
+// 1 слово из 1-ой строки во 2-ой
+void test_lastWordInFirstStringInSecondString_1Word() {
+    char s1[] = "a";
+    char s2[] = "a bc";
+    char exp[] = "a";
+    char string[MAX_N_WORDS_IN_STRING];
+    WordDescriptor word = lastWordInFirstStringInSecondString(s1, s2);
+    wordDescriptorToString(word, string);
+    ASSERT_STRING(exp, string);
+}
+
+// 2 слова из 1-ой строки во 2-ой
+void test_lastWordInFirstStringInSecondString_2Words() {
+    char s1[] = "a b c";
+    char s2[] = "a bc b d";
+    char exp[] = "b";
+    char string[MAX_N_WORDS_IN_STRING];
+    WordDescriptor word = lastWordInFirstStringInSecondString(s1, s2);
+    wordDescriptorToString(word, string);
+    ASSERT_STRING(exp, string);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -425,6 +449,8 @@ void test() {
     test_makeStringWordReverse_1Word();
     test_makeStringWordReverse_3Words();
     testAll_getWordBeforeFirstWordWithA();
+    test_lastWordInFirstStringInSecondString_1Word();
+    test_lastWordInFirstStringInSecondString_2Words();
 }
 
 int main() {

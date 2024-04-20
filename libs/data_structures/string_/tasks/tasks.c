@@ -312,13 +312,35 @@ WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(
     return NOT_FOUND_A_WORD_WITH_A;
 }
 
+// task 12
+// перевод WordDescriptor в char*.
+void wordDescriptorToString(WordDescriptor word, char *destination) {
+    while (word.begin != word.end) {
+        *destination = *word.begin;
+        word.begin++;
+        destination++;
+    }
+    *destination = '\0';
+}
 
-
-
-
-
-
-
-
-
-
+// возвращает последнее из слов первой строки, которое есть во второй строке,
+// в противном случае возвращает слово размером 0
+WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
+    WordDescriptor word;
+    if(*s1 == '\0' || *s2 == '\0'){
+        word.begin = s1;
+        word.end = s1 + 1;
+        return word;
+    }
+    getBagOfWords(&_bag2, s2);
+    char *end_s1 = getEndOfString(s1) - 1;
+    while(getWordReverse(end_s1, s1 - 1, &word)) {
+        for (int i = 0; i < _bag2.size; i++)
+            if (compareWords(_bag2.words[i], word) == 0)
+                return word;
+        end_s1 = word.begin - 1;
+    }
+    word.begin = s1;
+    word.end = s1 + 1;
+    return word;
+}
