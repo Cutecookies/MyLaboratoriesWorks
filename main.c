@@ -383,6 +383,22 @@ void testAll_getWordBeforeFirstWordWithA() {
 
 // Task 12
 
+// пустые строки
+void test_lastWordInFirstStringInSecondString_emptyStrings() {
+    char s1[] = "";
+    char s2[] = "";
+    WordDescriptor get = lastWordInFirstStringInSecondString(s1, s2);
+    assert(get.begin == get.end && get.begin == NULL);
+}
+
+// нет подходящих слов
+void test_lastWordInFirstStringInSecondString_noFitWords() {
+    char s1[] = "a b c";
+    char s2[] = "d e";
+    WordDescriptor get = lastWordInFirstStringInSecondString(s1, s2);
+    assert(get.begin == get.end && get.begin == NULL);
+}
+
 // 1 слово из 1-ой строки во 2-ой
 void test_lastWordInFirstStringInSecondString_1Word() {
     char s1[] = "a";
@@ -477,6 +493,43 @@ void test_getStringFromWordsNotEqualTOLast_noWordsNotEqualToLast() {
     ASSERT_STRING(exp, s);
 }
 
+// Task 16
+
+// пустые строки
+void test_getWordBeforeW_emptyStrings() {
+    char s1[] = "";
+    char s2[] = "";
+    WordDescriptor get = getWordBeforeW(s1, s2);
+    assert(get.begin == get.end && get.begin == NULL);
+}
+
+// первое слово подходит
+void test_getWordBeforeW_1WordFit() {
+    char s1[] = "a b c";
+    char s2[] = "c g a";
+    WordDescriptor get = getWordBeforeW(s1, s2);
+    assert(get.begin == get.end && get.begin == NULL);
+}
+
+// есть подходящее слово
+void test_getWordBeforeW_isFitWord() {
+    char s1[] = "k b c";
+    char s2[] = "c g a";
+    char exp[] = "b";
+    WordDescriptor get = getWordBeforeW(s1, s2);
+    char res[MAX_WORD_SIZE];
+    wordDescriptorToString(get, res);
+    ASSERT_STRING(exp, res);
+}
+
+// нет подходящего слова
+void test_getWordBeforeW_noFitWord() {
+    char s1[] = "a b c";
+    char s2[] = "d e";
+    WordDescriptor get = getWordBeforeW(s1, s2);
+    assert(get.begin == get.end && get.begin == NULL);
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -521,6 +574,8 @@ void test() {
     test_makeStringWordReverse_1Word();
     test_makeStringWordReverse_3Words();
     testAll_getWordBeforeFirstWordWithA();
+    test_lastWordInFirstStringInSecondString_emptyStrings();
+    test_lastWordInFirstStringInSecondString_noFitWords();
     test_lastWordInFirstStringInSecondString_1Word();
     test_lastWordInFirstStringInSecondString_2Words();
     test_areThereSameWords_emptyString();
@@ -533,6 +588,10 @@ void test() {
     test_getStringFromWordsNotEqualTOLast_emptyString();
     test_getStringFromWordsNotEqualTOLast_areWordsNotEqualToLast();
     test_getStringFromWordsNotEqualTOLast_noWordsNotEqualToLast();
+    test_getWordBeforeW_emptyStrings();
+    test_getWordBeforeW_1WordFit();
+    test_getWordBeforeW_isFitWord();
+    test_getWordBeforeW_noFitWord();
 }
 
 int main() {

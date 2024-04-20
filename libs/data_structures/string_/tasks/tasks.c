@@ -329,9 +329,7 @@ void wordDescriptorToString(WordDescriptor word, char *destination) {
 WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
     WordDescriptor word;
     if (*s1 == '\0' || *s2 == '\0') {
-        word.begin = s1;
-        word.end = s1 + 1;
-        return word;
+        return (WordDescriptor) {NULL, NULL};
     }
     getBagOfWords(&_bag2, s2);
     char *end_s1 = getEndOfString(s1) - 1;
@@ -341,9 +339,7 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
                 return word;
         end_s1 = word.begin - 1;
     }
-    word.begin = s1;
-    word.end = s1 + 1;
-    return word;
+    return (WordDescriptor) {NULL, NULL};
 }
 
 // task 13
@@ -418,4 +414,21 @@ void getStringFromWordsNotEqualTOLast(char *s){
         wr--;
     }
     *wr = '\0';
+}
+
+// task 16
+
+// возвращает слово, предшествующее первому вхождению w в s1.
+WordDescriptor getWordBeforeW(char *s1, char *s2) {
+    getBagOfWords(&_bag, s1);
+    getBagOfWords(&_bag2, s2);
+
+    for (size_t i = 0; i < _bag.size; i++)
+        for (size_t j = 0; j < _bag2.size; j++)
+            if(compareWords(_bag.words[i], _bag2.words[j]) == 0){
+                if(i == 0)
+                    return (WordDescriptor){NULL, NULL};
+                return _bag.words[i - 1];
+            }
+    return (WordDescriptor){NULL, NULL};
 }
