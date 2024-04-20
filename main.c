@@ -254,7 +254,7 @@ void test_isWordsOrdered_wordsFalseAndEqualWords() {
 
 // пустая строка
 void test_printWordsFromEnd_emptyString() {
-    char s[] = "ab cd";
+    char s[] = "";
     printWordsFromEnd(s);
 }
 
@@ -602,6 +602,53 @@ void test_fillString_2StringIsEmpty() {
     ASSERT_STRING(exp, s2);
 }
 
+// Task 19
+
+// все буквы слова входят в строку
+void test_isAllLettersFromWordInString_true() {
+    char s1[] = "dfef afew fsda ds";
+    char s2[] = "afds";
+    char *end_s = getEndOfString(s2);
+    WordDescriptor w = {s2, end_s};
+    assert(isAllLettersFromWordInString(s1, w));
+}
+
+// не все буквы слова входят в строку
+void test_isAllLettersFromWordInString_false() {
+    char s1[] = "dfef afew 5fsda ds";
+    char s2[] = "afdsk";
+    char *end_s2 = getEndOfString(s2);
+    WordDescriptor w = {s2, end_s2};
+    assert(!isAllLettersFromWordInString(s1, w));
+}
+
+// в слове есть числа
+void test_isAllLettersFromWordInString_numbersInWord() {
+    char s1[] = "dfef afew 5fsda ds";
+    char s2[] = "afd3s";
+    char *end_s2 = getEndOfString(s2);
+    WordDescriptor w = {s2, end_s2};
+    assert(isAllLettersFromWordInString(s1, w));
+}
+
+// пустая строка
+void test_isAllLettersFromWordInString_emptyString() {
+    char s1[] = "";
+    char s2[] = "afd3s";
+    char *end_s2 = getEndOfString(s2);
+    WordDescriptor w = {s2, end_s2};
+    assert(!isAllLettersFromWordInString(s1, w));
+}
+
+// пустое слово
+void test_isAllLettersFromWordInString_emptyWord() {
+    char s1[] = "dfef afew 5fsda ds";
+    char s2[] = "";
+    char *end_s2 = getEndOfString(s2);
+    WordDescriptor w = {s2, end_s2};
+    assert(isAllLettersFromWordInString(s1, w));
+}
+
 void test() {
     test_removeNonLetters_onlyLetters();
     test_removeNonLetters_oneSpace();
@@ -672,6 +719,11 @@ void test() {
     test_fillString_n2MoreN1();
     test_fillString_1StringIsEmpty();
     test_fillString_2StringIsEmpty();
+    test_isAllLettersFromWordInString_true();
+    test_isAllLettersFromWordInString_false();
+    test_isAllLettersFromWordInString_numbersInWord();
+    test_isAllLettersFromWordInString_emptyString();
+    test_isAllLettersFromWordInString_emptyWord();
 }
 
 int main() {

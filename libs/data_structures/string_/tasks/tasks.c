@@ -378,7 +378,7 @@ int areThereSameWords(char *s) {
 
 // функция сравнения
 int compareChar(const void *c1, const void *c2) {
-    return *((char*) c1) - *((char*) c2);
+    return *((char *) c1) - *((char *) c2);
 }
 
 // сортирует буквы в слове
@@ -405,7 +405,7 @@ int areWordsWithSameLetters(char *s) {
 
 // создает Получить строку из слов данной строки,
 // которые отличны от последнего слова.
-void getStringFromWordsNotEqualTOLast(char *s){
+void getStringFromWordsNotEqualTOLast(char *s) {
     if (*s == '\0')
         return;
     WordDescriptor last_word;
@@ -438,12 +438,12 @@ WordDescriptor getWordBeforeW(char *s1, char *s2) {
 
     for (size_t i = 0; i < _bag.size; i++)
         for (size_t j = 0; j < _bag2.size; j++)
-            if(compareWords(_bag.words[i], _bag2.words[j]) == 0){
-                if(i == 0)
-                    return (WordDescriptor){NULL, NULL};
+            if (compareWords(_bag.words[i], _bag2.words[j]) == 0) {
+                if (i == 0)
+                    return (WordDescriptor) {NULL, NULL};
                 return _bag.words[i - 1];
             }
-    return (WordDescriptor){NULL, NULL};
+    return (WordDescriptor) {NULL, NULL};
 }
 
 // task 17
@@ -467,7 +467,7 @@ void deleteWordPalindromes(char *s) {
 
 //task 18
 // заполнение строки словами из сумки
-void fillStrWords(char* s, BagOfWords bag, size_t start_copy_index) {
+void fillStrWords(char *s, BagOfWords bag, size_t start_copy_index) {
     char *wr = getEndOfString(s);
     if (*s != '\0') {
         *wr = ' ';
@@ -492,9 +492,27 @@ void fillString(char *s1, char *s2) {
         fillStrWords(s2, _bag, _bag2.size);
 }
 
+// task 19
+// возвращает 1, если символ есть в строке, иначе - нет
+int isSymbolInString(char *s, char c) {
+    while (*s != '\0') {
+        if (*s == c)
+            return 1;
+        s++;
+    }
+    return 0;
+}
 
-
-
-
-
+// возвращает 1, если в данную строку входит каждая
+// буква данного слова, иначе - 0
+int isAllLettersFromWordInString(char *s, WordDescriptor w) {
+    while (w.begin != w.end) {
+        if (isalpha(*w.begin)) {
+            if (!isSymbolInString(s, *w.begin))
+                return 0;
+        }
+        w.begin++;
+    }
+    return 1;
+}
 
