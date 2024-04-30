@@ -1,9 +1,10 @@
 # include "flow.h"
 # include <ctype.h>
-# include "stdio.h"
-# include "string.h"
-# include "stdlib.h"
-#include <stdio.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <math.h>
 
 // Task 1
 
@@ -43,4 +44,42 @@ void transposeAllMatricesInFile(char *filename) {
         transposeMatrix(&matrices[i]);
     }
     writeMatrices(matrices, filename, amt_m);
+}
+
+// Task 2
+
+void createFileWithFloatNumbers(char *filename) {
+    FILE *file = fopen(filename, "w");
+    int amt_n = 6;
+    float n[] = {123.456, 4832.43523, 1.4324, 423, 0.34, 0.00023};
+    for(int i = 0; i < amt_n; i++) {
+        fprintf(file, "%f\n", n[i]);
+    }
+    fclose(file);
+}
+
+vectorVoid readFloatNumbersFromFile(char *filename) {
+    FILE *file = fopen(filename, "r");
+    vectorVoid numbers = createVectorV(0, sizeof(float));
+    float x;
+    while(fscanf(file, "%f", &x) != EOF) {
+        pushBackV(&numbers, &x);
+    }
+    fclose(file);
+    return numbers;
+}
+
+void writeFloatNumbersToFile(char *filename, float *numbers, int amt_n) {
+    FILE *file = fopen(filename, "w");
+    for (int i = 0; i < amt_n; i++) {
+        fprintf(file, "%0.2e\n", numbers[i]);
+    }
+    fclose(file);
+}
+
+void convertNumbersToFloatingPoint(char *filename) {
+    vectorVoid numbers = readFloatNumbersFromFile(filename);
+    float* n = numbers.data;
+    int amt_n = numbers.size;
+    writeFloatNumbersToFile(filename, n, amt_n);
 }

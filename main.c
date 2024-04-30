@@ -43,8 +43,22 @@ void test_transposeAllMatricesInFile(){
     free(matrices);
 }
 
+void test_convertNumbersToFloatingPoint() {
+    char filename[] = "D:/text_lab_19.txt";
+    createFileWithFloatNumbers(filename);
+    convertNumbersToFloatingPoint(filename);
+    float exp[] = {1.23e+02, 4.83e+03, 1.43e+00, 4.23e+02, 3.40e-01, 2.30e-04};
+    FILE *file = fopen(filename, "r");
+    float x;
+    for(int i = 0; i < 6; i++) {
+        fscanf(file, "%f", &x);
+        assert(x == exp[i]);
+    }
+}
+
 void test() {
     test_transposeAllMatricesInFile();
+    test_convertNumbersToFloatingPoint();
 }
 
 int main() {
