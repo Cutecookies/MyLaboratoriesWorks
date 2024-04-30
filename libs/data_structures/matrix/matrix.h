@@ -3,6 +3,7 @@
 
 # include "stdbool.h"
 # include "../../algorithms/array/array.h"
+# include <stdio.h>
 
 typedef struct matrix {
     int **values; // элементы матрицы
@@ -103,5 +104,17 @@ matrix createMatrixFromArray(const int *a, int nRows,
 // построенных из элементов массива a.
 matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices,
                                      int nRows, int nCols);
+
+// считывает матрицу из файла
+matrix readMatrix(FILE* file);
+
+// записывает матрицу в файл
+void writeMatrix(matrix m, FILE *file);
+
+// считывает матрицы из файла
+matrix* readMatrices(char *filename, int *amt_m);
+
+// записывает матрицы в файл
+void writeMatrices(matrix *m, char *filename, int amt_m);
 
 #endif //LABORATORIESWORKS_MATRIX_H

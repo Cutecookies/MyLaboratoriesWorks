@@ -5,6 +5,7 @@ add_library(data_structures
         string_/string_.c
         string_/string_.h
         string_/tasks/tasks.c
+        flow/flow.c
 )
 
 target_link_libraries(data_structures algorithms)

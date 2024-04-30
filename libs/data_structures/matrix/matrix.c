@@ -136,15 +136,16 @@ bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
     if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
         return 0;
     for (int i = 0; i < m1->nRows; i++)
-        if (memcmp(m1->values[i], m2->values[i], sizeof(int *) * m1->nCols) != 0) {
-            printf("jk");
-            return 0;}
+        if (memcmp(m1->values[i], m2->values[i], sizeof(int) *
+                                                 m1->nCols) != 0) {
+            return 0;
+        }
 
     return 1;
 }
 
 bool isEMatrix(matrix *m) {
-    if (isSquareMatrix(m)){
+    if (isSquareMatrix(m)) {
         for (int i = 0; i < m->nRows; i++) {
             for (int j = 0; j < m->nCols; j++) {
                 if (i == j && m->values[i][j] != 1)
@@ -159,7 +160,7 @@ bool isEMatrix(matrix *m) {
 }
 
 bool isSymmetricMatrix(matrix *m) {
-    if (isSquareMatrix(m)){
+    if (isSquareMatrix(m)) {
         for (int i = 0; i < m->nRows; i++) {
             for (int j = 0; j < m->nCols; j++) {
                 if (i != j && m->values[i][j] != m->values[j][i])
@@ -247,4 +248,46 @@ matrix *createArrayOfMatrixFromArray(const int *values, int nMatrices,
                 ms[k].values[i][j] = values[l++];
 
     return ms;
+}
+
+matrix readMatrix(FILE *file) {
+    int size_matrix;
+    fscanf(file, "%d", &size_matrix);
+    matrix m = getMemMatrix(size_matrix, size_matrix);
+    for (int row_index = 0; row_index < size_matrix; row_index++)
+        for (int column_index = 0; column_index < size_matrix; column_index++)
+            fscanf(file, "%d", &m.values[row_index][column_index]);
+    return m;
+}
+
+void writeMatrix(matrix m, FILE *file) {
+    fprintf(file, "%d\n", m.nRows);
+    for (int row_index = 0; row_index < m.nRows; row_index++) {
+        for (int column_index = 0; column_index < m.nCols; column_index++) {
+            fprintf(file, "%d", m.values[row_index][column_index]);
+            if (column_index != m.nCols - 1)
+                fputc(' ', file);
+        }
+        fputc('\n', file);
+    }
+}
+
+matrix *readMatrices(char *filename, int *amt_m) {
+    FILE *file = fopen(filename, "r");
+    fscanf(file, "%d", amt_m);
+    matrix *matrices = malloc(*amt_m * sizeof(matrix));
+    for (int i = 0; i < *amt_m; i++) {
+        matrices[i] = readMatrix(file);
+    }
+    fclose(file);
+    return matrices;
+}
+
+void writeMatrices(matrix *m, char *filename, int amt_m) {
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%d\n", amt_m);
+    for (int i = 0; i < amt_m; i++) {
+        writeMatrix(m[i], file);
+    }
+    fclose(file);
 }
