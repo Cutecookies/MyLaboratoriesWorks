@@ -52,7 +52,7 @@ void createFileWithFloatNumbers(char *filename) {
     FILE *file = fopen(filename, "w");
     int amt_n = 6;
     float n[] = {123.456, 4832.43523, 1.4324, 423, 0.34, 0.00023};
-    for(int i = 0; i < amt_n; i++) {
+    for (int i = 0; i < amt_n; i++) {
         fprintf(file, "%f\n", n[i]);
     }
     fclose(file);
@@ -62,7 +62,7 @@ vectorVoid readFloatNumbersFromFile(char *filename) {
     FILE *file = fopen(filename, "r");
     vectorVoid numbers = createVectorV(0, sizeof(float));
     float x;
-    while(fscanf(file, "%f", &x) != EOF) {
+    while (fscanf(file, "%f", &x) != EOF) {
         pushBackV(&numbers, &x);
     }
     fclose(file);
@@ -79,7 +79,76 @@ void writeFloatNumbersToFile(char *filename, float *numbers, int amt_n) {
 
 void convertNumbersToFloatingPoint(char *filename) {
     vectorVoid numbers = readFloatNumbersFromFile(filename);
-    float* n = numbers.data;
+    float *n = numbers.data;
     int amt_n = numbers.size;
     writeFloatNumbersToFile(filename, n, amt_n);
+}
+
+// Task 3
+
+float makeOperation(float n1, float n2, char op) {
+    if (op == '-')
+        return n1 - n2;
+    if (op == '+')
+        return n1 + n2;
+    if (op == '*')
+        return n1 * n2;
+    return n1 / n2;
+}
+
+void writeOperation(char *filename, float *operands, char *operations,
+                    int amt_op) {
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%f", operands[0]);
+    for (int i = 0; i < amt_op; i++) {
+        fprintf(file, " %c", operations[i]);
+        fprintf(file, " %f", operands[i + 1]);
+    }
+    fclose(file);
+}
+
+void writeOperationAndAnswer(char *filename, float *operands, char *operations,
+                             int amt_op, float answer) {
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%f", operands[0]);
+    for (int i = 0; i < amt_op; i++) {
+        fprintf(file, " %c", operations[i]);
+        fprintf(file, " %f", operands[i + 1]);
+    }
+    fprintf(file, "\n%f", answer);
+    fclose(file);
+}
+
+void solveExample(char *filename) {
+    float answer;
+
+    FILE *file = fopen(filename, "r");
+    float operands[3];
+    char operations[2];
+    int amt_op = 0;
+    fscanf(file, "%f", &operands[0]);
+    for (int i = 0; i < 2; i++) {
+        if (fscanf(file, " %c", &operations[i]) != EOF) {
+            fscanf(file, " %f", &operands[i + 1]);
+            amt_op++;
+        }
+    }
+
+    fclose(file);
+    if (amt_op == 0){
+        answer = operands[0];}
+    else if (amt_op == 1)
+        answer = makeOperation(operands[0], operands[1], operations[0]);
+    else {
+        float firs_act;
+        if (operations[0] == '*' || operations[0] == '/' ||
+            (operations[1] != '*' && operations[1] != '/')) {
+            firs_act = makeOperation(operands[0], operands[1], operations[0]);
+            answer = makeOperation(firs_act, operands[2], operations[1]);
+        } else {
+            firs_act = makeOperation(operands[1], operands[2], operations[1]);
+            answer = makeOperation(operands[0], firs_act, operations[0]);
+        }
+    }
+    writeOperationAndAnswer(filename, operands, operations, amt_op, answer);
 }

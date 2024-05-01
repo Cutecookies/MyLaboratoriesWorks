@@ -29,4 +29,20 @@ void writeFloatNumbersFromFile(char *filename, float *numbers, int amt_n);
 // после точки в мантиссе.
 void convertNumbersToFloatingPoint(char *filename);
 
+// Task 3
+
+// запись операции в файл
+void writeOperation(char *filename, float *operands, char *operations,
+                    int amt_op);
+
+// возвращает результат операции над двумя числами
+float makeOperation(float n1, float n2, char op);
+
+// запись операции и ответа
+void writeOperationAndAnswer(char *filename, float *operands, char *operations,
+                             int amt_op, float answer);
+
+// записывает ответ после примера
+void solveExample(char *filename);
+
 #endif //LABORATORIESWORKS_FLOW_H

@@ -54,11 +54,102 @@ void test_convertNumbersToFloatingPoint() {
         fscanf(file, "%f", &x);
         assert(x == exp[i]);
     }
+    fclose(file);
+}
+
+// 1 операнд
+void test_solveExample_1Operand() {
+    char filename[] = "D:/text_lab_19.txt";
+
+    float operands[] = {12.5};
+    char operations[] = {};
+    int amt_op = 0;
+    writeOperation(filename, operands, operations, amt_op);
+
+    solveExample(filename);
+
+    FILE *file2 = fopen(filename, "r");
+    char operation[100];
+    fgets(operation, 100, file2);
+    float get;
+    fscanf(file2, "%f", &get);
+    fclose(file2);
+
+    assert(get == 12.5);
+}
+
+// 2 операнда
+void test_solveExample_2Operands() {
+    char filename[] = "D:/text_lab_19.txt";
+
+    float operands[2] = {7.5, 2.0};
+    char operations[1] = {'*'};
+    int amt_op = 1;
+    writeOperation(filename, operands, operations, amt_op);
+
+    solveExample(filename);
+
+    FILE *file2 = fopen(filename, "r");
+    char operation[100];
+    fgets(operation, 100, file2);
+    float get;
+    fscanf(file2, "%f", &get);
+    fclose(file2);
+
+    assert(get == 15);
+}
+
+// 3 операнда
+void test_solveExample_3Operands() {
+    char filename[] = "D:/text_lab_19.txt";
+
+    float operands[3] = {7.5, 2.0, 5.5};
+    char operations[2] = {'*', '-'};
+    int amt_op = 2;
+    writeOperation(filename, operands, operations, amt_op);
+
+    solveExample(filename);
+
+    FILE *file2 = fopen(filename, "r");
+    char operation[100];
+    fgets(operation, 100, file2);
+    float get;
+    fscanf(file2, "%f", &get);
+    fclose(file2);
+
+    assert(get == 9.5);
+}
+
+// умножение на втором месте
+void test_solveExample_multiplicationIn2Place() {
+    char filename[] = "D:/text_lab_19.txt";
+
+    float operands[3] = {7.5, 5.5, 2.0};
+    char operations[2] = {'-', '*'};
+    int amt_op = 2;
+    writeOperation(filename, operands, operations, amt_op);
+
+    solveExample(filename);
+
+    FILE *file2 = fopen(filename, "r");
+    char operation[100];
+    fgets(operation, 100, file2);
+    float get;
+    fscanf(file2, "%f", &get);
+    fclose(file2);
+
+    assert(get == -3.5);
 }
 
 void test() {
     test_transposeAllMatricesInFile();
+
     test_convertNumbersToFloatingPoint();
+
+    test_solveExample_1Operand();
+    test_solveExample_2Operands();
+    test_solveExample_3Operands();
+    test_solveExample_multiplicationIn2Place();
 }
 
 int main() {
