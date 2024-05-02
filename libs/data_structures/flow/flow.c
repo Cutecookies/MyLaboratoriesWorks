@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <string.h>
 
 // Task 1
 
@@ -135,9 +136,9 @@ void solveExample(char *filename) {
     }
 
     fclose(file);
-    if (amt_op == 0){
-        answer = operands[0];}
-    else if (amt_op == 1)
+    if (amt_op == 0) {
+        answer = operands[0];
+    } else if (amt_op == 1)
         answer = makeOperation(operands[0], operands[1], operations[0]);
     else {
         float firs_act;
@@ -152,3 +153,66 @@ void solveExample(char *filename) {
     }
     writeOperationAndAnswer(filename, operands, operations, amt_op, answer);
 }
+
+// Task 4
+
+int compareStr(const char *w1, const char *w2, long n) {
+    for (int i = 0; i < n; i++) {
+        if (*w1 != *w2)
+            return 0;
+        w1++;
+        w2++;
+    }
+    return 1;
+}
+
+long getFileSize(const char *filename) {
+    long file_size = 0;
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL)
+        file_size = -1;
+
+    else {
+        while (getc(file) != EOF)
+            file_size++;
+        fclose(file);
+    }
+    return file_size;
+}
+
+void writeWordsInFile(char *filename, char words[100][100], int amt_w) {
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%s", words[0]);
+    for (int i = 1; i < amt_w; i++) {
+        fprintf(file, " %s", words[i]);
+    }
+    fclose(file);
+}
+
+void writeBufferInFile(char *filename, char *buf) {
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%s\n", buf);
+    fclose(file);
+}
+
+void leftWordsWithSymbols(char *filename, const char *symbols) {
+    long filesize = getFileSize(filename) + 1;
+    char *buffer = malloc(filesize);
+
+    FILE *file = fopen(filename, "r");
+
+    char *word = buffer;
+    while (fscanf(file, "%s", word) != EOF)
+        if (strstr(word, symbols)) {
+            word += strlen(word);
+            *word = ' ';
+            word++;
+        }
+    *word = '\0';
+    fclose(file);
+
+    writeBufferInFile(filename, buffer);
+    free(buffer);
+}
+
+// Task 5

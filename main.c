@@ -4,7 +4,7 @@
 # include <stdlib.h>
 # include <assert.h>
 
-void test_transposeAllMatricesInFile(){
+void test_transposeAllMatricesInFile() {
     char filename[] = "D:/text_lab_19.txt";
     createFileWithMatrices(filename);
     transposeAllMatricesInFile(filename);
@@ -50,7 +50,7 @@ void test_convertNumbersToFloatingPoint() {
     float exp[] = {1.23e+02, 4.83e+03, 1.43e+00, 4.23e+02, 3.40e-01, 2.30e-04};
     FILE *file = fopen(filename, "r");
     float x;
-    for(int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; i++) {
         fscanf(file, "%f", &x);
         assert(x == exp[i]);
     }
@@ -141,6 +141,27 @@ void test_solveExample_multiplicationIn2Place() {
     assert(get == -3.5);
 }
 
+void test_leftWordsWithSymbols() {
+    char filename[] = "D:/text_lab_19.txt";
+    char symbols[] = "ab";
+    char words[100][100] = {"dog", "cat", "abroad", "interesting", "laboratory"};
+
+    writeWordsInFile(filename, words, 5);
+
+    leftWordsWithSymbols(filename, symbols);
+
+    FILE *file = fopen(filename, "r");
+
+    char res[100];
+    fgets(res, 100, file);
+
+    fclose(file);
+
+    char exp[100] = "abroad laboratory";
+
+    assert(compareStr(res, exp, 17) == 1);
+}
+
 void test() {
     test_transposeAllMatricesInFile();
 
@@ -150,6 +171,8 @@ void test() {
     test_solveExample_2Operands();
     test_solveExample_3Operands();
     test_solveExample_multiplicationIn2Place();
+
+    test_leftWordsWithSymbols();
 }
 
 int main() {

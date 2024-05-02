@@ -45,4 +45,22 @@ void writeOperationAndAnswer(char *filename, float *operands, char *operations,
 // записывает ответ после примера
 void solveExample(char *filename);
 
+// Task 4
+
+// 1 - строки равны, 0 - нет
+int compareStr(const char *w1, const char *w2, long n);
+
+// возвращает размер файла
+long getFileSize(const char* filename);
+
+// записывает слова в файл
+void writeWordsInFile(char *filename, char words[100][100], int amt_w);
+
+// записывает буфер в файл
+void writeBufferInFile(char *filename, char *buf);
+
+// Сохраняет в файле только те слова, которые
+// содержат данную последовательность символов.
+void leftWordsWithSymbols(char *filename, const char *symbols);
+
 #endif //LABORATORIESWORKS_FLOW_H
