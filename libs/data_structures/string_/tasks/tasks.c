@@ -4,12 +4,6 @@
 # include "stdbool.h"
 # include "stdlib.h"
 
-#define MAX_STRING_SIZE 100
-#define MAX_N_WORDS_IN_STRING 100
-#define MAX_WORD_SIZE 20
-
-char stringBuffer[MAX_STRING_SIZE + 1];
-
 // task 1
 void removeNonLetters(char *s) {
     char *endSource = getEndOfString(s);
@@ -34,11 +28,6 @@ void removeAdjacentEqualLetters(char *s) {
 }
 
 // task 3
-typedef struct WordDescriptor {
-    char *begin; // позиция начала слова
-    char *end; // позиция первого символа, после
-    // последнего символа слова
-} WordDescriptor;
 
 // Преобразовать строку таким образом, чтобы цифры
 // были в начале слова, а буквы в конце.
@@ -176,13 +165,6 @@ int isWordsOrdered(char *s) {
 }
 
 // task 7
-typedef struct BagOfWords {
-    WordDescriptor words[MAX_N_WORDS_IN_STRING];
-    size_t size;
-} BagOfWords;
-
-BagOfWords _bag;
-BagOfWords _bag2;
 
 // получает позиции начала и конца каждого слова строки
 void getBagOfWords(BagOfWords *bag, char *s) {
@@ -297,13 +279,6 @@ void makeStringWordReverse(char *s) {
 }
 
 // task 11
-
-typedef enum WordBeforeFirstWordWithAReturnCode {
-    FIRST_WORD_WITH_A,
-    NOT_FOUND_A_WORD_WITH_A,
-    WORD_FOUND,
-    EMPTY_STRING
-} WordBeforeFirstWordWithAReturnCode;
 
 // есть ли символ в слове
 int isChInWord(WordDescriptor w, char a) {

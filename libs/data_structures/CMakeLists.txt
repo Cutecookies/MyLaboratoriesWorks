@@ -4,7 +4,6 @@ add_library(data_structures
         matrix/matrix.c
         string_/string_.c
         string_/string_.h
-        string_/tasks/tasks.c
         flow/flow.c
 )
 

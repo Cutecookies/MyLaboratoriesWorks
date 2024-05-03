@@ -162,6 +162,33 @@ void test_leftWordsWithSymbols() {
     assert(compareStr(res, exp, 17) == 1);
 }
 
+void test_onlyLongWords() {
+    char filename[] = "D:/text_lab_19.txt";
+    FILE *file = fopen(filename, "w");
+    fprintf(file, "%s\n", "cat dog elephant");
+    fprintf(file, "%s\n", "tiger dog elephant");
+    fprintf(file, "%s", "cat crocodile horse");
+    fclose(file);
+
+    onlyLongWords(filename);
+
+    char *word1_exp = "elephant";
+    char *word2_exp = "crocodile";
+    FILE *file2 = fopen(filename, "r");
+    char *word1_res = malloc(sizeof(char) * 100);
+    char *word2_res = malloc(sizeof(char) * 100);
+    char *word3_res = malloc(sizeof(char) * 100);
+    fgets(word1_res, 100, file2);
+    fgets(word2_res, 100, file2);
+    fgets(word3_res, 100, file2);
+
+    assert(compareStr(word1_res, word1_exp, 8));
+    assert(compareStr(word2_res, word1_exp, 8));
+    assert(compareStr(word3_res, word2_exp, 9));
+
+    fclose(file2);
+}
+
 void test() {
     test_transposeAllMatricesInFile();
 
@@ -173,6 +200,8 @@ void test() {
     test_solveExample_multiplicationIn2Place();
 
     test_leftWordsWithSymbols();
+
+    test_onlyLongWords();
 }
 
 int main() {

@@ -3,6 +3,7 @@
 
 # include "../../data_structures/matrix/matrix.h"
 # include "../../data_structures/vector/vectorVoid.h"
+# include "../../data_structures/string_/string_.h"
 
 //Task 1
 
@@ -62,5 +63,19 @@ void writeBufferInFile(char *filename, char *buf);
 // Сохраняет в файле только те слова, которые
 // содержат данную последовательность символов.
 void leftWordsWithSymbols(char *filename, const char *symbols);
+
+// Task 5
+
+// возвращает длину слова
+int wordLen(WordDescriptor word);
+
+// возвращает самое большое слово строки
+WordDescriptor wordMaxLen(char *words);
+
+// записывает слова в файл
+void writeWords(char *filename, char *words[], int n);
+
+// оставляет самые длинные слова в строчках
+void onlyLongWords(char *filename);
 
 #endif //LABORATORIESWORKS_FLOW_H

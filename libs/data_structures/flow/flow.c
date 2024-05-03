@@ -5,7 +5,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include <string.h>
 
 // Task 1
 
@@ -173,7 +172,7 @@ long getFileSize(const char *filename) {
         file_size = -1;
 
     else {
-        while (getc(file) != EOF)
+        while (fgetc(file) != EOF)
             file_size++;
         fclose(file);
     }
@@ -216,3 +215,52 @@ void leftWordsWithSymbols(char *filename, const char *symbols) {
 }
 
 // Task 5
+
+int wordLen(WordDescriptor word) {
+    return word.end - word.begin;
+}
+
+WordDescriptor wordMaxLen(char *words) {
+    getBagOfWords(&_bag, words);
+    WordDescriptor max_len_word;
+    int max_len;
+    max_len_word = _bag.words[0];
+    max_len = wordLen(max_len_word);
+    int cur_len;
+    for (int i = 1; i < _bag.size; i++) {
+        cur_len = wordLen(_bag.words[i]);
+        if (cur_len > max_len) {
+            max_len = cur_len;
+            max_len_word = _bag.words[i];
+        }
+    }
+    return max_len_word;
+}
+
+void writeWords(char *filename, char *words[], int n) {
+    FILE *file = fopen(filename, "w");
+    for (int i = 0; i < n; i++) {
+        fprintf(file, "%s\n", words[i]);
+        free(words[i]);
+    }
+    fclose(file);
+}
+
+void onlyLongWords(char *filename) {
+    long int file_size = getFileSize(filename);
+    char *buffer = malloc(file_size);
+    FILE *file = fopen(filename, "r");
+    WordDescriptor word;
+
+    char *words[1000];
+    int ind = 0;
+
+    while (fgets(buffer, file_size, file) != NULL) {
+        word = wordMaxLen(buffer);
+        words[ind] = malloc(wordLen(word) + 1);
+        wordDescriptorToString(word, words[ind++]);
+    }
+    fclose(file);
+
+    writeWords(filename, words, ind);
+}
