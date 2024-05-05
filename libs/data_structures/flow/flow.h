@@ -52,7 +52,7 @@ void solveExample(char *filename);
 int compareStr(const char *w1, const char *w2, long n);
 
 // возвращает размер файла
-long getFileSize(const char* filename);
+long getFileSize(const char *filename);
 
 // записывает слова в файл
 void writeWordsInFile(char *filename, char words[100][100], int amt_w);
@@ -86,7 +86,7 @@ typedef struct Monomial {
     double coefficient;
 } Monomial;
 
-typedef struct Polynomial{
+typedef struct Polynomial {
     int monomial_amount;
     Monomial *data;
 } Polynomial;
@@ -100,7 +100,7 @@ Polynomial createPolynomialFromArray(const int degrees[],
 Polynomial readPolynomialFromFile(FILE *file);
 
 // считывает многочлены из файла
-Polynomial* readPolynomialsFromFile(FILE *file, int *pol_amount);
+Polynomial *readPolynomialsFromFile(FILE *file, int *pol_amount);
 
 // записывает многочлен в файл
 void writePolynomialToFile(Polynomial p, FILE *file);
@@ -111,10 +111,10 @@ void writePolynomialsToFile(Polynomial *ps, FILE *file, int pol_amount);
 // возвращает результат многочлена при x
 double calculatePolynomial(Polynomial p, double x);
 
-// освободить многочлен
+// освобождает многочлен
 void freePolynomial(Polynomial *p);
 
-// освободить многочлены
+// освобождает многочлены
 void freePolynomials(Polynomial *ps, int pol_amount);
 
 void onlyPolynomialWithoutRootX(char *filename, int x);
@@ -129,7 +129,7 @@ void positiveFirstNegativeLast(char *filename);
 matrix readMatrixFromFile(FILE *file);
 
 // считывает матрицы из файла
-matrix* readMatricesFromFile(FILE *file, int *amt_ms);
+matrix *readMatricesFromFile(FILE *file, int *amt_ms);
 
 // записывает матрицу в файл
 void writeMatrixToFile(matrix m, FILE *file);
@@ -138,5 +138,41 @@ void writeMatrixToFile(matrix m, FILE *file);
 void writeMatricesToFile(matrix *ms, FILE *file, int amt_ms);
 
 void onlySymmetricAndTransposeMatrices(char *filename);
+
+// Task 9
+
+typedef struct sportsman {
+    char *fio;
+    int best_result;
+} sportsman;
+
+// возвращает копию строки
+char *createCopyStr(const char *s);
+
+// Создает спортсмена
+sportsman createSportsman(const char *fio, int best_result);
+
+// возвращает считаную строку из бинарного файла
+char *readBinStr(FILE *f);
+
+// записывает  строку в бинарный файл
+void writeBinStr(const char *s, FILE *f);
+
+// считывает спортсмена из файла
+sportsman readSportsmanFromFile(FILE *f);
+
+//записывает спортсмена в файл
+void writeSportsman(sportsman sp, FILE *f);
+
+// освобождает спортсмена
+void freeSportsman(sportsman *sp);
+
+// сравнение результатов спортсменов
+int sportsmanCmp(const void *val1, const void *val2);
+
+// сравнение спортсменов
+int sportsmanCompare(const sportsman *sp1, const sportsman *sp2);
+
+void onlyBestSportsmen(const char *filename, int n);
 
 #endif //LABORATORIESWORKS_FLOW_H

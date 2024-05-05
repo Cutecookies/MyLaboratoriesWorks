@@ -310,6 +310,40 @@ void test_onlySymmetricAndTransposeMatrices() {
     fclose(file);
 }
 
+void test_onlyBestSportsmen() {
+    char filename[] = "D:/text_lab_19.txt";
+    sportsman sp1 = createSportsman("Alex Candley Jefferson", 7);
+    sportsman sp2 = createSportsman("Sebastian Henderson Mikhailovich", 10);
+    sportsman sp3 = createSportsman("Dexter Day Ivanovich", 5);
+    sportsman sp4 = createSportsman("Amelia Murray Alexandrovna", 9);
+    sportsman sp5 = createSportsman("Olivia Watson Vladimirovna", 6);
+    int amt_sps = 5;
+
+    FILE *file = fopen(filename, "wb");
+    fwrite(&amt_sps, sizeof(int), 1, file);
+    writeSportsman(sp1, file);
+    writeSportsman(sp2, file);
+    writeSportsman(sp3, file);
+    writeSportsman(sp4, file);
+    writeSportsman(sp5, file);
+    fclose(file);
+
+    onlyBestSportsmen(filename, 3);
+
+    file = fopen(filename, "rb");
+    fread(&amt_sps, sizeof(int), 1, file);
+    sportsman *sps = (sportsman*) malloc(amt_sps * sizeof(sportsman));
+    for (int i = 0; i < amt_sps; ++i) {
+        sps[i] = readSportsmanFromFile(file);
+    }
+    fclose(file);
+
+    assert(sportsmanCompare(sps, &sp2));
+    assert(sportsmanCompare(sps + 1, &sp4));
+    assert(sportsmanCompare(sps + 2, &sp1));
+
+}
+
 void test() {
     test_transposeAllMatricesInFile();
 
@@ -327,6 +361,8 @@ void test() {
     test_positiveFirstNegativeLast();
 
     test_onlySymmetricAndTransposeMatrices();
+
+    test_onlyBestSportsmen();
 }
 
 int main() {

@@ -356,7 +356,7 @@ void onlyPolynomialWithoutRootX(char *filename, int x) {
     Polynomial ps2[amt_ps];
     int cur_size = 0;
     for (int i = 0; i < amt_ps; i++) {
-        if(fabs(calculatePolynomial(ps[i], x)) > 0.00001)
+        if (fabs(calculatePolynomial(ps[i], x)) > 0.00001)
             ps2[cur_size++] = ps[i];
     }
 
@@ -413,7 +413,7 @@ matrix readMatrixFromFile(FILE *file) {
     fread(&m.nCols, sizeof(int), 1, file);
     m.nRows = m.nCols;
 
-    m.values = malloc(m.nRows * sizeof(int*));
+    m.values = malloc(m.nRows * sizeof(int *));
 
     for (int i = 0; i < m.nRows; i++) {
         m.values[i] = malloc(m.nCols * sizeof(int));
@@ -423,7 +423,7 @@ matrix readMatrixFromFile(FILE *file) {
     return m;
 }
 
-matrix* readMatricesFromFile(FILE *file, int *amt_ms) {
+matrix *readMatricesFromFile(FILE *file, int *amt_ms) {
     fread(amt_ms, sizeof(int), 1, file);
 
     matrix *buffer = malloc(*amt_ms * sizeof(matrix));
@@ -436,7 +436,7 @@ matrix* readMatricesFromFile(FILE *file, int *amt_ms) {
 
 void writeMatrixToFile(matrix m, FILE *file) {
     fwrite(&m.nCols, sizeof(int), 1, file);
-    for(int i = 0; i < m.nRows; i++)
+    for (int i = 0; i < m.nRows; i++)
         fwrite(m.values[i], sizeof(int), m.nCols, file);
 }
 
@@ -472,8 +472,9 @@ void onlySymmetricAndTransposeMatrices(char *filename) {
     matrix ms2[amt_ms];
     for (int i = 0; i < amt_ms; i++) {
         ms2[i] = ms[i];
-        if(!isSymmetricMatrix(&ms[i])){
-            transposeSquareMatrix(&ms2[i]);}
+        if (!isSymmetricMatrix(&ms[i])) {
+            transposeSquareMatrix(&ms2[i]);
+        }
     }
 
     file = fopen(filename, "wb");
@@ -484,3 +485,103 @@ void onlySymmetricAndTransposeMatrices(char *filename) {
     free(ms);
 }
 
+// Task 9
+
+char *createCopyStr(const char *s) {
+    size_t len = strlen_(s) + 1;
+    char *result = (char *) malloc(len);
+    memcpy(result, s, len);
+    return result;
+}
+
+sportsman createSportsman(const char *fio, int best_result) {
+    sportsman sp;
+    sp.fio = createCopyStr(fio);
+    sp.best_result = best_result;
+
+    return sp;
+}
+
+char *readBinStr(FILE *f) {
+    size_t len;
+    fread(&len, sizeof(size_t), 1, f);
+
+    char *s = (char *) malloc(len + 1);
+    fread(s, 1, len, f);
+    s[len] = 0;
+
+    return s;
+}
+
+void writeBinStr(const char *s, FILE *f) {
+    size_t len = strlen_(s);
+    fwrite(&len, sizeof(size_t), 1, f);
+    fwrite(s, 1, len, f);
+}
+
+sportsman readSportsmanFromFile(FILE *f) {
+    sportsman sp;
+    sp.fio = readBinStr(f);
+    fread(&sp.best_result, sizeof(int), 1, f);
+
+    return sp;
+}
+
+void writeSportsman(sportsman sp, FILE *f) {
+    writeBinStr(sp.fio, f);
+    fwrite(&sp.best_result, sizeof(int), 1, f);
+}
+
+void freeSportsman(sportsman *sp) {
+    free(sp->fio);
+    memset(sp, 0, sizeof(sportsman));
+}
+
+int sportsmanCmp(const void *val1, const void *val2) {
+    sportsman *sp1 = (sportsman *) val1;
+    sportsman *sp2 = (sportsman *) val2;
+    if (sp1->best_result > sp2->best_result)
+        return -1;
+    else if (sp1->best_result == sp2->best_result)
+        return 0;
+    else
+        return 1;
+}
+
+int sportsmanCompare(const sportsman *sp1, const sportsman *sp2) {
+    return sp1->best_result == sp2->best_result &&
+           !strcmp(sp1->fio, sp2->fio);
+}
+
+void onlyBestSportsmen(const char *filename, int n) {
+    FILE *file = fopen(filename, "rb");
+
+    int amt_sp;
+    fread(&amt_sp, sizeof(int), 1, file);
+
+    if (amt_sp <= n) {
+        fclose(file);
+        return;
+    }
+
+    sportsman *sps = (sportsman *) malloc(amt_sp * sizeof(sportsman));
+    for (int i = 0; i < amt_sp; i++) {
+        sps[i] = readSportsmanFromFile(file);
+    }
+    fclose(file);
+
+    qsort(sps, amt_sp, sizeof(sportsman), sportsmanCmp);
+
+    file = fopen(filename, "wb");
+    fwrite(&n, sizeof(int), 1, file);
+    for (int i = 0; i < n; ++i) {
+        writeSportsman(sps[i], file);
+    }
+    fclose(file);
+
+    for (int i = 0; i < amt_sp; ++i) {
+        freeSportsman(sps + i);
+    }
+
+    free(sps);
+}
