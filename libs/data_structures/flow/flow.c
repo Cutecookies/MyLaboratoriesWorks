@@ -82,6 +82,7 @@ void convertNumbersToFloatingPoint(char *filename) {
     float *n = numbers.data;
     int amt_n = numbers.size;
     writeFloatNumbersToFile(filename, n, amt_n);
+    deleteVectorV(&numbers);
 }
 
 // Task 3
@@ -366,7 +367,6 @@ void onlyPolynomialWithoutRootX(char *filename, int x) {
     fclose(file);
 
     freePolynomials(ps, amt_ps);
-    freePolynomials(ps2, cur_size);
     free(ps);
 }
 
@@ -405,3 +405,82 @@ void positiveFirstNegativeLast(char *filename) {
     free(neg_num);
     free(all_numbers);
 }
+
+// Task 8
+
+matrix readMatrixFromFile(FILE *file) {
+    matrix m;
+    fread(&m.nCols, sizeof(int), 1, file);
+    m.nRows = m.nCols;
+
+    m.values = malloc(m.nRows * sizeof(int*));
+
+    for (int i = 0; i < m.nRows; i++) {
+        m.values[i] = malloc(m.nCols * sizeof(int));
+        fread(m.values[i], sizeof(int), m.nCols, file);
+    }
+
+    return m;
+}
+
+matrix* readMatricesFromFile(FILE *file, int *amt_ms) {
+    fread(amt_ms, sizeof(int), 1, file);
+
+    matrix *buffer = malloc(*amt_ms * sizeof(matrix));
+    for (int i = 0; i < *amt_ms; i++) {
+        buffer[i] = readMatrixFromFile(file);
+    }
+
+    return buffer;
+}
+
+void writeMatrixToFile(matrix m, FILE *file) {
+    fwrite(&m.nCols, sizeof(int), 1, file);
+    for(int i = 0; i < m.nRows; i++)
+        fwrite(m.values[i], sizeof(int), m.nCols, file);
+}
+
+void writeMatricesToFile(matrix *ms, FILE *file, int amt_ms) {
+    fwrite(&amt_ms, sizeof(int), 1, file);
+
+    for (int i = 0; i < amt_ms; i++) {
+        writeMatrixToFile(ms[i], file);
+    }
+}
+
+void freeMatrix(matrix *m) {
+    free(m->values);
+    m->values = NULL;
+    m->nCols = 0;
+    m->nRows = 0;
+}
+
+void freeMatrices(matrix *ms, int amt_ms) {
+    for (int i = 0; i < amt_ms; ++i) {
+        freeMatrix(ms + i);
+    }
+}
+
+void onlySymmetricAndTransposeMatrices(char *filename) {
+    FILE *file;
+
+    file = fopen(filename, "rb");
+    int amt_ms;
+    matrix *ms = readMatricesFromFile(file, &amt_ms);
+    fclose(file);
+
+    matrix ms2[amt_ms];
+    for (int i = 0; i < amt_ms; i++) {
+        ms2[i] = ms[i];
+        if(!isSymmetricMatrix(&ms[i])){
+            transposeSquareMatrix(&ms2[i]);}
+    }
+
+    file = fopen(filename, "wb");
+    writeMatricesToFile(ms2, file, amt_ms);
+    fclose(file);
+
+    freeMatrices(ms, amt_ms);
+    free(ms);
+}
+

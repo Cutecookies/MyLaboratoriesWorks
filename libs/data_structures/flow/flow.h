@@ -123,4 +123,20 @@ void onlyPolynomialWithoutRootX(char *filename, int x);
 
 void positiveFirstNegativeLast(char *filename);
 
+// Task 8
+
+// считывает матрицу из файла
+matrix readMatrixFromFile(FILE *file);
+
+// считывает матрицы из файла
+matrix* readMatricesFromFile(FILE *file, int *amt_ms);
+
+// записывает матрицу в файл
+void writeMatrixToFile(matrix m, FILE *file);
+
+// записывает матрицы в файл
+void writeMatricesToFile(matrix *ms, FILE *file, int amt_ms);
+
+void onlySymmetricAndTransposeMatrices(char *filename);
+
 #endif //LABORATORIESWORKS_FLOW_H

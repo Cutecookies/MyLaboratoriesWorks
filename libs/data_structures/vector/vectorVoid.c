@@ -7,7 +7,7 @@
 
 vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
     if (n == 0) {
-        void *vector_data = {};
+        void *vector_data = NULL;
         return (vectorVoid) {vector_data, n, n, baseTypeSize};
     }
     void *vector_data = (void *) malloc(n * baseTypeSize);
@@ -31,10 +31,8 @@ void reserveV(vectorVoid *v, size_t newCapacity) {
                 exit(1);
             }
 
-            if (new_data != v->data) {
-                new_data = v->data;
+            if (new_data != v->data)
                 v->data = new_data;
-            }
 
             if (v->size > newCapacity)
                 v->size = newCapacity;

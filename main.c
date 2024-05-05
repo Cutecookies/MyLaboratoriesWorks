@@ -187,6 +187,10 @@ void test_onlyLongWords() {
     assert(compareStr(word3_res, word2_exp, 9));
 
     fclose(file2);
+
+    free(word1_res);
+    free(word2_res);
+    free(word3_res);
 }
 
 void test_onlyPolynomialWithoutRootX() {
@@ -255,10 +259,59 @@ void test_positiveFirstNegativeLast() {
     assert(!memcmp(n_exp, n_res, sizeof(int) * 3));
 }
 
+void test_onlySymmetricAndTransposeMatrices() {
+    char filename[] = "D:/text_lab_19.txt";
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    4, 5, 6,
+                    7, 6, 9,
+            },
+            3, 3
+    );
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    3, 7,
+                    8, 11,
+            },
+            2, 2
+    );
+    matrix m3 = createMatrixFromArray(
+            (int[]) {
+                    9, 5,
+                    5, 8
+            },
+            2, 2
+    );
+
+    matrix ms[] = {m1, m2, m3};
+
+    FILE *file;
+    file = fopen(filename, "wb");
+    writeMatricesToFile(ms, file, 3);
+    fclose(file);
+
+    onlySymmetricAndTransposeMatrices(filename);
+
+    matrix m2_exp = createMatrixFromArray(
+            (int[]) {
+                    3, 8,
+                    7, 11,
+            },
+            2, 2
+    );
+
+    int amt_ms;
+    file = fopen(filename, "rb");
+    matrix *ms2 = readMatricesFromFile(file, &amt_ms);
+    assert(areTwoMatricesEqual(&m1, &ms2[0]));
+    assert(areTwoMatricesEqual(&m2_exp, &ms2[1]));
+    assert(areTwoMatricesEqual(&m3, &ms2[2]));
+    fclose(file);
+}
+
 void test() {
     test_transposeAllMatricesInFile();
-
-    test_convertNumbersToFloatingPoint();
 
     test_solveExample_1Operand();
     test_solveExample_2Operands();
@@ -272,6 +325,8 @@ void test() {
     test_onlyPolynomialWithoutRootX();
 
     test_positiveFirstNegativeLast();
+
+    test_onlySymmetricAndTransposeMatrices();
 }
 
 int main() {
