@@ -189,6 +189,40 @@ void test_onlyLongWords() {
     fclose(file2);
 }
 
+void test_onlyPolynomialWithoutRootX() {
+    char filename[] = "D:/text_lab_19.txt";
+    int amt_args = 2;
+    int degrees[] = {2, 0};
+    double coefficients[] = {1, -1};
+    Polynomial p1 = createPolynomialFromArray(degrees, coefficients, amt_args);
+
+    amt_args = 3;
+    int degrees2[] = {4, 3, 0};
+    double coefficients2[] = {3, -4, -1};
+    Polynomial p2 = createPolynomialFromArray(degrees2, coefficients2, amt_args);
+
+    amt_args = 1;
+    int degrees3[] = {0};
+    double coefficients3[] = {2};
+    Polynomial p3 = createPolynomialFromArray(degrees3, coefficients3, amt_args);
+
+    Polynomial ps[] = {p1, p2, p3};
+
+    FILE *file = fopen(filename, "wb");
+    writePolynomialsToFile(ps, file, 3);
+    fclose(file);
+
+    onlyPolynomialWithoutRootX(filename, 1);
+
+    int amt_ps;
+    FILE *file2 = fopen(filename, "rb");
+    Polynomial *ps2 = readPolynomialsFromFile(file2, &amt_ps);
+    assert(amt_ps == 2);
+    assert(!memcmp(ps2[0].data, p2.data, sizeof(Monomial) * p2.monomial_amount));
+    assert(!memcmp(ps2[1].data, p3.data, sizeof(Monomial) * p3.monomial_amount));
+    fclose(file2);
+}
+
 void test() {
     test_transposeAllMatricesInFile();
 
@@ -202,6 +236,8 @@ void test() {
     test_leftWordsWithSymbols();
 
     test_onlyLongWords();
+
+    test_onlyPolynomialWithoutRootX();
 }
 
 int main() {

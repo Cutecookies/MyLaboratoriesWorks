@@ -264,3 +264,108 @@ void onlyLongWords(char *filename) {
 
     writeWords(filename, words, ind);
 }
+
+// Task 6
+
+Polynomial createPolynomialFromArray(const int degrees[],
+                                     const double coefficients[],
+                                     int amt_args) {
+    Polynomial p;
+    p.monomial_amount = amt_args;
+    p.data = (Monomial *) malloc(amt_args * sizeof(Monomial));
+
+    for (int i = 0; i < amt_args; ++i) {
+        p.data[i].coefficient = coefficients[i];
+        p.data[i].degree = degrees[i];
+    }
+
+    return p;
+}
+
+Polynomial readPolynomialFromFile(FILE *file) {
+    Polynomial p;
+    fread(&p.monomial_amount, sizeof(int), 1, file);
+
+    p.data = (Monomial *) malloc(p.monomial_amount * sizeof(Monomial));
+
+    fread(p.data, sizeof(Monomial), p.monomial_amount, file);
+
+    return p;
+}
+
+Polynomial *readPolynomialsFromFile(FILE *file, int *pol_amount) {
+    fread(pol_amount, sizeof(int), 1, file);
+
+    Polynomial *buffer = malloc(*pol_amount * sizeof(Polynomial));
+    for (int pol_index = 0; pol_index < *pol_amount; ++pol_index) {
+        buffer[pol_index] = readPolynomialFromFile(file);
+    }
+
+    return buffer;
+}
+
+void writePolynomialToFile(Polynomial p, FILE *file) {
+    fwrite(&p.monomial_amount, sizeof(int), 1, file);
+    fwrite(p.data, sizeof(Monomial), p.monomial_amount, file);
+}
+
+void writePolynomialsToFile(Polynomial *ps, FILE *file, int pol_amount) {
+    fwrite(&pol_amount, sizeof(int), 1, file);
+
+    for (int pol_i = 0; pol_i < pol_amount; ++pol_i) {
+        writePolynomialToFile(ps[pol_i], file);
+    }
+}
+
+double calculatePolynomial(Polynomial p, double x) {
+    double result = 0;
+    double x_n = 1;
+    int ind = p.monomial_amount - 1;
+
+    for (int degree = 0; degree <= p.data[0].degree; degree++) {
+        if (p.data[ind].degree == degree) {
+            result += p.data[ind].coefficient * x_n;
+            ind--;
+        }
+        x_n *= x;
+    }
+
+    return result;
+}
+
+void freePolynomial(Polynomial *p) {
+    free(p->data);
+    p->data = NULL;
+    p->monomial_amount = 0;
+}
+
+void freePolynomials(Polynomial *ps, int pol_amount) {
+    for (int pol_index = 0; pol_index < pol_amount; ++pol_index) {
+        freePolynomial(ps + pol_index);
+    }
+}
+
+void onlyPolynomialWithoutRootX(char *filename, int x) {
+    FILE *file;
+    file = fopen(filename, "rb+");
+    int amt_ps;
+    Polynomial *ps = readPolynomialsFromFile(file, &amt_ps);
+    fclose(file);
+
+    Polynomial ps2[amt_ps];
+    int cur_size = 0;
+    for (int i = 0; i < amt_ps; i++) {
+        if(fabs(calculatePolynomial(ps[i], x)) > 0.00001)
+            ps2[cur_size++] = ps[i];
+    }
+
+    file = fopen(filename, "wb+");
+    fwrite(&cur_size, sizeof(int), 1, file);
+    for (int i = 0; i < cur_size; i++)
+        writePolynomialToFile(ps2[i], file);
+    fclose(file);
+
+    freePolynomials(ps, amt_ps);
+    freePolynomials(ps2, cur_size);
+    free(ps);
+}

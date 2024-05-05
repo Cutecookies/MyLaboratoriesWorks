@@ -78,4 +78,45 @@ void writeWords(char *filename, char *words[], int n);
 // оставляет самые длинные слова в строчках
 void onlyLongWords(char *filename);
 
+// Task 6
+
+// Структура для хранения многочлена
+typedef struct Monomial {
+    int degree;
+    double coefficient;
+} Monomial;
+
+typedef struct Polynomial{
+    int monomial_amount;
+    Monomial *data;
+} Polynomial;
+
+// создание многочлена
+Polynomial createPolynomialFromArray(const int degrees[],
+                                     const double coefficients[],
+                                     int amt_args);
+
+// считывает многочлен из файла
+Polynomial readPolynomialFromFile(FILE *file);
+
+// считывает многочлены из файла
+Polynomial* readPolynomialsFromFile(FILE *file, int *pol_amount);
+
+// записывает многочлен в файл
+void writePolynomialToFile(Polynomial p, FILE *file);
+
+// записывает многочлены в файл
+void writePolynomialsToFile(Polynomial *ps, FILE *file, int pol_amount);
+
+// возвращает результат многочлена при x
+double calculatePolynomial(Polynomial p, double x);
+
+// освободить многочлен
+void freePolynomial(Polynomial *p);
+
+// освободить многочлены
+void freePolynomials(Polynomial *ps, int pol_amount);
+
+void onlyPolynomialWithoutRootX(char *filename, int x);
+
 #endif //LABORATORIESWORKS_FLOW_H
