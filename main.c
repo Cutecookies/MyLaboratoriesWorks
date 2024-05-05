@@ -223,6 +223,38 @@ void test_onlyPolynomialWithoutRootX() {
     fclose(file2);
 }
 
+void test_positiveFirstNegativeLast() {
+    char filename[] = "D:/text_lab_19.txt";
+    int all_numbers[] = {1, -3, 7, -4, -12, 3};
+    int p_exp[] = {1, 7, 3};
+    int n_exp[] = {-3, -4, -12};
+    int amt_numbers = 6;
+
+    FILE *file;
+    file = fopen(filename, "wb");
+    fwrite(&amt_numbers, sizeof(int), 1, file);
+    fwrite(all_numbers, sizeof(int), 6, file);
+    fclose(file);
+
+    positiveFirstNegativeLast(filename);
+
+    int p_res[3];
+    int n_res[3];
+    int amt_res;
+
+    file = fopen(filename, "rb");
+
+    fread(&amt_res, sizeof(int), 1, file);
+    fread(p_res, sizeof(int), amt_res / 2, file);
+    fread(n_res, sizeof(int), amt_res / 2, file);
+
+    fclose(file);
+
+    assert(amt_numbers == amt_res);
+    assert(!memcmp(p_exp, p_res, sizeof(int) * 3));
+    assert(!memcmp(n_exp, n_res, sizeof(int) * 3));
+}
+
 void test() {
     test_transposeAllMatricesInFile();
 
@@ -238,6 +270,8 @@ void test() {
     test_onlyLongWords();
 
     test_onlyPolynomialWithoutRootX();
+
+    test_positiveFirstNegativeLast();
 }
 
 int main() {

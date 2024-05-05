@@ -369,3 +369,39 @@ void onlyPolynomialWithoutRootX(char *filename, int x) {
     freePolynomials(ps2, cur_size);
     free(ps);
 }
+
+// Task 7
+
+void positiveFirstNegativeLast(char *filename) {
+    FILE *file;
+    file = fopen(filename, "rb+");
+
+    int amt_numbers;
+    fread(&amt_numbers, sizeof(int), 1, file);
+
+    int *all_numbers = malloc(sizeof(int) * amt_numbers);
+    fread(all_numbers, sizeof(int), amt_numbers, file);
+    fclose(file);
+
+    int *pos_num = malloc(sizeof(int) * amt_numbers / 2);
+    int *neg_num = malloc(sizeof(int) * amt_numbers / 2);
+    int p_ind = 0;
+    int n_ind = 0;
+
+    for (int i = 0; i < amt_numbers; i++) {
+        if (all_numbers[i] > 0)
+            pos_num[p_ind++] = all_numbers[i];
+        else
+            neg_num[n_ind++] = all_numbers[i];
+    }
+
+    file = fopen(filename, "wb+");
+    fwrite(&amt_numbers, sizeof(int), 1, file);
+    fwrite(pos_num, sizeof(int), p_ind, file);
+    fwrite(neg_num, sizeof(int), n_ind, file);
+    fclose(file);
+
+    free(pos_num);
+    free(neg_num);
+    free(all_numbers);
+}

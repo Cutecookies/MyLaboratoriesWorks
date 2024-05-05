@@ -119,4 +119,8 @@ void freePolynomials(Polynomial *ps, int pol_amount);
 
 void onlyPolynomialWithoutRootX(char *filename, int x);
 
+// Task 7
+
+void positiveFirstNegativeLast(char *filename);
+
 #endif //LABORATORIESWORKS_FLOW_H
