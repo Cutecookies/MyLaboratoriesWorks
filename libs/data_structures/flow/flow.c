@@ -585,3 +585,134 @@ void onlyBestSportsmen(const char *filename, int n) {
 
     free(sps);
 }
+
+// Task 10
+
+productInfo createProductInfo(const char *name, int amt_pr) {
+    productInfo inf;
+    inf.amount = amt_pr;
+
+    inf.name = (char *) malloc(strlen(name) + 1);
+    strcpy(inf.name, name);
+
+    return inf;
+}
+
+productDopInfo createProductDopInfo(const char *name, int amount, double cost) {
+    productDopInfo inf;
+    inf.info = createProductInfo(name, amount);
+    inf.cost1 = cost;
+    inf.all_cost = cost * amount;
+
+    return inf;
+}
+
+productInfo readProductInfo(FILE *file) {
+    productInfo inf;
+    inf.name = readBinStr(file);
+    fread(&inf.amount, sizeof(int), 1, file);
+
+    return inf;
+}
+
+productDopInfo readProductDopInfo(FILE *f) {
+    productDopInfo info;
+    info.info = readProductInfo(f);
+    fread(&info.cost1, sizeof(double), 1, f);
+    fread(&info.all_cost, sizeof(double), 1, f);
+
+    return info;
+}
+
+void writeProductInfo(const productInfo *inf, FILE *file) {
+    writeBinStr(inf->name, file);
+    fwrite(&inf->amount, sizeof(int), 1, file);
+}
+
+void writeProductDopInfo(const productDopInfo *info, FILE *f) {
+    writeProductInfo(&info->info, f);
+    fwrite(&info->cost1, sizeof(double), 1, f);
+    fwrite(&info->all_cost, sizeof(double), 1, f);
+}
+
+int productInfoCmp(productInfo *inf1, productInfo *inf2) {
+    return inf1->amount == inf2->amount &&
+           !strcmp(inf1->name, inf2->name);
+}
+
+int productDopInfoCmp(productDopInfo *info1, productDopInfo *info2) {
+    return info1->all_cost == info2->all_cost &&
+           info1->cost1 == info2->cost1 &&
+           productInfoCmp(&info1->info, &info2->info);
+}
+
+void freeProductInfo(productInfo *inf) {
+    free(inf->name);
+    inf->name = NULL;
+    inf->amount = 0;
+}
+
+void freeProductDopInfo(productDopInfo *info) {
+    freeProductInfo(&info->info);
+    info->all_cost = info->cost1 = 0;
+}
+
+products readProducts(FILE *file) {
+    products pr;
+    fread(&pr.amt_pr, sizeof(int), 1, file);
+
+    pr.all_products = malloc(pr.amt_pr * sizeof(productDopInfo));
+    for (int i = 0; i < pr.amt_pr; i++) {
+        pr.all_products[i] = readProductDopInfo(file);
+    }
+
+    return pr;
+}
+
+productDopInfo *findProductDopInfo(products *prs, productInfo pi) {
+    for (int i = 0; i < prs->amt_pr; ++i) {
+        if (strcmp(prs->all_products[i].info.name, pi.name) == 0) {
+            return prs->all_products + i;
+        }
+    }
+
+    return NULL;
+}
+
+void writeProducts(const products *prs, FILE *file) {
+    fwrite(&prs->amt_pr, sizeof(int), 1, file);
+
+    for (int i = 0; i < prs->amt_pr; ++i) {
+        writeProductDopInfo(&prs->all_products[i], file);
+    }
+}
+
+void freeProducts(products *prs) {
+    for (int i = 0; i < prs->amt_pr; ++i) {
+        freeProductDopInfo(prs->all_products + i);
+    }
+
+    free(prs->all_products);
+    prs->all_products = NULL;
+    prs->amt_pr = 0;
+}
+
+void updateProducts(products *prs, FILE *file) {
+    int n;
+    fread(&n, sizeof(int), 1, file);
+
+    for (int i = 0; i < n; ++i) {
+        productInfo inf = readProductInfo(file);
+        productDopInfo *pr_wr = findProductDopInfo(prs, inf);
+        if (pr_wr != NULL) {
+            if (pr_wr->info.amount > inf.amount) {
+                pr_wr->info.amount -= inf.amount;
+                pr_wr->all_cost = pr_wr->info.amount * pr_wr->cost1;
+            } else {
+                freeProductDopInfo(pr_wr);
+                memcpy(pr_wr, &prs->all_products[--prs->amt_pr],
+                       sizeof(productDopInfo));
+            }
+        }
+    }
+}

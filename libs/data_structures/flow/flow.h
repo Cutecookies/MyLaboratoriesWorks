@@ -175,4 +175,58 @@ int sportsmanCompare(const sportsman *sp1, const sportsman *sp2);
 
 void onlyBestSportsmen(const char *filename, int n);
 
+// Task 10
+
+typedef struct productInfo{
+    char *name;
+    int amount;
+} productInfo;
+
+typedef struct productDopInfo {
+    productInfo info;
+    double cost1;
+    double all_cost;
+} productDopInfo;
+
+
+typedef struct products{
+    productDopInfo *all_products;
+    int amt_pr;
+} products;
+
+// создание продукта
+productInfo createProductInfo(const char *name, int amt_pr);
+productDopInfo createProductDopInfo(const char *name, int amount, double cost);
+
+// чтение продукта из бинарного файла
+productInfo readProductInfo(FILE *file);
+productDopInfo readProductDopInfo(FILE *f);
+
+// запись продукта в бинарный файл
+void writeProductInfo(const productInfo *inf, FILE *file);
+void writeProductDopInfo(const productDopInfo *info, FILE *f);
+
+// сравнение продуктов
+int productInfoCmp(productInfo *inf1, productInfo *inf2);
+int productDopInfoCmp(productDopInfo *info1, productDopInfo *info2);
+
+// освобождение продукта
+void freeProductInfo(productInfo *inf);
+void freeProductDopInfo(productDopInfo *info);
+
+// чтение продуктов из бинарного файла
+products readProducts(FILE *file);
+
+// поиск продукта на складе
+productDopInfo *findProductDopInfo(products *prs, productInfo pi);
+
+// запись продуктов в бинарный файл
+void writeProducts(const products *prs, FILE *file);
+
+// обновление продуктов на складу
+void updateProducts(products *prs, FILE *file);
+
+// освобождение продуктов
+void freeProducts(products *prs);
+
 #endif //LABORATORIESWORKS_FLOW_H

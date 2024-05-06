@@ -332,7 +332,7 @@ void test_onlyBestSportsmen() {
 
     file = fopen(filename, "rb");
     fread(&amt_sps, sizeof(int), 1, file);
-    sportsman *sps = (sportsman*) malloc(amt_sps * sizeof(sportsman));
+    sportsman *sps = (sportsman *) malloc(amt_sps * sizeof(sportsman));
     for (int i = 0; i < amt_sps; ++i) {
         sps[i] = readSportsmanFromFile(file);
     }
@@ -342,6 +342,83 @@ void test_onlyBestSportsmen() {
     assert(sportsmanCompare(sps + 1, &sp4));
     assert(sportsmanCompare(sps + 2, &sp1));
 
+}
+
+void test_updateProducts() {
+    char filename_have[] = "D:/have.txt";
+    char filename_order[] = "D:/order.txt";
+
+    FILE *f_have = fopen(filename_have, "wb");
+
+    products prs_h;
+    prs_h.amt_pr = 6;
+    prs_h.all_products = malloc(prs_h.amt_pr * sizeof(productDopInfo));
+
+    prs_h.all_products[0] = createProductDopInfo("Onion", 35, 5.0);
+    prs_h.all_products[1] = createProductDopInfo("Carrot", 100, 20.0);
+    prs_h.all_products[2] = createProductDopInfo("Apple", 240, 16.0);
+    prs_h.all_products[3] = createProductDopInfo("Banana", 130, 13.0);
+    prs_h.all_products[4] = createProductDopInfo("Cabbage", 12, 35.0);
+    prs_h.all_products[5] = createProductDopInfo("Cucumber", 47, 17.0);
+
+    writeProducts(&prs_h, f_have);
+    freeProducts(&prs_h);
+    fclose(f_have);
+
+    FILE *f_order = fopen(filename_order, "wb");
+
+    int n = 4;
+    productInfo *prs_or = malloc(n * sizeof(productInfo));
+
+    prs_or[0] = createProductInfo("Onion", 10);
+    prs_or[1] = createProductInfo("Carrot", 15);
+    prs_or[2] = createProductInfo("Cabbage", 12);
+    prs_or[3] = createProductInfo("Cucumber", 23);
+
+    fwrite(&n, sizeof(int), 1, f_order);
+    for (int i = 0; i < n; ++i) {
+        writeProductInfo(&prs_or[i], f_order);
+        freeProductInfo(&prs_or[i]);
+    }
+    fclose(f_order);
+
+    FILE *f = fopen(filename_have, "rb");
+    products prs = readProducts(f);
+    fclose(f);
+
+    FILE *g = fopen(filename_order, "rb");
+    updateProducts(&prs, g);
+    fclose(g);
+
+    f = fopen(filename_have, "wb");
+    writeProducts(&prs, g);
+    fclose(f);
+
+    freeProducts(&prs);
+
+    products p_exp;
+    p_exp.amt_pr = 5;
+    p_exp.all_products = malloc(p_exp.amt_pr * sizeof(productDopInfo));
+
+    p_exp.all_products[0] = createProductDopInfo("Onion", 25, 5.0);
+    p_exp.all_products[1] = createProductDopInfo("Carrot", 85, 20.0);
+    p_exp.all_products[2] = createProductDopInfo("Apple", 240, 16.0);
+    p_exp.all_products[3] = createProductDopInfo("Banana", 130, 13.0);
+    p_exp.all_products[4] = createProductDopInfo("Cucumber", 24, 17.0);
+
+    FILE *exp_f = fopen(filename_have, "rb");
+    products p_res = readProducts(exp_f);
+    fclose(exp_f);
+
+    assert(p_exp.amt_pr == p_res.amt_pr);
+    for (int record_index = 0; record_index < p_exp.amt_pr; ++record_index) {
+        assert(productDopInfoCmp(p_exp.all_products + record_index,
+                                 p_res.all_products + record_index));
+    }
+
+
+    freeProducts(&p_exp);
+    freeProducts(&p_res);
 }
 
 void test() {
@@ -363,6 +440,8 @@ void test() {
     test_onlySymmetricAndTransposeMatrices();
 
     test_onlyBestSportsmen();
+
+    test_updateProducts();
 }
 
 int main() {
