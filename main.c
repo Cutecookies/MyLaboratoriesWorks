@@ -59,10 +59,64 @@ void test_changeMatrix2() {
     freeMemMatrix(&exp);
 }
 
+// Task 2
+
+void test_lifeGame1() {
+    matrix board = createMatrixFromArray(
+            (int[]) {
+                    0, 1, 0,
+                    0, 0, 1,
+                    1, 1, 1,
+                    0, 0, 0,
+            },
+            4, 3
+    );
+    matrix exp_board = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    1, 0, 1,
+                    0, 1, 1,
+                    0, 1, 0,
+            },
+            4, 3
+    );
+
+    matrix res_board = lifeGame(board);
+    assert(areTwoMatricesEqual(&exp_board, &res_board));
+    freeMemMatrix(&board);
+    freeMemMatrix(&exp_board);
+}
+
+void test_lifeGame2() {
+    matrix board = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 1,
+                    0, 0, 1,
+                    1, 1, 0,
+            },
+            3, 3
+    );
+    matrix exp_board = createMatrixFromArray(
+            (int[]) {
+                    0, 1, 0,
+                    1, 0, 1,
+                    0, 1, 0,
+            },
+            3, 3
+    );
+
+    matrix res_board = lifeGame(board);
+    assert(areTwoMatricesEqual(&exp_board, &res_board));
+    freeMemMatrix(&board);
+    freeMemMatrix(&exp_board);
+}
 
 void test() {
     test_changeMatrix1();
     test_changeMatrix2();
+
+    test_lifeGame1();
+    test_lifeGame2();
 }
 
 int main() {
