@@ -52,3 +52,32 @@ matrix lifeGame(matrix board) {
 
     return res_board;
 }
+
+// Task 3
+
+int cmp(const void *a, const void *b) {
+    return *(int*)a - *(int*)b;
+}
+
+void makeArray(matrix m, int row, int col, int *array) {
+    array[0] = m.values[row - 1][col - 1];
+    array[1] = m.values[row][col - 1];
+    array[2] = m.values[row + 1][col - 1];
+    array[3] = m.values[row + 1][col];
+    array[4] = m.values[row + 1][col + 1];
+    array[5] = m.values[row][col + 1];
+    array[6] = m.values[row - 1][col + 1];
+    array[7] = m.values[row - 1][col];
+}
+
+void medianFilter(matrix *m) {
+    int amt_array = 8;
+    for (int row = 1; row < m->nRows - 1; row++)
+        for (int col = 1; col < m->nCols - 1; col++) {
+            int array[amt_array];
+            makeArray(*m, row, col, array);
+            qsort(array, amt_array, sizeof(int), cmp);
+            int new_value = (array[3] + array[4]) / 2;
+            m->values[row][col] = new_value;
+        }
+}
