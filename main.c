@@ -199,32 +199,36 @@ void test_medianFilter3() {
 
 // Task 4
 
-//void test_getAllDomains1() {
-//    char s1[] = "9001 discuss.codeforces.com";
-//    char *cpdomains[] = {s1};
-//
-//    int amt = 0;
-//
-//    char **res = getAllDomains(cpdomains, 1, &amt);
-//    for (int i = 0; i < amt; i++) {
-//        printf("%s\n", res[i]);
-//    }
-//}
-//
-//void test_getAllDomains2() {
-//    char s1[] = "900 google.mail.com";
-//    char s2[] = "50 yahoo.com";
-//    char s3[] = "1 intel.mail.com";
-//    char s4[] = "5 wiki.org";
-//    char *cpdomains[] = {s1, s2, s3, s4};
-//
-//    int amt = 0;
-//
-//    char **res = getAllDomains(cpdomains, 4, &amt);
-//    for (int i = 0; i < amt; i++) {
-//        printf("%s\n", res[i]);
-//    }
-//}
+void test_getAllDomains1() {
+    char s1[] = "9001 discuss.codeforces.com";
+    char *cpdomains[] = {s1};
+
+    int amt = 0;
+
+    Domain *res = getAllDomains(cpdomains, 1, &amt);
+
+    for (int i = 0; i < amt; i++) {
+        printf("%d ", res[i].count);
+        printf("%s\n", res[i].domain);
+    }
+}
+
+void test_getAllDomains2() {
+    char s1[] = "900 google.mail.com";
+    char s2[] = "50 yahoo.com";
+    char s3[] = "1 intel.mail.com";
+    char s4[] = "5 wiki.org";
+    char *cpdomains[] = {s1, s2, s3, s4};
+
+    int amt = 0;
+
+    Domain *res = getAllDomains(cpdomains, 4, &amt);
+
+    for (int i = 0; i < amt; i++) {
+        printf("%d ", res[i].count);
+        printf("%s\n", res[i].domain);
+    }
+}
 
 // Task 5
 
@@ -270,8 +274,8 @@ void test() {
     test_medianFilter2();
     test_medianFilter3();
 
-//    test_getAllDomains1();
-//    test_getAllDomains2();
+    test_getAllDomains1();
+    test_getAllDomains2();
 
     test_onlyOneMatrices1();
     test_onlyOneMatrices2();

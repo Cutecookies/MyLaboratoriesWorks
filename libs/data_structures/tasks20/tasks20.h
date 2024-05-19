@@ -36,4 +36,27 @@ int minInt(int a, int b);
 
 int onlyOneMatrices(matrix m);
 
+// Task 4
+
+typedef struct {
+    int count;
+    char *domain;
+} Domain;
+
+// Функция для разделения строки на домен и счетчик
+Domain splitDomain(char *s);
+
+// Функция для получения всех поддоменов из домена
+char **getSubdomains(char *domain, int *count);
+
+void isDomainInArray(Domain *pair_domains, Domain d, int *amt_dm);
+
+// Функция для формирования доменов с парным счетчиком
+Domain *getPairDomains(Domain *domains, int size, int *amt);
+
+// Функция для освобождения памяти
+void freeMemory(Domain *domains, int amt_domains);
+
+Domain *getAllDomains(char *cpdomains[], int amt_domains, int *amt);
+
 #endif //LABORATORIESWORKS_TASKS20_H

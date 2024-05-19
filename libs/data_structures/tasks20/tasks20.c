@@ -116,3 +116,95 @@ int onlyOneMatrices(matrix m) {
 
     return count;
 }
+
+// Task 4
+
+Domain splitDomain(char *s) {
+    Domain d;
+    char *split = strtok(s, " ");
+    d.count = atoi(split);
+    split = strtok(NULL, " ");
+    d.domain = strdup(split);
+    return d;
+}
+
+char **getSubdomains(char *domain, int *count) {
+    char **sub_domains = malloc((*count + 1) * sizeof(char *));
+    char *word = strtok(domain, ".");
+    while (word != NULL) {
+        sub_domains[*count] = strdup(word);
+        (*count)++;
+        word = strtok(NULL, ".");
+    }
+    return sub_domains;
+}
+
+void isDomainInArray(Domain *pair_domains, Domain d, int *amt_dm) {
+    for (int i = 0; i < *amt_dm; i++) {
+        if (strcmp_(d.domain, pair_domains[i].domain) == 0) {
+            pair_domains[i].count += d.count;
+            return;
+        }
+    }
+
+    pair_domains[*amt_dm].domain = malloc(270 * sizeof(char));
+    strcpy(pair_domains[*amt_dm].domain, d.domain);
+    pair_domains[*amt_dm].count = d.count;
+    *amt_dm += 1;
+}
+
+Domain *getPairDomains(Domain *domains, int size, int *amt) {
+    Domain *pair_domains = malloc(size * 3 * sizeof(Domain));
+    Domain d;
+    for (int i = 0; i < size; i++) {
+        int amt_sub_domain = 0;
+        char *copy = stringBuffer;
+        strcpy(copy, domains[i].domain);
+        char **sub_domains = malloc((*amt + 1) * sizeof(char *));
+        sub_domains = getSubdomains(copy, &amt_sub_domain);
+
+        for (int j = 0; j < amt_sub_domain; j++) {
+            char *pair_domain = malloc(270 * sizeof(char));
+            strcpy(pair_domain, "");
+
+            for (int k = j; k < amt_sub_domain; k++) {
+                strcat(pair_domain, sub_domains[k]);
+                if (k != amt_sub_domain - 1) {
+                    strcat(pair_domain, ".");
+                }
+            }
+
+            d.domain = malloc(270 * sizeof(char));
+            strcpy(d.domain, pair_domain);
+            d.count = domains[i].count;
+
+            isDomainInArray(pair_domains, d, amt);
+            free(pair_domain);
+        }
+        for (int j = 0; j < amt_sub_domain; j++) {
+            free(sub_domains[j]);
+        }
+        free(sub_domains);
+    }
+    return pair_domains;
+}
+
+void freeMemory(Domain *domains, int amt_domains) {
+    for (int i = 0; i < amt_domains; i++) {
+        free(domains[i].domain);
+    }
+    free(domains);
+}
+
+Domain *getAllDomains(char *cpdomains[], int amt_domains, int *amt) {
+    Domain *domains = malloc(amt_domains * 3 * sizeof(Domain));
+    for (int i = 0; i < amt_domains; i++) {
+        domains[i] = splitDomain(cpdomains[i]);
+    }
+
+
+    Domain *pair_domains = getPairDomains(domains, amt_domains, amt);
+
+    freeMemory(domains, amt_domains);
+    return pair_domains;
+}
