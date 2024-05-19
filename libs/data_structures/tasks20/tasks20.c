@@ -208,3 +208,21 @@ Domain *getAllDomains(char *cpdomains[], int amt_domains, int *amt) {
     freeMemory(domains, amt_domains);
     return pair_domains;
 }
+
+// Task 6
+
+void returnNumberFromTwoLetters(char *s) {
+    int size = 0;
+    int array[9];
+    for (int i = 1; i < 10; i++) {
+        array[size++] = i;
+            if (*s == 'I' || *s == '\0') {
+                while (size != 0)
+                    printf("%d", array[--size]);
+                if (*s == '\0')
+                    return;
+            }
+            s++;
+        }
+
+}

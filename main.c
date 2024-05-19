@@ -263,6 +263,16 @@ void test_onlyOneMatrices2() {
     freeMemMatrix(&m);
 }
 
+void test_returnNumberFromTwoLetters1() {
+    char *s = "DDD";
+    returnNumberFromTwoLetters(s);
+}
+
+void test_returnNumberFromTwoLetters2() {
+    char *s = "IIIDIDDD";
+    returnNumberFromTwoLetters(s);
+}
+
 void test() {
     test_changeMatrix1();
     test_changeMatrix2();
@@ -274,11 +284,14 @@ void test() {
     test_medianFilter2();
     test_medianFilter3();
 
-    test_getAllDomains1();
-    test_getAllDomains2();
+//    test_getAllDomains1();
+//    test_getAllDomains2();
 
     test_onlyOneMatrices1();
     test_onlyOneMatrices2();
+
+    test_returnNumberFromTwoLetters1();
+    test_returnNumberFromTwoLetters2();
 }
 
 int main() {

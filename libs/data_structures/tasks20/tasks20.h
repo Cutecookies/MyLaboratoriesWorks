@@ -59,4 +59,8 @@ void freeMemory(Domain *domains, int amt_domains);
 
 Domain *getAllDomains(char *cpdomains[], int amt_domains, int *amt);
 
+// Task 6
+
+void returnNumberFromTwoLetters(char *s);
+
 #endif //LABORATORIESWORKS_TASKS20_H
