@@ -56,7 +56,7 @@ matrix lifeGame(matrix board) {
 // Task 3
 
 int cmp(const void *a, const void *b) {
-    return *(int*)a - *(int*)b;
+    return *(int *) a - *(int *) b;
 }
 
 void makeArray(matrix m, int row, int col, int *array) {
@@ -80,4 +80,39 @@ void medianFilter(matrix *m) {
             int new_value = (array[3] + array[4]) / 2;
             m->values[row][col] = new_value;
         }
+}
+
+// Task 5
+
+int minInt(int a, int b) {
+    return a < b ? a : b;
+}
+
+int onlyOneMatrices(matrix m) {
+    int count = 0;
+    matrix m2 = getMemMatrix(m.nRows, m.nCols);
+    for (int row = 0; row < m.nRows; row++) {
+        m2.values[row][0] = m.values[row][0];
+
+        for (int col = 1; col < m.nCols; col++) {
+            if (m.values[row][col])
+                m2.values[row][col] =
+                        m2.values[row][col - 1] + 1;
+            else
+                m2.values[row][col] = 0;
+        }
+
+        for (int col = 0; col < m.nCols; col++) {
+            int min = m2.values[row][col];
+
+            for (int k = row; k >= 0; k--) {
+                min = minInt(min, m2.values[k][col]);
+                count += min;
+            }
+        }
+    }
+
+    freeMemMatrix(&m2);
+
+    return count;
 }

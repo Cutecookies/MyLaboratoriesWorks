@@ -197,6 +197,68 @@ void test_medianFilter3() {
     freeMemMatrix(&exp);
 }
 
+// Task 4
+
+//void test_getAllDomains1() {
+//    char s1[] = "9001 discuss.codeforces.com";
+//    char *cpdomains[] = {s1};
+//
+//    int amt = 0;
+//
+//    char **res = getAllDomains(cpdomains, 1, &amt);
+//    for (int i = 0; i < amt; i++) {
+//        printf("%s\n", res[i]);
+//    }
+//}
+//
+//void test_getAllDomains2() {
+//    char s1[] = "900 google.mail.com";
+//    char s2[] = "50 yahoo.com";
+//    char s3[] = "1 intel.mail.com";
+//    char s4[] = "5 wiki.org";
+//    char *cpdomains[] = {s1, s2, s3, s4};
+//
+//    int amt = 0;
+//
+//    char **res = getAllDomains(cpdomains, 4, &amt);
+//    for (int i = 0; i < amt; i++) {
+//        printf("%s\n", res[i]);
+//    }
+//}
+
+// Task 5
+
+void test_onlyOneMatrices1() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    1, 1, 1,
+                    0, 1, 0,
+            }, 3, 3
+    );
+
+
+    assert(onlyOneMatrices(m) == 10);
+
+    freeMemMatrix(&m);
+}
+
+void test_onlyOneMatrices2() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0, 1,
+                    1, 1, 1, 1,
+                    1, 1, 0, 1,
+                    0, 1, 1, 0,
+            }, 4, 4
+    );
+
+
+    assert(onlyOneMatrices(m) == 29);
+
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_changeMatrix1();
     test_changeMatrix2();
@@ -207,6 +269,12 @@ void test() {
     test_medianFilter1();
     test_medianFilter2();
     test_medianFilter3();
+
+//    test_getAllDomains1();
+//    test_getAllDomains2();
+
+    test_onlyOneMatrices1();
+    test_onlyOneMatrices2();
 }
 
 int main() {

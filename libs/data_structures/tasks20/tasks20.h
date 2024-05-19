@@ -3,7 +3,10 @@
 
 # include "../matrix/matrix.h"
 # include "../../algorithms/array/array.h"
+# include "../string_/string_.h"
 #include <stdlib.h>
+# include <ctype.h>
+
 
 // Task 1
 
@@ -26,5 +29,11 @@ void makeArray(matrix m, int row, int col, int *array);
 
 // замена числа медианой отсортированного массива
 void medianFilter(matrix *m);
+
+// Task 5
+
+int minInt(int a, int b);
+
+int onlyOneMatrices(matrix m);
 
 #endif //LABORATORIESWORKS_TASKS20_H
