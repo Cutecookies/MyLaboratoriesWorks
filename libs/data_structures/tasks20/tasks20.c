@@ -1,4 +1,5 @@
 # include "tasks20.h"
+#define MAX_LINE_LENGTH 256
 
 // Task 1
 
@@ -216,14 +217,14 @@ void returnNumberFromTwoLetters(char *s) {
     int array[9];
     for (int i = 1; i < 10; i++) {
         array[size++] = i;
-            if (*s == 'I' || *s == '\0') {
-                while (size != 0)
-                    printf("%d", array[--size]);
-                if (*s == '\0')
-                    return;
-            }
-            s++;
+        if (*s == 'I' || *s == '\0') {
+            while (size != 0)
+                printf("%d", array[--size]);
+            if (*s == '\0')
+                return;
         }
+        s++;
+    }
 
 }
 
@@ -238,4 +239,45 @@ char *returnChangedStr(char *s, const int *numbers, int amt) {
     letters[amt] = '\0';
 
     return letters;
+}
+
+// Task 9
+
+void writeNumbersLessN(char *filename_w, char *filename_r, int n) {
+    FILE *read_file = fopen(filename_r, "r");
+    FILE *write_file = fopen(filename_w, "w");
+
+    int num;
+    while (fscanf(read_file, "%d", &num) == 1) {
+        if (num < n)
+            fprintf(write_file, "%d\n", num);
+    }
+
+    fclose(read_file);
+    fclose(write_file);
+}
+
+// Tak 10
+
+void printNStr(char *filename, int n) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error reading file");
+        return;
+    }
+
+    char line[MAX_LINE_LENGTH];
+    int lines_print = 0;
+
+    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
+        printf("%s", line);
+        lines_print++;
+
+        if (lines_print == n) {
+            lines_print = 0;
+            getchar(); // Ждем нажатия клавиши Enter
+        }
+    }
+
+    fclose(file);
 }

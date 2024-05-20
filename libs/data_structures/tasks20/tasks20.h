@@ -6,6 +6,7 @@
 # include "../string_/string_.h"
 #include <stdlib.h>
 # include <ctype.h>
+#include <signal.h>
 
 
 // Task 1
@@ -66,5 +67,13 @@ void returnNumberFromTwoLetters(char *s);
 // Task 8
 
 char *returnChangedStr(char *s, const int *numbers, int amt);
+
+// Task 9
+
+void writeNumbersLessN(char *filename_w, char *filename_r, int n);
+
+// Tak 10
+
+void printNStr(char *filename, int s);
 
 #endif //LABORATORIESWORKS_TASKS20_H

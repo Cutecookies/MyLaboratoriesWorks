@@ -319,8 +319,53 @@ void test() {
     test_returnChangedStr2();
 }
 
-int main() {
-    test();
+// Task 9
+
+void test_writeNumbersLessN(int argc, char *argv[]) {
+    if (argc != 4) {
+        printf("Error");
+        return;
+    }
+
+    char *filename_r = argv[1];
+    char *filename_w = argv[2];
+    int n = atoi(argv[3]);
+
+    writeNumbersLessN(filename_w, filename_r, n);
+
+    FILE *f = fopen(filename_w, "r");
+    int res[5];
+    int i = 0;
+    int num;
+    while (fscanf(f, "%d", &num) == 1) {
+        res[i] = num;
+        i++;
+    }
+
+    fclose(f);
+
+    int exp[5] = {2, 4, 3, 4, 4};
+    for (int j = 0; j < 5; j++) {
+        assert(exp[j] == res[j]);
+    }
+}
+
+// Task 9
+
+void test_printNStr(int argc, char *argv[]) {
+    if (argc != 3) {
+        printf("Error");
+        return;
+    }
+
+    char *filename = argv[1];
+    int n = atoi(argv[2]);
+
+    printNStr(filename, n);
+}
+
+int main(int argc, char *argv[]) {
+    test_printNStr(argc, argv);
 
     return 0;
 }
