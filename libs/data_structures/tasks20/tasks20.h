@@ -63,4 +63,8 @@ Domain *getAllDomains(char *cpdomains[], int amt_domains, int *amt);
 
 void returnNumberFromTwoLetters(char *s);
 
+// Task 8
+
+char *returnChangedStr(char *s, const int *numbers, int amt);
+
 #endif //LABORATORIESWORKS_TASKS20_H

@@ -226,3 +226,16 @@ void returnNumberFromTwoLetters(char *s) {
         }
 
 }
+
+// Task 8
+
+char *returnChangedStr(char *s, const int *numbers, int amt) {
+    char *letters = malloc((amt + 1) * sizeof(char));
+    for (int i = 0; i < amt; i++) {
+        letters[i] = *(s + numbers[i]);
+    }
+
+    letters[amt] = '\0';
+
+    return letters;
+}

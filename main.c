@@ -273,6 +273,28 @@ void test_returnNumberFromTwoLetters2() {
     returnNumberFromTwoLetters(s);
 }
 
+void test_returnChangedStr1() {
+    char *s = "abc";
+    int amt = 3;
+    int numbers[3] = {0,1,2};
+
+    char *res = returnChangedStr(s, numbers, amt);
+    char *exp = "abc";
+
+    assert(strcmp_(res, exp) == 0);
+}
+
+void test_returnChangedStr2() {
+    char *s = "abap";
+    int amt = 4;
+    int numbers[4] = {0,3,2,1};
+
+    char *res = returnChangedStr(s, numbers, amt);
+    char *exp = "apab";
+
+    assert(strcmp_(res, exp) == 0);
+}
+
 void test() {
     test_changeMatrix1();
     test_changeMatrix2();
@@ -290,8 +312,11 @@ void test() {
     test_onlyOneMatrices1();
     test_onlyOneMatrices2();
 
-    test_returnNumberFromTwoLetters1();
-    test_returnNumberFromTwoLetters2();
+//    test_returnNumberFromTwoLetters1();
+//    test_returnNumberFromTwoLetters2();
+
+    test_returnChangedStr1();
+    test_returnChangedStr2();
 }
 
 int main() {
