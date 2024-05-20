@@ -276,7 +276,7 @@ void test_returnNumberFromTwoLetters2() {
 void test_returnChangedStr1() {
     char *s = "abc";
     int amt = 3;
-    int numbers[3] = {0,1,2};
+    int numbers[3] = {0, 1, 2};
 
     char *res = returnChangedStr(s, numbers, amt);
     char *exp = "abc";
@@ -287,7 +287,7 @@ void test_returnChangedStr1() {
 void test_returnChangedStr2() {
     char *s = "abap";
     int amt = 4;
-    int numbers[4] = {0,3,2,1};
+    int numbers[4] = {0, 3, 2, 1};
 
     char *res = returnChangedStr(s, numbers, amt);
     char *exp = "apab";
@@ -379,9 +379,27 @@ void test_buildTree2() {
     buildTree(nums, size);
 }
 
+void test_printNumbers() {
+    int n = 10;
+    int q = 3;
+    char dictonary[10][MAX_STR_SIZE] = {"aa",
+                                        "aaa",
+                                        "aab",
+                                        "ab",
+                                        "abc",
+                                        "ac",
+                                        "ba",
+                                        "daa",
+                                        "dab",
+                                        "dadba"};
+
+    Query queries[3] = {{4, "a"}, {2, "da"}, {4, "da"}};
+
+    printNumbers(dictonary, n, queries, q);
+}
+
 int main() {
-    test_buildTree1();
-    test_buildTree2();
+    test_printNumbers();
 
     return 0;
 }

@@ -8,6 +8,8 @@
 # include <ctype.h>
 #include <signal.h>
 
+#define MAX_SIZE 500000
+#define MAX_STR_SIZE 2000000
 
 // Task 1
 
@@ -99,5 +101,14 @@ TreeNode *binaryTree(int *nums, int size);
 
 void buildTree(int *nums, int size);
 
+// Task 11
+
+typedef struct Query {
+    char *pref;
+    int number_str;
+} Query;
+
+void printNumbers(char dictonary[MAX_SIZE][MAX_STR_SIZE], int n, Query *queries,
+                  int q);
 
 #endif //LABORATORIESWORKS_TASKS20_H

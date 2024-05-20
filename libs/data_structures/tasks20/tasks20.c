@@ -365,3 +365,37 @@ void buildTree(int *nums, int size) {
     width(root_node, queue, &queue_size, &first_element);
 }
 
+// Task 11
+
+void printNumbers(char dictonary[MAX_SIZE][MAX_STR_SIZE], int n, Query *queries,
+                  int q) {
+    int j = 0;
+    for (int i = 0; i < q; i++) {
+        int count = 0;
+        int found = 0;
+
+        while (j < n && *dictonary) {
+            char *chr = strstr(*dictonary, queries[i].pref);
+
+            if (!chr || chr != *dictonary)
+                count = 0;
+
+            else {
+                if (chr != *dictonary)
+                    continue;
+                count++;
+                if (count == queries[i].number_str) {
+                    printf("%d\n", j + 1);
+                    found = 1;
+                    break;
+                }
+            }
+            j++;
+            dictonary++;
+            free(chr);
+        }
+        if (found == 0)
+            printf("%d\n", -1);
+    }
+}
+
