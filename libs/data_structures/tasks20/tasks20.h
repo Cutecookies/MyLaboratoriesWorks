@@ -76,4 +76,28 @@ void writeNumbersLessN(char *filename_w, char *filename_r, int n);
 
 void printNStr(char *filename, int s);
 
+// Task 7
+
+typedef struct TreeNode {
+    int max;
+    struct TreeNode *left_child;
+    struct TreeNode *right_child;
+} TreeNode;
+
+void addNode(TreeNode *node, TreeNode **queue, int *queue_size,
+             int *first_element);
+
+TreeNode *deleteNode(TreeNode **queue, int *queue_size,
+                     int *first_element);
+
+int getMax(int *arr, int size);
+
+void width(TreeNode *root, TreeNode **queue, int *queue_size,
+           int *first_element);
+
+TreeNode *binaryTree(int *nums, int size);
+
+void buildTree(int *nums, int size);
+
+
 #endif //LABORATORIESWORKS_TASKS20_H

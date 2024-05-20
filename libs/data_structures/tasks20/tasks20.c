@@ -1,4 +1,5 @@
 # include "tasks20.h"
+
 #define MAX_LINE_LENGTH 256
 
 // Task 1
@@ -281,3 +282,86 @@ void printNStr(char *filename, int n) {
 
     fclose(file);
 }
+
+// Task 7
+void addNode(TreeNode *node, TreeNode **queue, int *queue_size,
+             int *first_element) {
+    queue[*first_element + (*queue_size)++] = node;
+}
+
+TreeNode *deleteNode(TreeNode **queue, int *queue_size,
+                     int *first_element) {
+    TreeNode *first = NULL;
+    if (queue_size > 0) {
+        first = queue[(*first_element)++];
+        (*queue_size)--;
+    }
+    return first;
+}
+
+int isEmpty(int queue_size) {
+    return queue_size == 0;
+}
+
+int getMax(int *arr, int size) {
+    if (size > 0) {
+        int max_i = 0;
+        int max = arr[max_i];
+        for (int i = 1; i < size; i++) {
+            if (max < arr[i]) {
+                max_i = i;
+                max = arr[i];
+            }
+        }
+        return max_i;
+    }
+    return -1;
+}
+
+void width(TreeNode *root, TreeNode **queue, int *queue_size,
+           int *first_element) {
+    if (!root)
+        return;
+    addNode(root, queue, queue_size, first_element);
+    while (!isEmpty(*queue_size)) {
+        TreeNode *curr = deleteNode(queue, queue_size, first_element);
+        if (curr) {
+            printf("%d ", curr->max);
+            if (curr->left_child || curr->right_child) {
+                addNode(curr->left_child, queue, queue_size,
+                        first_element);
+                addNode(curr->right_child, queue, queue_size,
+                        first_element);
+            }
+        } else
+            printf("null ");
+    }
+}
+
+TreeNode *binaryTree(int *nums, int size) {
+    if (size > 0) {
+        TreeNode *node = malloc(sizeof(TreeNode));
+        int max_idx = getMax(nums, size);
+        node->max = nums[max_idx];
+        if (max_idx > 0)
+            node->left_child = binaryTree(nums, max_idx);
+        else
+            node->left_child = NULL;
+        if (size - max_idx > 0)
+            node->right_child = binaryTree(nums + max_idx + 1, size - max_idx -
+                                                               1);
+        else
+            node->right_child = NULL;
+        return node;
+    }
+    return NULL;
+}
+
+void buildTree(int *nums, int size) {
+    TreeNode *root_node = binaryTree(nums, size);
+    TreeNode *queue[50];
+    int queue_size = 0;
+    int first_element = 0;
+    width(root_node, queue, &queue_size, &first_element);
+}
+

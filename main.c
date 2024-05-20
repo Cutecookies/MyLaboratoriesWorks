@@ -350,7 +350,7 @@ void test_writeNumbersLessN(int argc, char *argv[]) {
     }
 }
 
-// Task 9
+// Task 10
 
 void test_printNStr(int argc, char *argv[]) {
     if (argc != 3) {
@@ -364,8 +364,24 @@ void test_printNStr(int argc, char *argv[]) {
     printNStr(filename, n);
 }
 
-int main(int argc, char *argv[]) {
-    test_printNStr(argc, argv);
+// Task 7
+
+void test_buildTree1() {
+    int nums[] = {3, 2, 1, 6, 0, 5};
+    int size = 6;
+    buildTree(nums, size);
+    printf("\n");
+}
+
+void test_buildTree2() {
+    int nums[] = {3, 2, 1};
+    int size = 3;
+    buildTree(nums, size);
+}
+
+int main() {
+    test_buildTree1();
+    test_buildTree2();
 
     return 0;
 }
